@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1716933294 source:c:\users\lquerales\desktop\proyectofinal\main.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	"cuenta.h"
+
+1716418656 c:\users\lquerales\desktop\proyectofinal\cuenta.h
+
+1716933380 source:c:\users\lquerales\desktop\proyectofinal\cuenta.c
+	<stdio.h>
+	<stdlib.h>
+	"cuenta.h"
+
