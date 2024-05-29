@@ -77,7 +77,6 @@ void muestraUnArchivo(char nombreArchivo[]){
         muestraUnaCuenta(c);
 
         }
-
         fclose(archi);
     }
 

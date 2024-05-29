@@ -12,9 +12,9 @@ stCuenta cargaUnaCuenta(){
     c.idCliente = 0;///stCliente.nroCliente;// Id del Cliente dueño de la Cuenta;
     //printf("\nIngrese un numero de cuenta:");
     c.nroCuenta = getNumeroDeCuenta();
-    printf("\nIngrese un tipo de cuenta 1. Caja de Ahorro en Pesos, 2. Caja de Ahorro en Dólares, 3. Cta Cte en $:");
-    scanf("%d", &c.tipoDeCuenta);
-    creaTipoDeCuenta(c.tipoDeCuenta);
+    //printf("\nIngrese un tipo de cuenta 1. Caja de Ahorro en Pesos, 2. Caja de Ahorro en Dólares, 3. Cta Cte en $:");
+    //scanf("%d", &c.tipoDeCuenta);
+    c.tipoDeCuenta = getTipoDeCuenta();
     c.costoMensual=0;
     c.saldo = 0;
     c.eliminado = 0; /// 0 si está activo - 1 si está eliminado
@@ -26,7 +26,8 @@ void muestraUnaCuenta(stCuenta c){
     printf("\nid...............................:%d", c.id);
     printf("\nidCliente........................:%d", c.idCliente);
     printf("\nNro de Cuenta....................:%d", c.nroCuenta);
-    printf("\nTipo de Cuenta...................:%d", c.tipoDeCuenta);
+    printf("\nTipo de Cuenta...................:");
+    imprimeTipoDeCuenta(c.tipoDeCuenta);
     printf("\nCosto de Mantenimiento Mensual...:%.2f", c.costoMensual);
     printf("\nSaldo en Cuenta..................:%.2f", c.saldo);
     printf("\nSaldo en Cuenta..................:%c", c.eliminado);
@@ -42,21 +43,26 @@ int getNumeroDeCuenta(){
     return nro;
 }
 
-void creaTipoDeCuenta(int dato){
+void imprimeTipoDeCuenta(int dato){
 
     if(dato == 1){
-        printf("Se creo una Caja de ahorro en pesos");
+        printf("Caja de ahorro en pesos");
     }
     if(dato == 2){
-        printf("Se creo una Caja de ahorro en Dolares");
+        printf("Caja de ahorro en Dolares");
     }
     if(dato == 3){
-        printf("Se creo una Cuenta Corriente");
+        printf("Cuenta Corriente");
     }
 }
 
 
+int getTipoDeCuenta(){
 
+    int num = rand()%3 +1;
+
+    return num;
+}
 
 
 
