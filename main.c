@@ -16,6 +16,7 @@ int main()
     stCuenta cuenta;
     stCuenta cuentas[DIM];
     int vCuentas = 0;
+    int flag;
 
     //cuenta = cargaUnaCuenta();
     //muestraUnaCuenta(cuenta);
@@ -35,7 +36,6 @@ int main()
     muestraUnArchivo(AR_CUENTAS);
 
 
-
     printf("");
     return 0;
 }
@@ -45,15 +45,28 @@ void cargaUnArchivoUsuario(char nombreArchivo[]){
     stCuenta c;
     char opcion;
     int static id;
+    int existe;
     id = ultimoId(AR_CUENTAS);
-    FILE* archi = fopen(nombreArchivo, "ab");
+    FILE* archi = fopen(nombreArchivo, "a+b");
     if(archi){
         do{
         system("cls");
-        id++;
+
+
         c = cargaUnaCuenta();
-        c.id = id;
-        fwrite(&c, sizeof(stCuenta), 1, archi);
+
+        existe = buscaCuentaEnArchivoPro(archi, c.nroCuenta);
+        printf("%d", existe);
+        if(existe == 1){
+
+            printf("ERROR - cuenta repetida");
+
+        }else{
+            id++;
+            c.id = id;
+            fwrite(&c, sizeof(stCuenta), 1, archi);
+
+        }
 
         printf("\nESC para salir cualquier otra tecla para continuar cargando......");
 
@@ -118,3 +131,39 @@ void muestraUnarreglo(stCuenta c[], int v){
         muestraUnaCuenta(c[i]);
     }
 }
+
+int buscaCuentaEnArchivo(char nombreArchivo[], int nroCuenta){
+
+    stCuenta c;
+    int flag = 0;
+    //rewind(archi);
+    FILE* archi = fopen(nombreArchivo, "rb");
+    if(archi){
+    while(flag == 0 && fread(&c, sizeof(stCuenta), 1, archi)>0){
+            if(c.nroCuenta == nroCuenta){
+            flag = 1;
+            }
+        }
+        fclose(archi);
+    }
+    return flag;
+}
+
+///esta funcion es para ser usada con la funcion de cargaUnArchivo
+int buscaCuentaEnArchivoPro(FILE* archi, int nroCuenta){
+
+    stCuenta c;
+    int flag = 0;
+    rewind(archi);
+    if(archi){
+    while(flag == 0 && fread(&c, sizeof(stCuenta), 1, archi)>0){
+            if(c.nroCuenta == nroCuenta){
+            flag = 1;
+            }
+        }
+        //fclose(archi);
+    }
+    return flag;
+    }
+
+

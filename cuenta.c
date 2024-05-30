@@ -5,8 +5,7 @@
 stCuenta cargaUnaCuenta(){
     stCuenta c;
 
-    static int i = 0;
-    i++;
+    int i = 0;
 
     c.id = i;/// campo único y autoincremental
     c.idCliente = 0;///stCliente.nroCliente;// Id del Cliente dueño de la Cuenta;
@@ -38,7 +37,7 @@ void muestraUnaCuenta(stCuenta c){
 int getNumeroDeCuenta(){
     int nro;
 
-    nro = rand()%1000000 + 10000;
+    nro = rand()%15 + 1;
 
     return nro;
 }

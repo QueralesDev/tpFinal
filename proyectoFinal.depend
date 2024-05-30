@@ -1,13 +1,13 @@
 # depslib dependency file v1.0
-1717022126 source:c:\users\lquerales\desktop\proyectofinal\main.c
+1717110935 source:c:\users\lquerales\desktop\proyectofinal\main.c
 	<stdio.h>
 	<stdlib.h>
 	<conio.h>
 	"cuenta.h"
 
-1716418656 c:\users\lquerales\desktop\proyectofinal\cuenta.h
+1717037067 c:\users\lquerales\desktop\proyectofinal\cuenta.h
 
-1717018269 source:c:\users\lquerales\desktop\proyectofinal\cuenta.c
+1717110239 source:c:\users\lquerales\desktop\proyectofinal\cuenta.c
 	<stdio.h>
 	<stdlib.h>
 	"cuenta.h"
