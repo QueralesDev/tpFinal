@@ -16,7 +16,6 @@ int main()
     stCuenta cuenta;
     stCuenta cuentas[DIM];
     int vCuentas = 0;
-    int flag;
 
     //cuenta = cargaUnaCuenta();
     //muestraUnaCuenta(cuenta);
@@ -31,12 +30,9 @@ int main()
 //    system("pause");
 
     cargaUnArchivoUsuario(AR_CUENTAS);
-
     printf("\nELEMENTOS DEL ARCHIVO CUENTAS");
     muestraUnArchivo(AR_CUENTAS);
 
-
-    printf("");
     return 0;
 }
 
@@ -51,7 +47,6 @@ void cargaUnArchivoUsuario(char nombreArchivo[]){
     if(archi){
         do{
         system("cls");
-
 
         c = cargaUnaCuenta();
 
@@ -150,6 +145,14 @@ int buscaCuentaEnArchivo(char nombreArchivo[], int nroCuenta){
 }
 
 ///esta funcion es para ser usada con la funcion de cargaUnArchivo
+/** \brief Funcion que filtra un dato en una carga de archivos
+ *
+ * \param FILE *archi - archivo abierto
+ * \param int nroCuenta - dato a buscar en el archivo
+ * \return flag - bandera en booleana
+ *
+ */
+
 int buscaCuentaEnArchivoPro(FILE* archi, int nroCuenta){
 
     stCuenta c;
@@ -162,6 +165,22 @@ int buscaCuentaEnArchivoPro(FILE* archi, int nroCuenta){
             }
         }
         //fclose(archi);
+    }
+    return flag;
+    }
+
+    int buscaDatoEnArchivoInt(char nombreArchivo[], int dato){
+
+    stCuenta c;
+    int flag = 0;
+    FILE* archi = fopen(nombreArchivo, "rb");
+    if(archi){
+    while(flag == 0 && fread(&c, sizeof(stCuenta), 1, archi)>0){
+            if(c.nroCuenta == nroCuenta){/// en este caso la funcion busca un numero de cuenta
+            flag = 1;
+            }
+        }
+        fclose(archi);
     }
     return flag;
     }
