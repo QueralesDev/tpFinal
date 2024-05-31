@@ -37,7 +37,7 @@ void muestraUnaCuenta(stCuenta c){
 int getNumeroDeCuenta(){
     int nro;
 
-    nro = rand()%15 + 1;
+    nro = rand()%20 + 1;
 
     return nro;
 }
