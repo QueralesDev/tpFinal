@@ -21,6 +21,8 @@ void muestraClientes(stCliente c[], int v);
 void cargaArchClienteRandom(char nombreArchivo[], int cant);
 void muestraArchivoCliente(char nombreArchivo[]);
 stCliente getClienteRandom();
+stCliente buscaClientePorDNI(char nombreArchivo[], char dni[]);
+void buscaYMuestraClientePorDNI(char nombreArchivo[], char dni[]);
 
 
 #endif // CLIENTE_H_INCLUDED

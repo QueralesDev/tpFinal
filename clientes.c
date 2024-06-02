@@ -111,26 +111,35 @@ void muestraArchivoCliente(char nombreArchivo[])
     return c;
 }
 */
-void buscaClientePorNombre(char nombreArchivo[], char nombre[])
-{
+stCliente buscaClientePorDNI(char nombreArchivo[], char dni[]) {
     stCliente cliente;
+    int flag = 0;
     FILE* archi = fopen(nombreArchivo, "rb");
-    if(archi)
-    {
-        while(fread(&cliente, sizeof(stCliente), 1, archi)>0)
-        {
-            if(strcmp(cliente.nombre, nombre) == 0)
-            {
-                muestraUnCliente(cliente); // Asume que tienes una función que muestra los datos de un cliente
-                break;
+
+    if(archi) {
+        while(!flag && fread(&cliente, sizeof(stCliente), 1, archi) > 0) {
+            if(strcmp(cliente.dni, dni) == 0) {
+                flag = 1;
             }
         }
         fclose(archi);
     }
+
+    // Si no se encontró el cliente, establecemos el DNI en -1
+    if(!flag) {
+        strcpy(cliente.dni, "-1");
+    }
+
+    return cliente;
 }
-
-
-
+void buscaYMuestraClientePorDNI(char nombreArchivo[], char dni[]) {
+    stCliente cliente = buscaClientePorDNI(nombreArchivo, dni);
+    if (strcmp(cliente.dni, "-1") != 0) { // Si se encontró el cliente
+        muestraUnCliente(cliente); // Muestra los datos del cliente
+    } else {
+        printf("No se encontró un cliente con el DNI %s.\n", dni);
+    }
+}
 
 
 /*int ultimoID (char nombreArchivo[]){
