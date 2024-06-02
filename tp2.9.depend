@@ -1,0 +1,26 @@
+# depslib dependency file v1.0
+1716856585 source:c:\users\juanma\desktop\programacion laboratorio  librerias codeblock\estructuras\tp stmoviimientos\tp2.9\main.c
+	<stdio.h>
+	<stdlib.h>
+	"conio.h"
+	"string.h"
+	"movimientosL.h"
+	"mocksMovimientos.h"
+
+1716856184 source:c:\users\juanma\desktop\programacion laboratorio  librerias codeblock\estructuras\tp stmoviimientos\tp2.9\movimientosl.c
+	<stdio.h>
+	<stdlib.h>
+	"conio.h"
+	"movimientosL.h"
+	"mocksMovimientos.h"
+
+1716852723 c:\users\juanma\desktop\programacion laboratorio  librerias codeblock\estructuras\tp stmoviimientos\tp2.9\movimientosl.h
+
+1716855978 source:c:\users\juanma\desktop\programacion laboratorio  librerias codeblock\estructuras\tp stmoviimientos\tp2.9\mocksmovimientos.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"movimientosL.h"
+
+1716854355 c:\users\juanma\desktop\programacion laboratorio  librerias codeblock\estructuras\tp stmoviimientos\tp2.9\mocksmovimientos.h
+
