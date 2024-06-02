@@ -8,16 +8,16 @@
 
 /*
 
-Alta, Baja, ModificaciÛn, Consulta y Listados de Movimientos por Cuenta y por mes.
-Alta de movimientos aleatorios del aÒo actual anteriores a la fecha actual.
-La funciÛn deber· agregar 1000 eligiendo de manera aleatoria el cliente el  mes y el
-dÌa. Si el importe es negativo en descripciÛn deber· insertar un  texto relativo a
+Alta, Baja, Modificaci√≥n, Consulta y Listados de Movimientos por Cuenta y por mes.
+Alta de movimientos aleatorios del a√±o actual anteriores a la fecha actual.
+La funci√≥n deber√° agregar 1000 eligiendo de manera aleatoria el cliente el  mes y el
+d√≠a. Si el importe es negativo en descripci√≥n deber√° insertar un  texto relativo a
 un pago, transferencia a cuenta propia, transferencia a
-cuenta de terceros, pago de TC, o pagos con TD. Si es positivo en descripciÛn
-deber· insertar un texto relativo a un cobro, ej. crÈdito Haberes, transferencia
-de cuenta propia, transferencia de cuenta ajena, acreditaciÛn de plazo fijo, etc.
+cuenta de terceros, pago de TC, o pagos con TD. Si es positivo en descripci√≥n
+deber√° insertar un texto relativo a un cobro, ej. cr√©dito Haberes, transferencia
+de cuenta propia, transferencia de cuenta ajena, acreditaci√≥n de plazo fijo, etc.
 Cada vez que se ingresa o modifica un movimiento se debe actualizar el saldo de la cuenta.
-ValidaciÛn en el ingreso de los Datos.
+Validaci√≥n en el ingreso de los Datos.
 Buscar Movimientos por fecha.
 Buscar Clientes.
 */
@@ -25,7 +25,8 @@ Buscar Clientes.
     int main()
 {
 
- printf ("la de tu seÒora ");
+ printf ("la de tu se√±ora ");
+     printf ("la de tu se√±ora 2");
     stMovimiento movimientos[10];
     stMovimiento movimientos2[10];
     int vMovimientos=0;
