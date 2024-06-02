@@ -25,7 +25,7 @@ Buscar Clientes.
     int main()
 {
 
-
+ printf ("la de tu señora ");
     stMovimiento movimientos[10];
     stMovimiento movimientos2[10];
     int vMovimientos=0;
