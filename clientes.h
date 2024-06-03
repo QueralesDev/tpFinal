@@ -18,11 +18,13 @@ stCliente cargaUnCliente ();
 void muestraUnCliente (stCliente c);
 int cargaClientes (stCliente c[], int v, int dim);
 void muestraClientes(stCliente c[], int v);
+void cargaUnArchivoUsuario(char nombreArchivo[]);
+int buscaCuentaEnArchivoPro(FILE* archi, int nroCliente);
 void cargaArchClienteRandom(char nombreArchivo[], int cant);
 void muestraArchivoCliente(char nombreArchivo[]);
 stCliente getClienteRandom();
-stCliente buscaClientePorDNI(char nombreArchivo[], char dni[]);
 void buscaYMuestraClientePorDNI(char nombreArchivo[], char dni[]);
+stCliente buscaDatoEnArchivoStr(char nombreArchivo[], char dato[]);
 
 
 #endif // CLIENTE_H_INCLUDED

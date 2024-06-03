@@ -4,7 +4,7 @@
 #include "domicilios.h"
 #include "clientes.h"
 
-///STRUCK CLIENTES RANDOM
+//struct CLIENTES RANDOM
 
 int getNroCliente(){
     return (rand()%1000)+1;
@@ -82,7 +82,7 @@ char* getApellido()
 char* getDnis()
 {
     char* dni = (char*) malloc(sizeof(char)*6);
-    sprintf(dni, "%d", (rand()%30000001)+10000000);
+    sprintf(dni, "%d", (rand()%30000001)+20000000);
     return dni;
 }
 
@@ -126,12 +126,12 @@ stCliente getClienteRandom()
     return c;
 }
 
-///STRUCK DOMICILIOS RANDOM
+///struct DOMICILIOS RANDOM
 
 char* getCalles()
 {
     char* calle = (char*) malloc(sizeof(char)*30);
-    char calles[][30]= {"Alfonsina Storni", "Almafuerte", "Almirante Guillermo Brown", "Almonacid", "Alvarez Condarco", "Amadeo Courel", "Ambrosio Bestoso", "Andrea C", "Andrea Doria", "Andres Mac Gaul", "Angel Pacheco",
+    char calles[][30]= {"Alfonsina Storni", "Almafuerte", "Brown", "Almonacid", "Alvarez Condarco", "Amadeo Courel", "Ambrosio Bestoso", "Andrea C", "Andrea Doria", "Andres Mac Gaul", "Angel Pacheco",
                         "Angel Roffo", "Antartida Argentina", "Antonio Alice", "Antonio Alvarez", "Antonio Baron de Marchi", "Antonio Galeano", "Antonio Garagiola", "Antonio Gregorio Balcarce", "Antonio Luis Berutti",
                         "Antonio Maria Gianelli", "Antonio Maria Saenz", "Antonio Martinez", "Antonio Pujia", "Antonio Tapia", "Antonio Valentini", "Arabe Siria", "Arabe Unida", "Aragon", "Araoz de Lamadrid", "Ariel V Manuwal",
                         "Aristobulo del Valle", "Armenia", "Arribeños", "Arturo Alio", "Arturo Della Paolera", "Arturo Jauretche", "Asturias", "Atahualpa", "Augusto Sandino", "Augustus", "Aviadora Carola Lorenzini", "Ayacucho",
@@ -141,35 +141,13 @@ char* getCalles()
                         "Arturo Jauretche", "Asturias", "Atahualpa", "Augusto Sandino", "Augustus", "Aviadora Carola Lorenzini", "Ayacucho", "Azopardo", "Agustin Magaldi", "Agustin Rodriguez", "Albeniz", "Alberdi", "Albert Einstein",
                         "Alberto R Mascias", "Alejandro Korn", "Alejandro Maria de Aguado", "Alexander Fleming","Bahia Aguirre", "Bahia Blanca", "Bahia Thetis", "Baldomero", "Bartolome Mitre", "Bathurst", "Bautista Mendioroz", "Beethoven",
                         "Belgica", "Belisario Roldan", "Bellini", "Benito Juarez", "Benito Lynch", "Benjamin Matienzo", "Bermejo", "Berna", "Bernardino Rivadavia", "Bernardo de Irigoyen", "Bernardo Houssay", "Bernardo O Higgins", "Biarritz",
-                        "Blas Parera", "Bolivia", "Bosque Grande", "Brasil", "Bristol", "Bruselas", "Buenos Aires", "C", "C Martin", "C Ramirez", "C Russell", "Cabo Corrientes", "Cabo Gabito Banat", "Calabrese", "Calabria", "Calfucura", "Campana",
+                        "Blas Parera", "Bolivia", "Bosque Grande", "Brasil", "Bristol", "Bruselas", "Buenos Aires", "Martin", "Ramirez", "Russell", "Cabo Corrientes", "Cabo Gabito Banat", "Calabrese", "Calabria", "Calfucura", "Campana",
                         "Canada", "Carballo", "Carlos Chapeaurouge", "Carlos Gardel", "Carlos Maria Alvear", "Carlos Pellegrini", "Carlos Tejedor", "Carmen de Las Flores", "Carrasco", "Caseros", "Casildo Villar", "Castellamar", "Castelli", "Castex",
-                        "Castilla y Leon", "Catalina Daprotis", "Cataluña", "Catamarca", "Catedral", "Caupolican", "Cayetano Daglio", "Cayetano Jose Rodriguez", "Cedro Azul", "Ceferino Namuncura", "Celso Aldao", "Centenario", "Central", "Cerrito",
-                        "Cesar Gascon", "Chacabuco", "Chaco", "Chara", "Charlone", "Chile", "Chubut", "Ciancheta", "Ciudad de Asuncion", "Ciudad de Bragado", "Ciudad de Dolores", "Ciudad de Rosario", "Cohelo de Meyrelles", "Coliqueo", "Colombia"/*,
-                        "Comandante Luis Piedrabuena", "Comandante T Espora", "Comdoro Luis Py", "Comodoro Martin Rivadavia", "Comodoro Pedro Luis Zanni", "Comunidad Foral de Navarra", "Concepcion Arenal", "Constitucion", "Conte Biancamano", "Conte Grand",
-                        "Copacabana", "Corbeta Uruguay", "Cordoba", "Cornelio Saavedra", "Coronel de Mrina Leonardo Rosales", "Coronel Juan Bautista Azopardo", "Coronel Juan Pascual Pringles", "Coronel Luis Cabassa", "Coronel M Martinez de Hoz",
-                        "Coronel Manuel Dorrego", "Coronel Manuel Suarez", "Coronel Olavarria", "Coronel Vidal", "Corrientes", "Costa Atlantica", "Costa Azul", "Costa Pampeana", "Craig", "Cramer", "Cristobal Colon", "Crocce Benedeto", "Crucero General Belgrano",
-                        "Crucero La Argentina", "Cura Brochero", "D Frenguelli", "Dante Alighieri", "Dardo Rocha", "De Angeli", "De las Olimpiadas", "De los Deportes", "De los Incas", "De los Inmigrantes", "De los Reservistas", "Dean Funes", "Debussy",
-                        "Deffembach", "Del Bosque", "Del Lago", "Del Tejar", "Diekmann", "Diputado Abel Amaya", "Doctor Arturo Jauretche", "Doctor Bernardo Houssay", "Doctor Celso Aldao", "Doctor Eduardo Wilde", "Doctor Enrique Finochietto",
-                        "Doctor Enzo Bordabehere", "Doctor Estanislao Severo Zeballos", "Doctor Gervasio Antonio Posadas", "Doctor Gustavo Martinez Zuviria", "Doctor Jose Ingenieros", "Doctor Juan Bautista Justo", "Doctor Juan Hector Jara",
-                        "Doctor Juan Jose Paso", "Doctor Luis Agote", "Doctor Luis Pasteur", "Doctor M Moreno", "Doctor Manuel Antonio de Acevedo", "Doctor Manuel Belgrano", "Doctor Marcelo Fitte", "Doctor Nicolas Avellaneda", "Doctor Osvaldo Magnasco",
-                        "Doctor Pedro Medrano", "Doctor Tomas Godoy Cruz", "Doctor V Alsina", "Domingo Faustino Sarmiento", "Domingo French", "Domingo Heguilor", "Domingo Matheu", "Don A Peralta Ramos", "Don Bosco", "Don Orione", "Donizetti",
-                        "Ecuador", "Eduardo Bradley", "Eduardo Caraza", "Eduardo Newbery", "Eduardo Peralta Ramos", "Eduardo Peres Bulnes", "Eduardo Romero", "Eduardo Wilde", "El Benteveo", "El Carpintero", "El Chaja", "El Chingolo", "El Churrinche", "El Crucero",
-                        "El Gavioton", "El Gorrion", "El Hornero", "El Jilguero", "El Leñatero", "El Mixto", "El Navio", "El Pampero", "El Pirincho", "El Rebenque", "El Tero", "El Tordo", "Elisa Alvear de Bosch", "Elpidio Gonzalez", "Emilio Esquivel", "Enr Moconi",
-                        "Enrique Finochietto", "Enrique Santos Discepolo", "Entre Rios", "Enzo Bordabehere", "Escalada de San Martin", "Escollera Norte", "Escollera Sur", "España", "Esperanto", "Espigon Nro 2 Zona Puerto", "Estado de Israel", "Estados Unidos de Norte Ameri",
-                        "Estancia Boqueron", "Estancia Cabo Corrientes", "Estancia Chapadmalal", "Estancia Ituzaingo","Martiniano Chilavert", "Mascagni", "Matias Strobel", "Mayor Luisoni", "Melchor Gaspar de Jovellanos", "Mellinao", "Mexico", "Miami", "Miguel de Azcuenaga",
-                        "Miguel de Cervantes Saavedra", "Miguel de Unamuno", "Miguel Estanislao Soler", "Miguel Guglielmoti", "Miguel Sagastizabal", "Migueletes", "Mirador del Mar", "Misiones",
-                        "Moctezuma", "Moises Lebensohn", "Monaco", "Mongore", "Monsalvo", "Monseñor de Andrea", "Monseñor Enrique Angelelli", "Monseñor Enrique Rau", "Monseñor Zabala", "Monte Grande",
-                        "Montecarlo", "Montes Carballo", "Monteverde", "Mrina Leonardo Rosales", "N Jorge", "Namuncura", "Napoles", "Necochea", "Nestor Romano", "Neuquen", "Nicolas Avellaneda",
-                        "Nicolas Rodriguez Peña", "Nork Folk", "Nuestra Señora del Pilar", "Nuevo Bosque", "Olegario Olazar", "Olegario Victor Andrade", "Olleros", "Ombu", "Onesimo Leguizamon", "Osvaldo Magnasco",
-                        "Ovidio Zubiaurre", "P Groeber", "Pablo Tavelli", "Padre Cardiel", "Padre Dutto", "Padre Montes Carballo", "Palm Beach", "Palmiro Vanoli", "Paraguay", "Paraiso", "Parana", "Paris", "Pascuala Mugaburu",
-                        "Patagones", "Patricio Peralta Ramos", "Paula Albarracin", "Pedro Bouchez", "Pedro de Mendoza", "Pedro Ferre", "Pedro Ignacio Castro Barros", "Pedro Luis Zanni", "Pedro Luro", "Pedro Maria Araoz", "Pedro Medrano",
-                        "Pehuajo", "Pelayo", "Peru", "Pescadores", "Pesquero Halcon", "Pesquero Happy D", "Pesquero Narwal", "Pesquero Nomade", "Pesquero Palma Madre", "Pesquero Pumara", "Pesquero Quo Vadis", "Piedrabuena", "Pigue", "Plus Ultra",
-                        "Polonia", "Portofino", "Portugal", "Presbitero David Ortega", "Presbitero M Alberti", "Presidente General Jose A Roca", "Presidente Jose Figueroa Alcorta", "Presidente Roque Saenz Peña", "Presidente Santiago Derqui",
-                        "Primera Junta", "Puan", "Puccini", "Queen Mary", "R Outes", "Racedo", "Rafael de Riego", "Ramon Carrillo", "Reduccion Ntra Señora del Pil", "Reforma Universitaria", "Remolcador Guarani", "Republica Arabe Siria",
-                        "Republica Arabe Unida", "Republica de Cuba", "Republica de Nicaragua", "Republica de Sudafrica", "Republica del Libano", "Republiquetas", "Ricardo Guiraldes", "Ricardo Gutierrez", "Ricardo Palma", "Ricardo Rojas", "Ringuelet",
-                        "Rio de La Plata", "Rio Negro", "Rivadavia", "Roberto J Payro", "Rodolfo Walsh", "Rodrigo Ortiz de Zarate", "Roque Saenz Peña", "Rossini", "Rudecindo Alvarado", "Rufino Inda", "S Arana y Goiri", "S/c", "Salta", "San Antonio",
-                        "San Antonio Maria Gianelli", "San Bernardo", "San Cayetano", "San Francisco de Asis", "San Francisco Javier", "San Jorge", "San Jose de Calasanz", "San Juan", "San Lorenzo", "San Luis", "San Salvador", "Sanchez Labrador", "Santa Catalina", "Santa Cecilia", "Santa Cruz"
-                       */};
+                        "Castilla y Leon", "Catalina Daprotis", "Cataluña", "Catamarca", "Catedral", "Caupolican", "Cayetano Daglio", "Cayetano", "Cedro Azul", "Ceferino Namuncura", "Celso Aldao", "Centenario", "Central", "Cerrito",
+                        "Cesar Gascon", "Chacabuco", "Chaco", "Chara", "Charlone", "Chile", "Chubut", "Ciancheta", "Ciudad de Asuncion", "Ciudad de Bragado", "Ciudad de Dolores", "Ciudad de Rosario", "Cohelo de Meyrelles", "Coliqueo", "Colombia",
+                        "Comandante Luis Piedrabuena", "Espora", "Comdoro", "Comodoro", "Pedro Luis", "Foral de Navarra", "Concepcion Arenal", "Constitucion", "Conte Biancamano", "Conte Grand",
+                        "Copacabana", "Corbeta", "Cordoba", "Cornelio Saavedra", "Leonardo Rosales", "Bautista Azopardo", "Pringles", "Luis Cabassa", "Martinez de Hoz"
+                         };
     strcpy(calle,calles[rand()%(sizeof(calles)/30)]);
     return calle;
 }

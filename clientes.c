@@ -5,6 +5,8 @@
 #include "clientes.h"
 #include "mocks_Domicilios_Clientes.h"
 #include "domicilios.h"
+#define AR_CLIENTES "clientes.bin"
+#include <conio.h>
 
 
 stCliente cargaUnCliente ()
@@ -12,6 +14,7 @@ stCliente cargaUnCliente ()
     stCliente c;
     static int id=0;
     id++;
+    printf("Ingresa los datos para poder ser cliente del Banco\n");
 
     printf ("NRO DE CLIENTE: ");
     scanf("%d", &c.nroCliente);
@@ -36,6 +39,8 @@ stCliente cargaUnCliente ()
 }
 void muestraUnCliente (stCliente c)
 {
+    printf ("\n=====================================================");
+    printf ("\n\t::::::::NRO ID:::::::: %d",c.id);
     printf ("\n=====================================================");
     printf ("\nCLIENTE DEL BANCO NRO...........: %d", c.nroCliente);
     printf ("\n=====================================================");
@@ -69,6 +74,81 @@ void muestraClientes(stCliente c[], int v)
     {
         muestraUnCliente(c[i]);
     }
+}
+
+int ultimoId(char nombreArchivo[])
+{
+    int id = 0;
+    stCliente c;
+    FILE* archi = fopen(nombreArchivo, "rb");
+    if(archi)
+    {
+        fseek(archi, -1*(sizeof(stCliente)), SEEK_END);
+        if(fread(&c,sizeof(stCliente), 1, archi)>0)
+        {
+            id = c.id;
+        }
+
+        fclose(archi);
+    }
+
+    return id;
+}
+
+void cargaUnArchivoUsuario(char nombreArchivo[])
+{
+    stCliente c;
+    char opcion;
+    int static id;
+    int existe;
+    id = ultimoId(AR_CLIENTES);
+    int dni_int = atoi(c.dni);
+    FILE* archi = fopen(nombreArchivo, "a+b");
+    if(archi)
+    {
+        do
+        {
+            system("cls");
+            c = cargaUnCliente();
+            existe = buscaCuentaEnArchivoPro(archi, dni_int);
+            printf("%d", existe);
+            if(existe == 1)
+            {
+                printf("ERROR - Cliente ya registrado");
+            }
+            else
+            {
+                id++;
+                c.id = id;
+                fwrite(&c, sizeof(stCliente), 1, archi);
+            }
+            printf("\nESC para salir cualquier otra tecla para continuar cargando......");
+
+            opcion = getch();
+        }
+        while(opcion != 27);
+
+        fclose(archi);
+    }
+
+}
+int buscaCuentaEnArchivoPro(FILE* archi, int nroCliente)
+{
+    stCliente c;
+    int flag = 0;
+    rewind(archi);
+    if(archi)
+    {
+        while(flag == 0 && fread(&c, sizeof(stCliente), 1, archi)>0)
+        {
+            if(c.nroCliente == nroCliente)
+            {
+                flag = 1;
+            }
+        }
+        //fclose(archi);
+    }
+    return flag;
 }
 
 void cargaArchClienteRandom(char nombreArchivo[], int cant)
@@ -111,37 +191,60 @@ void muestraArchivoCliente(char nombreArchivo[])
     return c;
 }
 */
-stCliente buscaClientePorDNI(char nombreArchivo[], char dni[]) {
-    stCliente cliente;
+
+/** \brief Función que busca y valida un dni. Se puede utilizar para ingresar al sistema.
+ *
+ * \param strcpy(c.dni, "-1") En este caso, se asume que un DNI de “-1” significa que el cliente no se encontró.
+          while(flag == 0 && fread(&c, sizeof(stCliente), 1, archi)>0): Lee el archivo binario una estructura stCliente a la vez.
+          Continúa leyendo hasta que se encuentre el cliente (es decir, flag se establece en 1) o hasta que se haya leído todo el archivo.
+          if(strcmp(c.dni, dato) == 0): Compara el DNI del cliente actual con el DNI buscado.
+          Si son iguales, establece flag en 1 para indicar que se encontró el cliente.
+          if (flag == 0) { strcpy(c.dni, "-1"); }: Si no se encontró el cliente después de leer todo el archivo,
+          restablece c.dni a “-1” para indicar que no se encontró el cliente.
+ * \return Devuelve la estructura stCliente. Si se encontró el cliente, esta estructura contendrá los datos
+           del cliente. Si no se encontró el cliente, c.dni será “-1”
+ */
+
+stCliente buscaDatoEnArchivoStr(char nombreArchivo[], char dato[])
+{
+    stCliente c;
+    strcpy(c.dni, "-1");
     int flag = 0;
     FILE* archi = fopen(nombreArchivo, "rb");
-
-    if(archi) {
-        while(!flag && fread(&cliente, sizeof(stCliente), 1, archi) > 0) {
-            if(strcmp(cliente.dni, dni) == 0) {
+    if(archi)
+    {
+        while(flag == 0 && fread(&c, sizeof(stCliente), 1, archi)>0)
+        {
+            if(strcmp(c.dni, dato) == 0) /// en este caso la funcion busca un string
+            {
                 flag = 1;
             }
         }
         fclose(archi);
     }
-
-    // Si no se encontró el cliente, establecemos el DNI en -1
-    if(!flag) {
-        strcpy(cliente.dni, "-1");
+    if (flag == 0)  // Si no se encontró el cliente, restablece c.dni a -1
+    {
+        strcpy(c.dni, "-1");
     }
 
-    return cliente;
-}
-void buscaYMuestraClientePorDNI(char nombreArchivo[], char dni[]) {
-    stCliente cliente = buscaClientePorDNI(nombreArchivo, dni);
-    if (strcmp(cliente.dni, "-1") != 0) { // Si se encontró el cliente
-        muestraUnCliente(cliente); // Muestra los datos del cliente
-    } else {
-        printf("No se encontró un cliente con el DNI %s.\n", dni);
-    }
+    return c;
 }
 
 
+void buscaYMuestraClientePorDNI(char nombreArchivo[], char dni[])
+{
+    stCliente c= buscaDatoEnArchivoStr(AR_CLIENTES, dni);
+
+    if (strcmp(c.dni, "-1") != 0)   // Si se encontró el cliente
+    {
+        muestraUnCliente(c); // Muestra los datos del cliente
+    }
+    else
+    {
+        printf("No se encontro un cliente con el DNI %s.\n", dni);
+
+    }
+}
 /*int ultimoID (char nombreArchivo[]){
 int id;
 

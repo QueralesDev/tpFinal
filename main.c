@@ -10,19 +10,23 @@
 int main()
 {
 
-    stCliente cliente[10];
+    /*stCliente cliente[10];
     int vClientes=0;
 
     vClientes=cargaClientes(cliente, vClientes, 10);
-    muestraClientes(cliente, vClientes);
+    muestraClientes(cliente, vClientes);*/
 
+    //cargaUnArchivoUsuario(AR_CLIENTES);
+    //cargaArchDomiciliosRandom(AR_DOMICILIOS, 10);
+    //printf("\n Listado de domicilios del archivo ");
 
-    cargaArchClienteRandom(AR_CLIENTES, 10);
-    printf("\n Listado de Clientes del archivo ");
-    muestraArchivoCliente(AR_CLIENTES);
+    //cargaArchClienteRandom(AR_CLIENTES, 10);
+    //printf("\n Listado de Clientes del archivo ");
+    //muestraArchivoDomicilio(AR_DOMICILIOS);
+    //muestraArchivoCliente(AR_CLIENTES);
 
     char dni[10];
-    printf("Ingresa el DNI del cliente que deseas buscar: ");
+    printf("Ingresa su DNI para ingresar al sistema: ");
     fgets(dni, 10, stdin);
 
     // Elimina el salto de línea al final de la entrada, si existe
@@ -31,15 +35,12 @@ int main()
     }
 
     buscaYMuestraClientePorDNI(AR_CLIENTES, dni);
+    system("pause");
+    cargaUnArchivoUsuario(AR_CLIENTES);
 
 
-    /*cargaArchClienteRandom(AR_CLIENTES, 10);
-    printf("\n Listado de Clientes del archivo ");
-    muestraArchivoCliente(AR_CLIENTES);
 
-    cargaArchDomiciliosRandom(AR_DOMICILIOS, 10);
-    printf("\n Listado de domicilios del archivo ");
-    muestraArchivoDomicilio(AR_DOMICILIOS);*/
+
 
 
 

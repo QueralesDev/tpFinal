@@ -8,6 +8,7 @@ char* getLocalidades();
 char* getProvincias();
 char* getCpos();
 ///STRUCK CLIENTE
+int getNroCliente();
 char* getNombres();
 char* getApellido();
 char* getDnis();
