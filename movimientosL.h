@@ -20,7 +20,6 @@ int cargaMovimientos(stMovimiento a[], int v, int dim);
 void muestraMovimientos(stMovimiento a[], int v);
 void cargaArchMovimientoRandom(char nombreArchivo[] ,int cant);
 void muestraArchivoMovimimiento (char nombreArchivo[]);
-
 stMovimiento getMovimientoRandom();
 
 

@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include "conio.h"
@@ -16,7 +15,7 @@ stMovimiento cargaUnMovimiento()
     scanf("%d",&m.idCuenta);
     printf ("Descripcion del movimiento\n");
 
-    fflush(stdin);
+     fflush(stdin);
     printf ("Detalle:\n");
     fgets(m.detalle, sizeof(m.detalle), stdin);
     //gets(&m.detalle);
@@ -29,7 +28,6 @@ stMovimiento cargaUnMovimiento()
     printf ("ingrese año, mes  y dia:\n");
     scanf ("%d %d %d",&m.anio,&m.mes,&m.dia);
 
-
     system("cls");
     return m;
 }
@@ -37,14 +35,15 @@ stMovimiento cargaUnMovimiento()
 void muestraUnMovimiento(stMovimiento m)
 {
 
-
-    printf("\ncuenta n:%d\n",m.idCuenta);
-    printf("Codigo de usuario n°:%d\n",m.id);
-
-    printf("importe:%.2f\n",m.importe);
-    printf("siendo el dia: %d, del mes: %d, del anio: %d\n",m.dia,m.mes,m.anio);
-    printf("Detalle del movimiento:%s\n",m.detalle);
-    printf("Estado de cuenta:%d\n",m.eliminado);
+    printf("Detalle del movimiento..:%s\n",m.detalle);
+    printf("cuenta n................:%d\n",m.idCuenta);
+    printf("usuario n...............:%d\n",m.id);
+    printf("importe.................:%.2f\n",m.importe);
+    printf("dia.....................:%d \n",m.dia);
+    printf("mes.....................:%d \n",m.mes);
+    printf("anio....................:%d\n",m.anio);
+    printf("Estado de cuenta........:%d\n",m.eliminado);
+    printf ("=========================================\n");
 }
 int cargaMovimientos(stMovimiento a[], int v, int dim)
 {
@@ -69,7 +68,7 @@ void muestraMovimientos(stMovimiento a[], int v)
 }
 
 void cargaArchMovimientoRandom(char nombreArchivo[] ,int cant){
-FILE*archi = fopen(nombreArchivo,"w");
+FILE*archi = fopen(nombreArchivo,"wb");
 stMovimiento movimiento;
 int i=0;
 if (archi)
@@ -78,7 +77,7 @@ if (archi)
 
          movimiento =getMovimientoRandom();
         fwrite(&movimiento,sizeof(stMovimiento),1,archi);
-    fwrite(&movimiento,sizeof(stMovimiento),1,archi);
+
     i++;
     }
     fclose(archi);
@@ -88,9 +87,10 @@ if (archi)
 
 
 void muestraArchivoMovimimiento (char nombreArchivo[]){
+  stMovimiento movimiento;
 FILE*archi = fopen(nombreArchivo,"rb");
-stMovimiento movimiento;
-int i=0;
+
+
 if (archi)
 {
     while (fread(&movimiento,sizeof(stMovimiento),1,archi)>0)

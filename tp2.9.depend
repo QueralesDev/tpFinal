@@ -41,3 +41,28 @@
 
 1716854355 e:\tpfinal\mocksmovimientos.h
 
+1717545759 source:d:\tpfinal\main.c
+	<stdio.h>
+	<stdlib.h>
+	"conio.h"
+	"string.h"
+	"movimientosL.h"
+	"mocksMovimientos.h"
+
+1717544050 d:\tpfinal\movimientosl.h
+
+1717539513 d:\tpfinal\mocksmovimientos.h
+
+1717545759 source:d:\tpfinal\mocksmovimientos.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"movimientosL.h"
+
+1717545914 source:d:\tpfinal\movimientosl.c
+	<stdio.h>
+	<stdlib.h>
+	"conio.h"
+	"movimientosL.h"
+	"mocksMovimientos.h"
+

@@ -4,6 +4,8 @@
 #include "string.h"
 #include "movimientosL.h"
 #include "mocksMovimientos.h"
+
+
 #define AR_MOVIMIENTOS "movimientos.dat"
 
 /*
@@ -22,30 +24,73 @@ Buscar Movimientos por fecha.
 Buscar Clientes.
 */
 
-    int main()
+int main()
 {
 
- printf ("la de tu señora ");
-     printf ("la de tu señora 2");
     stMovimiento movimientos[10];
-    stMovimiento movimientos2[10];
+
     int vMovimientos=0;
-    int vMovimientos2=0;
+    int n, opcion;
+    int cuentaUNo;
+    int monto;
+    int montoR;
+    do
+    {
+        printf( "\n   1. ver movimientos.");
+        printf( "\n   2. ingresar dinero.");
+        printf( "\n   3. retirar dinero." );
+        printf( "\n   4. crear movimiento ." );
+        printf( "\n   5. cargar movimientos random ." );
 
 
+        scanf( "%d", &opcion );
+
+        /* Inicio del anidamiento */
+
+        switch ( opcion )
+        {
+        case 1:
+            printf( "\n  listado de movimientos: \n");
+
+            printf( "\n  elija tipo de cuenta\n");
+
+            break;
+
+        case 2:
+            printf( "\n Monto a ingresar : ");
+            scanf( "%d", &montoR );
+
+            printf( "\n  El monto a ingresar es :%d\n",monto);
+            break;
+
+        case 3:
+            printf( "\n  monto a retirar:");
+            scanf( "%d", &montoR );
+
+            printf( "\n  El monto a retirar es :%d\n)",montoR);
+            break;
+
+        case 4:
+            printf( "\n  carga movimiento por usuario ");
+            vMovimientos=cargaMovimientos(movimientos,vMovimientos,10);
+            muestraMovimientos(movimientos,vMovimientos);
 
 
+            break;
+        case 5:
+            printf( "\n  carga movimientos random: ");
 
-    vMovimientos=cargaMovimientos(movimientos,vMovimientos,10);
-    muestraMovimientos(movimientos,vMovimientos);
+            cargaArchMovimientoRandom (AR_MOVIMIENTOS,10);
+            muestraArchivoMovimimiento (AR_MOVIMIENTOS);
+            break;
 
-cargaArchMovimientoRandom (AR_MOVIMIENTOS,1);
-    muestraArchivoMovimimiento (AR_MOVIMIENTOS);
+        }
 
 
+    }
+   while ( opcion != 27 );
+    opcion=getch();
 
-    printf ("\n");
-    printf ("\Bye bye world");
     return 0;
 }
 

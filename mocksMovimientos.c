@@ -6,8 +6,9 @@
 
 char* getDetalles()
 {
-      char* detalle = (char*) malloc(sizeof(char)*30);
-    char detalles[][30]={
+    char* detalle = (char*) malloc(sizeof(char)*30);
+    char detalles[][30]=
+    {
         "Depósito en efectivo",
         "Retiro en efectivo",
         "Transferencia bancaria",
@@ -27,47 +28,62 @@ char* getDetalles()
         "Actualización de datos",
         "Cambio de PIN",
         "Solicitud de extracto",
-        "Bloqueo de tarjeta"};
+        "Bloqueo de tarjeta"
+    };
+
+
     strcpy(detalle,detalles[rand()%(sizeof(detalles)/30)]);
     return detalle;
 }
 
-int* getIdCuenta()
+int getIdCuenta()
 {
-    char* idCuenta = (char*) malloc(sizeof(char)*6);
-    printf(idCuenta, "%d", (rand()%10)+1);
-    return idCuenta;
+
+    return (rand()%10)+1;
 }
-int getdia(){
+int getId()
+{
+
+    return (rand()%100)+1;
+}
+
+int getdia()
+{
     return (rand()%31)+1;
 }
 
-int getmes(){
+int getmes()
+{
     return (rand()%12)+1;
 }
 
-int getanio(){
+int getanio()
+{
     return (rand()%90)+1930;
+}
+
+int getImporte()
+{
+    return (rand()%6000);
 }
 
 stMovimiento getMovimientoRandom()
 {
     stMovimiento d;
 
+    d.id =getId();
 
     strcpy(d.detalle,getDetalles());
 
-   d.idCuenta=getIdCuenta();
+    d.idCuenta=getIdCuenta();
 
     d.dia=getdia ();
 
-
     d.mes=getmes();
 
+    d.anio= getanio ();
 
-   d.anio= getanio ();
-
-
+    d.importe=getImporte();
 
     return d;
 }
