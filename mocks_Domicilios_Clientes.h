@@ -1,13 +1,13 @@
 #ifndef MOCKS_DOMICILIOS_CLIENTES_H_INCLUDED
 #define MOCKS_DOMICILIOS_CLIENTES_H_INCLUDED
 
-///STRUCK DOMICILIO
+///STRUCT DOMICILIO
 char* getCalles();
 char getNumero();
 char* getLocalidades();
 char* getProvincias();
 char* getCpos();
-///STRUCK CLIENTE
+///STRUCT CLIENTE
 int getNroCliente();
 char* getNombres();
 char* getApellido();

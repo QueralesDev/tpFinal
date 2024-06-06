@@ -44,7 +44,6 @@ void muestraUnDomicilio (stDomicilio d)
     printf ("\nLOCALIDAD....................: %s", d.localidad);
     printf ("\nPROVINCIA....................: %s", d.provincia);
     printf ("\nCODIGO POSTAL................: %s", d.cpos);
-    printf ("\n=====================================================");
 }
 
 int cargaDomicilios (stDomicilio d[], int v, int dim){
