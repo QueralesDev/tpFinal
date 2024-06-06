@@ -86,7 +86,7 @@ int buscaDatoEnArchivoStr(char nombreArchivo[], char dato[])
     {
         while(flag == 0 && fread(&c, sizeof(stCliente), 1, archi)>0)
         {
-            // Elimina el salto de línea al final del DNI, si existe
+            // Elimina el salto de lÃ­nea al final del DNI, si existe
             if (c.dni[strlen(c.dni) - 1] == '\n')
             {
                 c.dni[strlen(c.dni) - 1] = '\0';
@@ -100,7 +100,7 @@ int buscaDatoEnArchivoStr(char nombreArchivo[], char dato[])
         fclose(archi);
     }
 
-    return flag;  // Retorna 1 si se encontró el cliente, 0 en caso contrario
+    return flag;  // Retorna 1 si se encontrÃ³ el cliente, 0 en caso contrario
 }
 void cargaUnArchivoUsuario(char nombreArchivo[])
 {
@@ -116,7 +116,7 @@ void cargaUnArchivoUsuario(char nombreArchivo[])
             system("cls");
             c = cargaUnCliente();
             int clienteEncontrado = buscaDatoEnArchivoStr(nombreArchivo, c.dni);
-            if(clienteEncontrado == 1) // Si se encontró el cliente
+            if(clienteEncontrado == 1) // Si se encontrÃ³ el cliente
             {
                 printf("ERROR - Cliente ya registrado");
             }
@@ -177,7 +177,7 @@ stCliente* buscaClientePorDNIPuntero(char nombreArchivo[], char dni[])
     {
         while(p == NULL && fread(&c, sizeof(stCliente), 1, archi)>0)
         {
-            if(strcmp(c.dni, dni) == 0) // Si se encontró el cliente
+            if(strcmp(c.dni, dni) == 0) // Si se encontrÃ³ el cliente
             {
                 p = malloc(sizeof(stCliente));
                 *p = c;
@@ -186,14 +186,14 @@ stCliente* buscaClientePorDNIPuntero(char nombreArchivo[], char dni[])
         fclose(archi);
     }
 
-    return p;  // Retorna un puntero al cliente encontrado o NULL si no se encontró
+    return p;  // Retorna un puntero al cliente encontrado o NULL si no se encontrÃ³
 }
 
 void menu()
 {
     int opcion;
     char dni[10];
-    stCliente* p = NULL;  // Mueve la declaración al inicio del bloque
+    stCliente* p = NULL;  // Mueve la declaraciÃ³n al inicio del bloque
 
     do
     {
@@ -201,7 +201,7 @@ void menu()
         printf("1. Buscar cliente por DNI\n");
         printf("2. Modificar cliente por DNI\n");
         printf("3. Salir\n");
-        printf("Elige una opción: ");
+        printf("Elige una opciÃ³n: ");
         scanf("%d", &opcion);
         getchar(); // Limpia el buffer de entrada
 
@@ -211,12 +211,12 @@ void menu()
         case 1:
             printf("Ingresa el DNI del cliente: ");
             fgets(dni, 10, stdin);
-            dni[strcspn(dni, "\n")] = 0; // Elimina el salto de línea
+            dni[strcspn(dni, "\n")] = 0; // Elimina el salto de lÃ­nea
             p = buscaClientePorDNIPuntero(AR_CLIENTES, dni);
-            if (p != NULL)   // Si se encontró el cliente
+            if (p != NULL)   // Si se encontrÃ³ el cliente
             {
                 muestraUnCliente(*p); // Muestra los datos del cliente
-                free(p); // No olvides liberar la memoria cuando ya no la necesites
+                free(p); // No olvidarse de liberar la memoria cuando ya no la necesite
             }
             else
             {
@@ -230,7 +230,7 @@ void menu()
             printf("Saliendo del programa...\n");
             break;
         default:
-            printf("Opción no válida.\n");
+            printf("OpciÃ³n no vÃ¡lida.\n");
             break;
         }
     }
@@ -246,15 +246,14 @@ stCliente modificaCampoClientePorDNI(char nombreArchivo[], char dni[])
     {
         while(!encontrado && fread(&c, sizeof(stCliente), 1, archi)>0)
         {
-            if(strcmp(c.dni, dni) == 0) // Si se encontró el cliente
+            if(strcmp(c.dni, dni) == 0) // Si se encontrÃ³ el cliente
             {
 
                 encontrado = 1;
-                printf("Datos del cliente antes de la modificación:\n");
+                printf("Datos del cliente antes de la modificaciÃ³n:\n");
                 muestraUnCliente(c);
 
-                // Pide al usuario qué campo quiere modificar
-                printf("¿Qué campo quieres modificar?\n");
+                printf("Â¿QuÃ© campo quieres modificar?\n");
                 printf("1. Nombre\n2. Apellido\n3. Email\n4. Telefono\n");
                 int opcion;
                 scanf("%d", &opcion);
@@ -266,32 +265,32 @@ stCliente modificaCampoClientePorDNI(char nombreArchivo[], char dni[])
                 case 1:
                     printf("Ingresa el nuevo nombre: ");
                     fgets(c.nombre, sizeof(c.nombre), stdin);
-                    c.nombre[strcspn(c.nombre, "\n")] = 0; // Elimina el salto de línea
+                    c.nombre[strcspn(c.nombre, "\n")] = 0; // Elimina el salto de lÃ­nea
                     break;
                 case 2:
                     printf("Ingresa el nuevo apellido: ");
                     fgets(c.apellido, sizeof(c.apellido), stdin);
-                    c.apellido[strcspn(c.apellido, "\n")] = 0; // Elimina el salto de línea
+                    c.apellido[strcspn(c.apellido, "\n")] = 0; // Elimina el salto de lÃ­nea
                     break;
                 case 3:
                     printf("Ingresa el nuevo email: ");
                     fgets(c.email, sizeof(c.email), stdin);
-                    c.email[strcspn(c.email, "\n")] = 0; // Elimina el salto de línea
+                    c.email[strcspn(c.email, "\n")] = 0; // Elimina el salto de lÃ­nea
                     break;
                 case 4:
                     printf("Ingresa el nuevo telefono: ");
                     fgets(c.telefono, sizeof(c.telefono), stdin);
-                    c.telefono[strcspn(c.telefono, "\n")] = 0; // Elimina el salto de línea
+                    c.telefono[strcspn(c.telefono, "\n")] = 0; // Elimina el salto de lÃ­nea
                     break;
                 default:
-                    printf("Opción no válida.\n");
+                    printf("OpciÃ³n no vÃ¡lida.\n");
                     break;
                 }
 
-                printf("Datos del cliente después de la modificación:\n");
+                printf("Datos del cliente despuÃ©s de la modificaciÃ³n:\n");
                 muestraUnCliente(c);
 
-                // Mueve el puntero del archivo a la posición del cliente encontrado
+                // Mueve el puntero del archivo a la posiciÃ³n del cliente encontrado
                 fseek(archi, -sizeof(stCliente), SEEK_CUR);
 
                 // Escribe los nuevos datos del cliente en el archivo
@@ -300,7 +299,7 @@ stCliente modificaCampoClientePorDNI(char nombreArchivo[], char dni[])
         }
         fclose(archi);
     }
-    /*if (!encontrado) // Si no se encontró el cliente, restablece los campos de c
+    /*if (!encontrado) // Si no se encontrÃ³ el cliente, restablece los campos de c
     {
         c.nroCliente = -1;
         strcpy(c.nombre, "No encontrado");
