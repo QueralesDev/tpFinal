@@ -92,7 +92,7 @@ int buscaDatoEnArchivoStr(char nombreArchivo[], char dato[])
                 c.dni[strlen(c.dni) - 1] = '\0';
             }
 
-            if(strcmp(c.dni, dato) == 0) /// en este caso la funcion busca un string
+            if(strcmp(c.dni, dato) == 0) /// la funcion busca un string
             {
                 flag = 1;
             }
@@ -270,17 +270,17 @@ stCliente modificaCampoClientePorDNI(char nombreArchivo[], char dni[])
                 case 2:
                     printf("Ingresa el nuevo apellido: ");
                     fgets(c.apellido, sizeof(c.apellido), stdin);
-                    c.apellido[strcspn(c.apellido, "\n")] = 0; // Elimina el salto de línea
+                    c.apellido[strcspn(c.apellido, "\n")] = 0; 
                     break;
                 case 3:
                     printf("Ingresa el nuevo email: ");
                     fgets(c.email, sizeof(c.email), stdin);
-                    c.email[strcspn(c.email, "\n")] = 0; // Elimina el salto de línea
+                    c.email[strcspn(c.email, "\n")] = 0; 
                     break;
                 case 4:
                     printf("Ingresa el nuevo telefono: ");
                     fgets(c.telefono, sizeof(c.telefono), stdin);
-                    c.telefono[strcspn(c.telefono, "\n")] = 0; // Elimina el salto de línea
+                    c.telefono[strcspn(c.telefono, "\n")] = 0; 
                     break;
                 default:
                     printf("Opción no válida.\n");
