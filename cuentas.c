@@ -19,7 +19,7 @@ stCuenta cargaUnaCuenta(int idCliente){
     scanf("%f", &c.costoMensual);
     printf("Ingrese saldo inicial de la cuenta: ");
     scanf("%f", &c.saldo);
-    printf("Ingrese estado de la cuenta (0 si está activo - 1 si está eliminado): ");
+    printf("Ingrese estado de la cuenta (0 si está activo - 1 si esta eliminado): ");
     scanf("%d", &c.eliminado);
 
     return c;
@@ -27,12 +27,12 @@ stCuenta cargaUnaCuenta(int idCliente){
 void muestraUnaCuenta(stCuenta c){
     printf("\nID de la cuenta: %d", c.id);
     printf("\nID del cliente: %d", c.idCliente);
-    printf("\nNúmero de cuenta: %d", c.nroCuenta);
+    printf("\nNumero de cuenta: %d", c.nroCuenta);
     printf("\nTipo de cuenta: ");
     imprimeTipoDeCuenta(c.tipoDeCuenta);
     printf("\nCosto de mantenimiento mensual: %.2f", c.costoMensual);
     printf("\nSaldo en cuenta: %.2f", c.saldo);
-    printf("\nEstado de la cuenta (0 si está activo - 1 si está eliminado): %d", c.eliminado);
+    printf("\nEstado de la cuenta (0 si esta activo - 1 si esta eliminado): %d", c.eliminado);
     printf("\n==================================================================");
 }
 

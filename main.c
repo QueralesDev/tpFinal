@@ -12,7 +12,7 @@ int main()
     int cont;
     stCliente cliente;
     //cargaUnArchivoUsuario(AR_CLIENTES);
-    //muestraArchivoCliente(AR_CLIENTES);
+    muestraArchivoCliente(AR_CLIENTES);
 
     char dni[10];
     printf("Ingresa su DNI para ingresar al sistema: ");
