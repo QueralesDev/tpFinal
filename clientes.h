@@ -30,6 +30,7 @@ int buscaDatoEnArchivoStr(char nombreArchivo[], char dato[]);
 stCliente* buscaClientePorDNIPuntero(char nombreArchivo[], char dni[]);
 void menu();
 stCliente modificaCampoClientePorDNI(char nombreArchivo[], char dni[]);
+void muestraClienteYCuentas(char nombreArchivoClientes[], char nombreArchivoCuentas[], int idCliente);
 
 
 #endif // CLIENTE_H_INCLUDED

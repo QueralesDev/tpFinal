@@ -5,7 +5,9 @@
 #include "domicilios.h"
 #include "mocks_Domicilios_Clientes.h"
 #define AR_CLIENTES "clientes.bin"
+#define AR_CUENTAS "cuentas.bin"
 #include <conio.h>
+#include "cuentas.h"
 
 
 stCliente cargaUnCliente ()
@@ -189,7 +191,7 @@ stCliente* buscaClientePorDNIPuntero(char nombreArchivo[], char dni[])
     return p;  // Retorna un puntero al cliente encontrado o NULL si no se encontró
 }
 
-void menu()
+/*void menu()
 {
     int opcion;
     char dni[10];
@@ -216,7 +218,7 @@ void menu()
             if (p != NULL)   // Si se encontró el cliente
             {
                 muestraUnCliente(*p); // Muestra los datos del cliente
-                free(p); // No olvides liberar la memoria cuando ya no la necesites
+                free(p); // No olvidarse de liberar la memoria cuando ya no la necesite
             }
             else
             {
@@ -235,6 +237,61 @@ void menu()
         }
     }
     while(opcion != 3);
+}*/
+void menu()
+{
+    int opcion;
+    char dni[10];
+    stCliente* p = NULL;
+
+    printf("Ingresa el DNI del cliente: ");
+    fgets(dni, 10, stdin);
+    dni[strcspn(dni, "\n")] = 0; // Elimina el salto de línea
+    p = buscaClientePorDNIPuntero(AR_CLIENTES, dni);
+
+    if (p != NULL)   // Si se encontró el cliente
+    {
+        muestraUnCliente(*p); // Muestra los datos del cliente
+
+        do
+        {
+            printf("\n================== Menú ==================\n");
+            printf("1. Modificar datos del cliente\n");
+            printf("2. Agregar una cuenta al cliente\n");
+            printf("3. Buscar cuentas del cliente\n");
+            printf("4. Salir\n");
+            printf("==========================================\n");
+            printf("Elige una opción: ");
+            scanf("%d", &opcion);
+            getchar(); // Limpia el buffer de entrada
+
+            switch(opcion)
+            {
+            case 1:
+                modificaCampoClientePorDNI(AR_CLIENTES, dni);
+                break;
+            case 2:
+                agregarCuentaACliente(AR_CUENTAS, dni);
+                break;
+            case 3:
+                buscaCuentasDeCliente(AR_CUENTAS, dni);
+                break;
+            case 4:
+                printf("Saliendo del programa...\n");
+                break;
+            default:
+                printf("Opción no válida.\n");
+                break;
+            }
+        }
+        while(opcion != 4);
+
+        free(p); // No olvidarse de liberar la memoria cuando ya no la necesite
+    }
+    else
+    {
+        printf("No se encontro un cliente con el DNI %s\n", dni);
+    }
 }
 
 stCliente modificaCampoClientePorDNI(char nombreArchivo[], char dni[])
@@ -253,14 +310,12 @@ stCliente modificaCampoClientePorDNI(char nombreArchivo[], char dni[])
                 printf("Datos del cliente antes de la modificación:\n");
                 muestraUnCliente(c);
 
-                // Pide al usuario qué campo quiere modificar
                 printf("¿Qué campo quieres modificar?\n");
                 printf("1. Nombre\n2. Apellido\n3. Email\n4. Telefono\n");
                 int opcion;
                 scanf("%d", &opcion);
                 getchar(); // Limpia el buffer de entrada
 
-                // Modifica el campo correspondiente
                 switch(opcion)
                 {
                 case 1:
@@ -271,17 +326,17 @@ stCliente modificaCampoClientePorDNI(char nombreArchivo[], char dni[])
                 case 2:
                     printf("Ingresa el nuevo apellido: ");
                     fgets(c.apellido, sizeof(c.apellido), stdin);
-                    c.apellido[strcspn(c.apellido, "\n")] = 0; // Elimina el salto de línea
+                    c.apellido[strcspn(c.apellido, "\n")] = 0;
                     break;
                 case 3:
                     printf("Ingresa el nuevo email: ");
                     fgets(c.email, sizeof(c.email), stdin);
-                    c.email[strcspn(c.email, "\n")] = 0; // Elimina el salto de línea
+                    c.email[strcspn(c.email, "\n")] = 0;
                     break;
                 case 4:
                     printf("Ingresa el nuevo telefono: ");
                     fgets(c.telefono, sizeof(c.telefono), stdin);
-                    c.telefono[strcspn(c.telefono, "\n")] = 0; // Elimina el salto de línea
+                    c.telefono[strcspn(c.telefono, "\n")] = 0;
                     break;
                 default:
                     printf("Opción no válida.\n");
@@ -312,4 +367,38 @@ stCliente modificaCampoClientePorDNI(char nombreArchivo[], char dni[])
     }*/
 
     return c;  // Retorna los datos del cliente modificado o un cliente no encontrado
+}
+void muestraClienteYCuentas(char nombreArchivoClientes[], char nombreArchivoCuentas[], int idCliente) {
+    stCliente cliente;
+    stCuenta cuenta;
+    FILE* archiClientes = fopen(nombreArchivoClientes, "rb");
+    FILE* archiCuentas = fopen(nombreArchivoCuentas, "rb");
+
+    if(archiClientes && archiCuentas)
+    {
+        // Buscar al cliente en el archivo de clientes
+        while(fread(&cliente, sizeof(stCliente), 1, archiClientes)>0)
+        {
+            if(cliente.id == idCliente) // Si se encontró el cliente
+            {
+                muestraUnCliente(cliente); // Muestra los datos del cliente
+
+                // Buscar las cuentas del cliente en el archivo de cuentas
+                while(fread(&cuenta, sizeof(stCuenta), 1, archiCuentas)>0)
+                {
+                    if(cuenta.idCliente == idCliente) // Si la cuenta pertenece al cliente
+                    {
+                        muestraUnaCuenta(cuenta); // Muestra los datos de la cuenta
+                    }
+                }
+                break;
+            }
+        }
+        fclose(archiClientes);
+        fclose(archiCuentas);
+    }
+    else
+    {
+        printf("Error al abrir los archivos.\n");
+    }
 }

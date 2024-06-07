@@ -14,5 +14,7 @@ char* getApellido();
 char* getDnis();
 char* getEmail();
 char* getTelefono();
-
+///STRUCT CUENTAS
+int getNumeroDeCuenta();
+int getTipoDeCuenta();
 #endif // MOCKS_DOMICILIOS_CLIENTES_H_INCLUDED

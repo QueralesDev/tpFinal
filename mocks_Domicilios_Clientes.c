@@ -3,6 +3,8 @@
 #include <string.h>
 #include "domicilios.h"
 #include "clientes.h"
+#include "cuentas.h"
+
 
 //struct CLIENTES RANDOM
 
@@ -209,4 +211,30 @@ stDomicilio getDomicilioRandom()
     strcpy (d.cpos, getCpos());
 
     return d;
+}
+
+
+int getNumeroDeCuenta(){
+    int nro;
+
+    nro = rand()%20 + 1;
+
+    return nro;
+}
+
+int getTipoDeCuenta(){
+
+    int num = rand()%3 +1;
+
+    return num;
+}
+
+stCuenta getCuentasRandom (){
+
+stCuenta cuenta;
+
+cuenta.nroCuenta= getNumeroDeCuenta();
+cuenta.tipoDeCuenta = getTipoDeCuenta();
+
+return cuenta;
 }
