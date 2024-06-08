@@ -49,8 +49,7 @@ void imprimeTipoDeCuenta(int dato){
     }
 }
 
-void cargaCuentasEnArchivo(char nombreArchivo[])
-{
+void cargaCuentasEnArchivo(char nombreArchivo[], int idCliente) {
     stCuenta c;
     char opcion;
     int static id;
@@ -63,8 +62,7 @@ void cargaCuentasEnArchivo(char nombreArchivo[])
         {
             system("cls");
 
-            c = cargaUnaCuenta(c.idCliente);
-
+            c = cargaUnaCuenta(idCliente); // Aquí pasamos el idCliente
             existe = buscaCuentaEnArchivoFlag(archi, c.nroCuenta);
             printf("%d", existe);
             if(existe == 1)
@@ -78,7 +76,6 @@ void cargaCuentasEnArchivo(char nombreArchivo[])
                 id++;
                 c.id = id;
                 fwrite(&c, sizeof(stCuenta), 1, archi);
-
             }
 
             printf("\nESC para salir cualquier otra tecla para continuar cargando......");
@@ -90,9 +87,7 @@ void cargaCuentasEnArchivo(char nombreArchivo[])
 
         fclose(archi);
     }
-
 }
-
 void muestraUnArchivo(char nombreArchivo[])
 {
     stCuenta c;
@@ -103,7 +98,6 @@ void muestraUnArchivo(char nombreArchivo[])
 
         while(fread(&c, sizeof(stCuenta), 1, archi)>0)
         {
-
             muestraUnaCuenta(c);
 
         }
@@ -225,13 +219,14 @@ int cuentaRegistros(char nombreArchivo[], int tamanioEstructura)
     return cont;
 }
 
-void buscaCuentasDeCliente(char nombreArchivoCuentas[], int idCliente) {
+void buscaCuentasDeCliente(char nombreArchivoCuentas[], stCliente cliente) {
     FILE* archi = fopen(nombreArchivoCuentas, "r");
     stCuenta cuenta;
 
     // Buscar las cuentas del cliente en el archivo de cuentas
     while (fread(&cuenta, sizeof(stCuenta), 1, archi)) {
-        if (cuenta.idCliente == idCliente) {
+        // Si el id del cliente de la cuenta actual coincide con el id del cliente dado
+        if (cuenta.idCliente == cliente.id) {
             printf("Cuenta encontrada: %d\n", cuenta.nroCuenta);
             muestraUnaCuenta(cuenta);
         }

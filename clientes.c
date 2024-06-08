@@ -244,7 +244,7 @@ void menu()
     char dni[10];
     stCliente* p = NULL;
 
-    printf("Ingresa el DNI del cliente: ");
+    printf("\nIngresa el DNI del cliente: ");
     fgets(dni, 10, stdin);
     dni[strcspn(dni, "\n")] = 0; // Elimina el salto de línea
     p = buscaClientePorDNIPuntero(AR_CLIENTES, dni);
@@ -255,7 +255,7 @@ void menu()
 
         do
         {
-            printf("\n================== Menú ==================\n");
+            printf("\n================== Menu ==================\n");
             printf("1. Modificar datos del cliente\n");
             printf("2. Agregar una cuenta al cliente\n");
             printf("3. Buscar cuentas del cliente\n");
@@ -274,7 +274,7 @@ void menu()
                 agregarCuentaACliente(AR_CUENTAS, p->id);
                 break;
             case 3:
-                buscaCuentasDeCliente(AR_CUENTAS, p->id);
+                buscaCuentasDeCliente(AR_CUENTAS, *p);
                 break;
             case 4:
                 printf("Saliendo del programa...\n");
@@ -290,13 +290,15 @@ void menu()
     }
     else
     {
-        printf("No se encontro un cliente con el DNI %s\n", dni);
+        //printf("No se encontro un cliente con el DNI %s. \n", dni);
+        cargarNuevoCliente();
     }
 }
 
 stCliente modificaCampoClientePorDNI(char nombreArchivo[], char dni[])
 {
     stCliente c;
+
     int encontrado = 0;
     FILE* archi = fopen(nombreArchivo, "r+b"); // Abre el archivo para lectura y escritura
     if(archi)
@@ -312,7 +314,7 @@ stCliente modificaCampoClientePorDNI(char nombreArchivo[], char dni[])
 
                 printf("¿Qué campo quieres modificar?\n");
 
-                printf("1. Nombre\n2. Apellido\n3. Email\n4. Telefono\n");
+                printf("1. Nombre\n2. Apellido\n3. Email\n4. Telefono\n5. Calle\n6. Numero\n7. Localidad\n8. Provincia\n9. C.Postal\n");
                 int opcion;
                 scanf("%d", &opcion);
                 getchar(); // Limpia el buffer de entrada
@@ -337,14 +339,36 @@ stCliente modificaCampoClientePorDNI(char nombreArchivo[], char dni[])
 
                     c.email[strcspn(c.email, "\n")] = 0;
 
-
                     break;
                 case 4:
                     printf("Ingresa el nuevo telefono: ");
                     fgets(c.telefono, sizeof(c.telefono), stdin);
 
                     c.telefono[strcspn(c.telefono, "\n")] = 0;
-
+                case 5:
+                    printf("Ingresa una nueva Calle: ");
+                    fgets(c.domicilio.calle, sizeof(c.domicilio.calle), stdin);
+                    c.domicilio.calle[strcspn(c.domicilio.calle, "\n")] = 0;
+                    break;
+                case 6:
+                    printf("Ingresa una nuevo Numero: ");
+                    fgets(c.domicilio.nro, sizeof(c.domicilio.nro), stdin);
+                    c.domicilio.nro[strcspn(c.domicilio.nro, "\n")] = 0;
+                    break;
+                case 7:
+                    printf("Ingresa una nuevo Localidad: ");
+                    fgets(c.domicilio.localidad, sizeof(c.domicilio.localidad), stdin);
+                    c.domicilio.localidad[strcspn(c.domicilio.localidad, "\n")] = 0;
+                    break;
+                case 8:
+                    printf("Ingresa una nueva Provincia: ");
+                    fgets(c.domicilio.provincia, sizeof(c.domicilio.provincia), stdin);
+                    c.domicilio.provincia[strcspn(c.domicilio.provincia, "\n")] = 0;
+                    break;
+                case 9:
+                    printf("Ingresa un nuevo C.Postal: ");
+                    fgets(c.domicilio.cpos, sizeof(c.domicilio.cpos), stdin);
+                    c.domicilio.cpos[strcspn(c.domicilio.cpos, "\n")] = 0;
                     break;
                 default:
                     printf("Opcion no valida.\n");
@@ -363,20 +387,11 @@ stCliente modificaCampoClientePorDNI(char nombreArchivo[], char dni[])
         }
         fclose(archi);
     }
-    /*if (!encontrado) // Si no se encontro el cliente, restablece los campos de c
-    {
-        c.nroCliente = -1;
-        strcpy(c.nombre, "No encontrado");
-        strcpy(c.apellido, "No encontrado");
-        strcpy(c.dni, "No encontrado");
-        strcpy(c.email, "No encontrado");
-        strcpy(c.telefono, "No encontrado");
-        // Restablece c.domicilio a un domicilio no encontrado
-    }*/
 
-    return c;  // Retorna los datos del cliente modificado o un cliente no encontrado
+    return c;
 }
-void muestraClienteYCuentas(char nombreArchivoClientes[], char nombreArchivoCuentas[], int idCliente) {
+void muestraClienteYCuentas(char nombreArchivoClientes[], char nombreArchivoCuentas[], int idCliente)
+{
     stCliente cliente;
     stCuenta cuenta;
     FILE* archiClientes = fopen(nombreArchivoClientes, "rb");
@@ -409,4 +424,44 @@ void muestraClienteYCuentas(char nombreArchivoClientes[], char nombreArchivoCuen
     {
         printf("Error al abrir los archivos.\n");
     }
+}
+
+void checkPassword(char valid_password[3][10])
+{
+    char login[10];
+    int i;
+
+    printf("\n\tIngrese su contraseña para ingresar al sistema: ");
+    fgets(login, 10, stdin);
+    login[strcspn(login, "\n")] = 0;
+    // Verifica si el DNI ingresado es válido
+    for (i = 0; i < 3; i++)
+    {
+        if (strcmp(login, valid_password[i]) == 0)
+        {
+            menu();  // Si el DNI es válido, llama a la función menu
+            return;
+        }
+    }
+    printf("Acceso Denegado.\n");
+}
+
+void cargarNuevoCliente()
+{
+    char opcion;
+    printf("\nCliente no encontrado. ¿Deseas cargar un nuevo cliente? (s/n): \n");
+    scanf(" %c", &opcion);
+    if (opcion == 's' || opcion == 'S')
+    {
+        cargaUnArchivoUsuario(AR_CLIENTES);
+    }
+    else if (opcion == 'n' || opcion == 'N')
+    {
+        printf("Saliendo del programa...\n");
+    }
+    else
+    {
+        printf("Opción no valida.\n");
+    }
+    menu();//preguntar si se puede poner ahi
 }

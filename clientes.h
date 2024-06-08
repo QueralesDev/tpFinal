@@ -31,6 +31,8 @@ stCliente* buscaClientePorDNIPuntero(char nombreArchivo[], char dni[]);
 void menu();
 stCliente modificaCampoClientePorDNI(char nombreArchivo[], char dni[]);
 void muestraClienteYCuentas(char nombreArchivoClientes[], char nombreArchivoCuentas[], int idCliente);
+void cargarNuevoCliente();
+void checkPassword(char valid_password[3][10]);
 
 
 #endif // CLIENTE_H_INCLUDED
