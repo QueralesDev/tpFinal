@@ -4,8 +4,6 @@
 #include "string.h"
 #include "movimientosL.h"
 #include "mocksMovimientos.h"
-
-
 #define AR_MOVIMIENTOS "movimientos.dat"
 
 /*
@@ -30,16 +28,22 @@ int main()
     stMovimiento movimientos[10];
 
     int vMovimientos=0;
-    int n, opcion;
+    int opcion;
     int cuentaUNo;
     int monto;
     int montoR;
+
+
+
+
+
+
     do
     {
-        printf( "\n   1. ver movimientos.");
-        printf( "\n   2. ingresar dinero.");
-        printf( "\n   3. retirar dinero." );
-        printf( "\n   4. crear movimiento ." );
+        printf( "\n   1. INGRESAR DINERO A CUENTA.");
+        printf( "\n   2. RETIRAR DINERO DE CUENTA .");
+        printf( "\n   3. TRANSFERIR DINERO A OTRA CUENTA ." );
+        printf( "\n   4. VER TODOS LOS MOVIMIENTOS ." );
         printf( "\n   5. cargar movimientos random ." );
 
 
@@ -83,15 +87,64 @@ int main()
             cargaArchMovimientoRandom (AR_MOVIMIENTOS,10);
             muestraArchivoMovimimiento (AR_MOVIMIENTOS);
             break;
-
         }
-
-
     }
    while ( opcion != 27 );
-    opcion=getch();
+
 
     return 0;
 }
 
+void altaMovimiento(stMovimiento *movimientos, int *numMovimientos, int idCuenta) {
+    stMovimiento nuevoMovimiento;
+    nuevoMovimiento.id = (*numMovimientos) + 1; // Autoincremental
+    nuevoMovimiento.idCuenta = idCuenta;
+    printf("Ingrese el detalle del movimiento: ");
+    scanf("%s", &nuevoMovimiento.detalle); // Leer hasta el final de la línea
+    printf("Ingrese el importe: ");
+    scanf("%f", &nuevoMovimiento.importe);
+    printf("Ingrese el año: ");
+    scanf("%d", &nuevoMovimiento.anio);
+    printf("Ingrese el mes: ");
+    scanf("%d", &nuevoMovimiento.mes);
+    printf("Ingrese el día: ");
+    scanf("%d", &nuevoMovimiento.dia);
+    nuevoMovimiento.eliminado = 0;
+    movimientos[*numMovimientos] = nuevoMovimiento;
+    (*numMovimientos)++;
+}
 
+
+ int  ingresaDineroEnCuenta ( char nombreArCuenta,int v,int idcuenta){
+ int monto;
+ stMovimiento m;
+ FILE*archi=fopen(nombreArCuenta,"r+b");
+ if (archi){
+
+
+ }
+
+
+ printf ("ingresa el monto");
+ scanf ("%f",&monto);
+
+
+
+
+ }
+
+void buscaCuentasDeCliente(char nombreArchivoCuentas[], stCliente cliente) {
+    FILE* archi = fopen(nombreArchivoCuentas, "r");
+    stCuenta cuenta;
+
+    // Buscar las cuentas del cliente en el archivo de cuentas
+    while (fread(&cuenta, sizeof(stCuenta), 1, archi)) {
+        // Si el id del cliente de la cuenta actual coincide con el id del cliente dado
+        if (cuenta.idCliente == cliente.id) {
+            printf("CUENTA ENCONTRADA: %d\n", cuenta.nroCuenta);
+            muestraUnaCuenta(cuenta);
+        }
+    }
+
+    fclose(archi);
+}

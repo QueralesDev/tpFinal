@@ -14,7 +14,7 @@ typedef struct
 
 } stMovimiento;
 
-stMovimiento cargaUnMovimiento();
+stMovimiento cargaUnMovimiento(int idCuenta);
 void muestraUnMovimiento(stMovimiento m);
 int cargaMovimientos(stMovimiento a[], int v, int dim);
 void muestraMovimientos(stMovimiento a[], int v);
