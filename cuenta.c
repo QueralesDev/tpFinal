@@ -8,7 +8,7 @@ stCuenta cargaUnaCuenta(){
     int i = 0;
 
     c.id = i;/// campo único y autoincremental
-    c.idCliente = rand()%10;///stCliente.nroCliente;// Id del Cliente dueño de la Cuenta;
+    c.idCliente = rand()%10;///stCliente.id;// Id del Cliente dueño de la Cuenta;
     //printf("\nIngrese un numero de cuenta:");
     c.nroCuenta = getNumeroDeCuenta();
     //printf("\nIngrese un tipo de cuenta 1. Caja de Ahorro en Pesos, 2. Caja de Ahorro en Dólares, 3. Cta Cte en $:");
