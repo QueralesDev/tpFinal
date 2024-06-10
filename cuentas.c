@@ -11,41 +11,41 @@ stCuenta cargaUnaCuenta(int idCliente){
     stCuenta c;
 
     c.id = idCliente; // Asigna el id del cliente
-    printf("Ingrese número de cuenta: ");
+    printf("INGRESE NUMERO DE CUENTA: ");
     scanf("%d", &c.nroCuenta);
-    printf("Ingrese tipo de cuenta (1. Caja de Ahorro en Pesos, 2. Caja de Ahorro en Dólares, 3. Cta Cte en $): ");
+    printf("INGRESE TIPO DE CUENTA (1. CAJA DE AHORRO EN PESOS, 2. CAJA DE AHORRO EN DÓLARES, 3. CTA CTE EN PESOS): ");
     scanf("%d", &c.tipoDeCuenta);
-    printf("Ingrese costo mensual de mantenimiento: ");
+    printf("INGRESE COSTO MENSUAL DE MANTENIMIENTO: ");
     scanf("%f", &c.costoMensual);
-    printf("Ingrese saldo inicial de la cuenta: ");
+    printf("INGRESE SALDO INICIAL DE LA CUENTA: ");
     scanf("%f", &c.saldo);
-    printf("Ingrese estado de la cuenta (0 si está activo - 1 si esta eliminado): ");
+    printf("INGRESE ESTADO DE LA CUENTA (0 SI ESTÁ ACTIVO - 1 SI ESTA ELIMINADO): ");
     scanf("%d", &c.eliminado);
 
     return c;
 }
 void muestraUnaCuenta(stCuenta c){
-    printf("\nID de la cuenta: %d", c.id);
-    printf("\nID del cliente: %d", c.idCliente);
-    printf("\nNumero de cuenta: %d", c.nroCuenta);
-    printf("\nTipo de cuenta: ");
+   printf("\NID DE LA CUENTA: %d", c.id);
+    printf("\nID DEL CLIENTE: %d", c.idCliente);
+    printf("\nNUMERO DE CUENTA: %d", c.nroCuenta);
+    printf("\nTIPO DE CUENTA: ");
     imprimeTipoDeCuenta(c.tipoDeCuenta);
-    printf("\nCosto de mantenimiento mensual: %.2f", c.costoMensual);
-    printf("\nSaldo en cuenta: %.2f", c.saldo);
-    printf("\nEstado de la cuenta (0 si esta activo - 1 si esta eliminado): %d", c.eliminado);
+    printf("\nCOSTO DE MANTENIMIENTO MENSUAL: %.2f", c.costoMensual);
+    printf("\nSALDO EN CUENTA: %.2f", c.saldo);
+    printf("\nESTADO DE LA CUENTA (0 SI ESTA ACTIVO - 1 SI ESTA ELIMINADO): %d",c.eliminado );
     printf("\n==================================================================");
 }
 
 void imprimeTipoDeCuenta(int dato){
 
     if(dato == 1){
-        printf("Caja de ahorro en pesos");
+        printf("CAJA DE AHORRO EN PESOS");
     }
     if(dato == 2){
-        printf("Caja de ahorro en Dolares");
+        printf("CAJA DE AHORRO EN DOLARES");
     }
     if(dato == 3){
-        printf("Cuenta Corriente");
+        printf("CUENTA CORRIENTE");
     }
 }
 
@@ -67,8 +67,7 @@ void cargaCuentasEnArchivo(char nombreArchivo[], int idCliente) {
             printf("%d", existe);
             if(existe == 1)
             {
-
-                printf("ERROR - cuenta repetida");
+                printf("ERROR - CUENTA REPETIDA");
 
             }
             else
@@ -78,7 +77,7 @@ void cargaCuentasEnArchivo(char nombreArchivo[], int idCliente) {
                 fwrite(&c, sizeof(stCuenta), 1, archi);
             }
 
-            printf("\nESC para salir cualquier otra tecla para continuar cargando......");
+            printf("\nESC PARA SALIR CUALQUIER OTRA TECLA PARA CONTINUAR CARGANDO......");
 
             opcion = getch();
 
@@ -186,7 +185,6 @@ int buscaCuentaEnArchivoFlag(FILE* archi, int nroCuenta)
 
 int buscaDatoEnArchivoInt(char nombreArchivo[], int dato)
 {
-
     stCuenta c;
     int flag = 0;
     FILE* archi = fopen(nombreArchivo, "rb");
@@ -210,7 +208,6 @@ int cuentaRegistros(char nombreArchivo[], int tamanioEstructura)
     FILE* archi = fopen(nombreArchivo, "rb");
     if(archi)
     {
-
         fseek(archi, 0, SEEK_END);
         cont = ftell(archi) / tamanioEstructura;
 
@@ -227,7 +224,7 @@ void buscaCuentasDeCliente(char nombreArchivoCuentas[], stCliente cliente) {
     while (fread(&cuenta, sizeof(stCuenta), 1, archi)) {
         // Si el id del cliente de la cuenta actual coincide con el id del cliente dado
         if (cuenta.idCliente == cliente.id) {
-            printf("Cuenta encontrada: %d\n", cuenta.nroCuenta);
+            printf("CUENTA ENCONTRADA: %d\n", cuenta.nroCuenta);
             muestraUnaCuenta(cuenta);
         }
     }

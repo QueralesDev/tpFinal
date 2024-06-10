@@ -45,7 +45,7 @@ void muestraUnDomicilio (stDomicilio d)
     printf ("\nPROVINCIA....................: %s", d.provincia);
     printf ("\nCODIGO POSTAL................: %s", d.cpos);
 }
-
+/*
 int cargaDomicilios (stDomicilio d[], int v, int dim){
     char opcion = 0;
 
@@ -59,7 +59,7 @@ int cargaDomicilios (stDomicilio d[], int v, int dim){
 
     return v;
 }
-
+*/
 void muestraDomicilios(stDomicilio d[], int v){
     for(int i=0;i<v;i++){
         muestraUnDomicilio(d[i]);

@@ -16,40 +16,43 @@ stCliente cargaUnCliente ()
 
     static int id=0;
     id++;
-    printf("Ingresa los datos del cliente del Banco\n");
+    printf("INGRESO DE DATOS PERSONALES DEL CLIENTE\n");
 
-    printf ("NRO DE CLIENTE: ");
+    printf ("\nNRO DE CLIENTE...............: ");
     scanf("%d", &c.nroCliente);
     getchar();
 
-    printf ("NOMBRE: ");
+    printf ("NOMBRE.......................: ");
     fgets(c.nombre, sizeof(c.nombre), stdin);
     c.nombre[strcspn(c.nombre, "\n")] = 0;
 
-    printf ("APELLIDO: ");
+    printf ("APELLIDO.....................: ");
     fgets(c.apellido, sizeof(c.apellido), stdin);
     c.apellido[strcspn(c.apellido, "\n")] = 0;
 
-    printf ("DNI: ");
+    printf ("DNI..........................: ");
     fgets(c.dni, sizeof(c.dni), stdin);
     c.dni[strcspn(c.dni, "\n")] = 0;
 
-    printf ("E-MAIL: ");
+    printf ("E-MAIL.......................: ");
     fgets(c.email, sizeof(c.email), stdin);
     c.email[strcspn(c.email, "\n")] = 0;
 
-    printf ("TELEFONO: ");
+    printf ("TELEFONO.....................: ");
     fgets(c.telefono, sizeof(c.telefono), stdin);
     c.telefono[strcspn(c.telefono, "\n")] = 0;
 
     c.domicilio = cargaUnDomicilio();
 
+    printf("INGRESE ESTADO DEL CLIENTE (0 SI ESTÁ ACTIVO - 1 SI ESTA ELIMINADO).......:");
+    scanf("%d", &c.eliminado);
+    getchar();
     return c;
 }
 void muestraUnCliente (stCliente c)
 {
     printf ("\n=====================================================");
-    printf ("\n\t::::::::NRO ID:::::::: %d",c.id);
+    printf ("\n\t::::::::NRO ID:::::::: %d", c.id);
     printf ("\n=====================================================");
     printf ("\nCLIENTE DEL BANCO NRO...........: %d", c.nroCliente);
     printf ("\n=====================================================");
@@ -59,6 +62,7 @@ void muestraUnCliente (stCliente c)
     printf ("\nE-MAIL..........................: %s", c.email);
     printf ("\nTELEFONO........................: %s", c.telefono);
     muestraUnDomicilio(c.domicilio);
+    printf("\nESTADO DEL CLIENTE...............: %d", c.eliminado);
     printf ("\n=====================================================\n");
 }
 
@@ -102,7 +106,7 @@ int buscaDatoEnArchivoStr(char nombreArchivo[], char dato[])
         fclose(archi);
     }
 
-    return flag;  // Retorna 1 si se encontrÃ³ el cliente, 0 en caso contrario
+    return flag;  // Retorna 1 si se encontro el cliente, 0 en caso contrario
 }
 void cargaUnArchivoUsuario(char nombreArchivo[])
 {
@@ -118,9 +122,9 @@ void cargaUnArchivoUsuario(char nombreArchivo[])
             system("cls");
             c = cargaUnCliente();
             int clienteEncontrado = buscaDatoEnArchivoStr(nombreArchivo, c.dni);
-            if(clienteEncontrado == 1) // Si se encontrÃ³ el cliente
+            if(clienteEncontrado == 1) // Si se encontro el cliente
             {
-                printf("ERROR - Cliente ya registrado");
+                printf("ERROR - CLIENTE YA REGISTRADO");
             }
             else
             {
@@ -128,7 +132,7 @@ void cargaUnArchivoUsuario(char nombreArchivo[])
                 c.id = id;
                 fwrite(&c, sizeof(stCliente), 1, archi);
             }
-            printf("\nESC para salir cualquier otra tecla para continuar cargando......");
+            printf("\nESC PARA SALIR CUALQUIER OTRA TECLA PARA CONTINUAR CARGANDO......");
 
             opcion = getch();
         }
@@ -138,11 +142,11 @@ void cargaUnArchivoUsuario(char nombreArchivo[])
     }
 }
 
-
 void cargaArchClienteRandom(char nombreArchivo[], int cant)
 {
     FILE* archi = fopen(nombreArchivo, "ab");
     stCliente cliente;
+
     int i = 0;
     if(archi !=NULL)
     {
@@ -179,7 +183,7 @@ stCliente* buscaClientePorDNIPuntero(char nombreArchivo[], char dni[])
     {
         while(p == NULL && fread(&c, sizeof(stCliente), 1, archi)>0)
         {
-            if(strcmp(c.dni, dni) == 0) // Si se encontrÃ³ el cliente
+            if(strcmp(c.dni, dni) == 0) // Si se encontro el cliente
             {
                 p = malloc(sizeof(stCliente));
                 *p = c;
@@ -188,87 +192,41 @@ stCliente* buscaClientePorDNIPuntero(char nombreArchivo[], char dni[])
         fclose(archi);
     }
 
-    return p;  // Retorna un puntero al cliente encontrado o NULL si no se encontrÃ³
+    return p;  // Retorna un puntero al cliente encontrado o NULL si no se encontro
 }
 
-/*void menu()
-{
-    int opcion;
-    char dni[10];
-    stCliente* p = NULL;  // Mueve la declaraciÃ³n al inicio del bloque
 
-    do
-    {
-
-        printf("1. Buscar cliente por DNI\n");
-        printf("2. Modificar cliente por DNI\n");
-        printf("3. Salir\n");
-        printf("Elige una opciÃ³n: ");
-        scanf("%d", &opcion);
-        getchar(); // Limpia el buffer de entrada
-
-
-        switch(opcion)
-        {
-        case 1:
-            printf("Ingresa el DNI del cliente: ");
-            fgets(dni, 10, stdin);
-            dni[strcspn(dni, "\n")] = 0; // Elimina el salto de lÃ­nea
-            p = buscaClientePorDNIPuntero(AR_CLIENTES, dni);
-            if (p != NULL)   // Si se encontrÃ³ el cliente
-            {
-                muestraUnCliente(*p); // Muestra los datos del cliente
-                free(p); // No olvidarse de liberar la memoria cuando ya no la necesite
-            }
-            else
-            {
-                printf("No se encontro un cliente con el DNI %s\n", dni);
-            }
-            break;
-        case 2:
-            modificaCampoClientePorDNI(AR_CLIENTES, dni);
-            break;
-        case 3:
-            printf("Saliendo del programa...\n");
-            break;
-        default:
-            printf("OpciÃ³n no vÃ¡lida.\n");
-            break;
-        }
-    }
-    while(opcion != 3);
-}*/
-void menu()
+void buscaClientes(char archClientes[])
 {
     int opcion;
     char dni[10];
     stCliente* p = NULL;
 
-    printf("\nIngresa el DNI del cliente: ");
+    printf("\nINGRESA EL DNI DEL CLIENTE: ");/// Solicitamos que el usuario ingrese el dni del cliente para podee ingresar al menu de opciones
     fgets(dni, 10, stdin);
     dni[strcspn(dni, "\n")] = 0; // Elimina el salto de línea
-    p = buscaClientePorDNIPuntero(AR_CLIENTES, dni);
+    p = buscaClientePorDNIPuntero(archClientes, dni);
 
-    if (p != NULL)   // Si se encontró el cliente
+    if (p != NULL)   // Si se encontró el cliente reliza las siguientes lineas
     {
         muestraUnCliente(*p); // Muestra los datos del cliente
 
         do
         {
-            printf("\n================== Menu ==================\n");
-            printf("1. Modificar datos del cliente\n");
-            printf("2. Agregar una cuenta al cliente\n");
-            printf("3. Buscar cuentas del cliente\n");
-            printf("4. Salir\n");
-            printf("==========================================\n");
-            printf("Elige una opción: ");
+            printf("\n================== MENU ==================\n");
+            printf("1. MODIFICAR DATOS DEL CLIENTE\n");
+            printf("2. AGREGAR UNA CUENTA AL CLIENTE\n");
+            printf("3. BUSCAR CUENTAS DEL CLIENTE\n");
+            printf("4. SALIR\n");
+            printf("============================================\n");
+            printf("ELIGE UNA OPCION:");
             scanf("%d", &opcion);
             getchar(); // Limpia el buffer de entrada
 
             switch(opcion)
             {
             case 1:
-                modificaCampoClientePorDNI(AR_CLIENTES, dni);
+                modificaCampoClientePorDNI(archClientes, dni);
                 break;
             case 2:
                 agregarCuentaACliente(AR_CUENTAS, p->id);
@@ -277,21 +235,20 @@ void menu()
                 buscaCuentasDeCliente(AR_CUENTAS, *p);
                 break;
             case 4:
-                printf("Saliendo del programa...\n");
+                printf("SALIENDO DEL PROGRAMA...\n");
                 break;
             default:
-                printf("Opción no válida.\n");
+                printf("OPCION NO VALIDA.\n");
                 break;
             }
         }
-        while(opcion != 4);
+        while(opcion != 4);//repite el menu hasta que el usuario quiera salir
 
         free(p); // No olvidarse de liberar la memoria cuando ya no la necesite
     }
     else
     {
-        //printf("No se encontro un cliente con el DNI %s. \n", dni);
-        cargarNuevoCliente();
+        printf("NO SE ENCONTRO UN CLIENTE CON EL DNI %s.\n", dni);
     }
 }
 
@@ -305,80 +262,80 @@ stCliente modificaCampoClientePorDNI(char nombreArchivo[], char dni[])
     {
         while(!encontrado && fread(&c, sizeof(stCliente), 1, archi)>0)
         {
-            if(strcmp(c.dni, dni) == 0) // Si se encontrÃ³ el cliente
+            if(strcmp(c.dni, dni) == 0) // Si se encontro el cliente
             {
 
                 encontrado = 1;
-                printf("Datos del cliente antes de la modificaciÃ³n:\n");
-                muestraUnCliente(c);
+                printf("DATOS DEL CLIENTE ANTES DE MODIFICAR:\n");
+                muestraUnCliente(c);///Mostramos al cliente para comparar
 
-                printf("¿Qué campo quieres modificar?\n");
+                printf("¿QUE CAMPO QUIERES MODIFICAR?\n");
 
-                printf("1. Nombre\n2. Apellido\n3. Email\n4. Telefono\n5. Calle\n6. Numero\n7. Localidad\n8. Provincia\n9. C.Postal\n");
+                printf("1. NOMBRE\n2. APELLIDO\n3. EMAIL\n4. TELEFONO\n5. CALLE\n6. NUMERO\n7. LOCALIDAD\n8. PROVINCIA\n9. C.POSTAL\n");
                 int opcion;
-                scanf("%d", &opcion);
+                scanf("%d", &opcion);// Elegimos una opción que queremos modificar
                 getchar(); // Limpia el buffer de entrada
 
                 switch(opcion)
                 {
                 case 1:
-                    printf("Ingresa el nuevo nombre: ");
+                    printf("INGRESA EL NUEVO NOMBRE: ");
                     fgets(c.nombre, sizeof(c.nombre), stdin);
                     c.nombre[strcspn(c.nombre, "\n")] = 0; // Elimina el salto de lÃ­nea
                     break;
                 case 2:
-                    printf("Ingresa el nuevo apellido: ");
+                    printf("INGRESA EL NUEVO APELLIDO: ");
                     fgets(c.apellido, sizeof(c.apellido), stdin);
 
                     c.apellido[strcspn(c.apellido, "\n")] = 0;
 
                     break;
                 case 3:
-                    printf("Ingresa el nuevo email: ");
+                    printf("INGRESA EL NUEVO EMAIL: ");
                     fgets(c.email, sizeof(c.email), stdin);
 
                     c.email[strcspn(c.email, "\n")] = 0;
 
                     break;
                 case 4:
-                    printf("Ingresa el nuevo telefono: ");
+                    printf("INGRESA EL NUEVO TELEFONO: ");
                     fgets(c.telefono, sizeof(c.telefono), stdin);
 
                     c.telefono[strcspn(c.telefono, "\n")] = 0;
                 case 5:
-                    printf("Ingresa una nueva Calle: ");
+                    printf("INGRESA UNA NUEVA CALLE: ");
                     fgets(c.domicilio.calle, sizeof(c.domicilio.calle), stdin);
                     c.domicilio.calle[strcspn(c.domicilio.calle, "\n")] = 0;
                     break;
                 case 6:
-                    printf("Ingresa una nuevo Numero: ");
+                    printf("INGRESA UNA NUEVO NUMERO: ");
                     fgets(c.domicilio.nro, sizeof(c.domicilio.nro), stdin);
                     c.domicilio.nro[strcspn(c.domicilio.nro, "\n")] = 0;
                     break;
                 case 7:
-                    printf("Ingresa una nuevo Localidad: ");
+                    printf("INGRESA UNA NUEVO LOCALIDAD: ");
                     fgets(c.domicilio.localidad, sizeof(c.domicilio.localidad), stdin);
                     c.domicilio.localidad[strcspn(c.domicilio.localidad, "\n")] = 0;
                     break;
                 case 8:
-                    printf("Ingresa una nueva Provincia: ");
+                    printf("INGRESA UNA NUEVA PROVINCIA: ");
                     fgets(c.domicilio.provincia, sizeof(c.domicilio.provincia), stdin);
                     c.domicilio.provincia[strcspn(c.domicilio.provincia, "\n")] = 0;
                     break;
                 case 9:
-                    printf("Ingresa un nuevo C.Postal: ");
+                    printf("INGRESA UN NUEVO C.POSTAL: ");
                     fgets(c.domicilio.cpos, sizeof(c.domicilio.cpos), stdin);
                     c.domicilio.cpos[strcspn(c.domicilio.cpos, "\n")] = 0;
                     break;
                 default:
-                    printf("Opcion no valida.\n");
+                    printf("OPCION NO VALIDA.\n");
                     break;
                 }
 
-                printf("Datos del cliente despues de la modificacion:\n");
+                printf("DATOS DEL CLIENTE DESPUES DE LA MODIFICACION: \n");
                 muestraUnCliente(c);
 
-                // Mueve el puntero del archivo a la posiciÃ³n del cliente encontrado
+                // Mueve el puntero del archivo a la posicion del cliente encontrado
                 fseek(archi, -sizeof(stCliente), SEEK_CUR);
 
                 // Escribe los nuevos datos del cliente en el archivo
@@ -430,22 +387,41 @@ void checkPassword(char valid_password[3][10])
 {
     char login[10];
     int i;
+    int encontrado = 0;
+    int intentos = 0;
 
-    printf("\n\tIngrese su contraseña para ingresar al sistema: ");
-    fgets(login, 10, stdin);
-    login[strcspn(login, "\n")] = 0;
-    // Verifica si el DNI ingresado es válido
-    for (i = 0; i < 3; i++)
+    printf("\n::::::::::::::::::::::::::::::::::::::::::::");
+    printf("\n\tWELCOME TO THE CRAZYBANK");
+    printf("\n::::::::::::::::::::::::::::::::::::::::::::\n");
+
+    while (!encontrado && intentos < 3)
     {
-        if (strcmp(login, valid_password[i]) == 0)
+        printf("\nPASSWORD: ");
+        fgets(login, 10, stdin);
+        login[strcspn(login, "\n")] = 0; // Elimina el salto de línea
+
+        // Verifica si la contraseña ingresada es válida
+        for (i = 0; i < 3; i++)
         {
-            menu();  // Si el DNI es válido, llama a la función menu
-            return;
+            if (strcmp(login, valid_password[i]) == 0)
+            {
+                encontrado = 1;
+                menu();  // Si la contraseña es válida, llama a la función menu
+            }
+        }
+        if (!encontrado)
+        {
+            printf("ACCESS DENIED\n");
+            system("cls");
+            intentos++;
         }
     }
-    printf("Acceso Denegado.\n");
-}
 
+    if (intentos == 3)
+    {
+        printf("YOU HAVE REACHED THE LIMIT OF ATTEMPTS. PLEASE, TRY AGAIN LATER.\n");
+    }
+}
 void cargarNuevoCliente()
 {
     char opcion;
@@ -464,4 +440,32 @@ void cargarNuevoCliente()
         printf("Opción no valida.\n");
     }
     menu();//preguntar si se puede poner ahi
+}
+
+int arch2arregloClienteAct (char archClientes[], stCliente a[], int dim)
+{
+    int v = 0;
+    stCliente b;
+    FILE *archi=fopen(archClientes, "rb");
+    if(archi)
+    {
+        while (v<dim && fread(&b, sizeof(stCliente), 1, archi)>0)
+        {
+            if(b.eliminado==0)
+            {
+                a[v] = b;
+                v++;
+            }
+        }
+        fclose(archi);
+    }
+    return v;
+}
+
+void muestraClientes(stCliente c[], int v)
+{
+    for(int i=0; i<v; i++)
+    {
+        muestraUnCliente(c[i]);
+    }
 }

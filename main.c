@@ -3,35 +3,17 @@
 #include "clientes.h"
 #include "domicilios.h"
 #include "cuentas.h"
+#include "menu.h"
 #include <string.h>
 #define AR_CLIENTES "clientes.bin"
 #define AR_CUENTAS "cuentas.bin"
 
 int main()
 {
-    int cont;
-    //stCliente cliente;
-    //cargaUnArchivoUsuario(AR_CLIENTES);
-    muestraArchivoCliente(AR_CLIENTES);
+
+    muestraArchivoCliente(AR_CUENTAS);
     char valid_password[3][10] = {"32619370", "111", "222"};
     checkPassword(valid_password);
-    //muestraUnArchivo(AR_CUENTAS);
 
-    /*char dni[10];
-    printf("Ingresa su DNI para ingresar al sistema: ");
-    fgets(dni, 10, stdin);
-    dni[strcspn(dni, "\n")] = 0; // Elimina el salto de línea
-
-    menu(dni);  // Llama a la función menu pasando el DNI como argumento
-
-    cargaCuentasEnArchivo(AR_CUENTAS);
-    printf("\nELEMENTOS DEL ARCHIVO CUENTAS");
-    muestraUnArchivo(AR_CUENTAS);*/
-
-    //muestraClienteYCuentas(AR_CLIENTES,AR_CUENTAS, cliente.id);
-    cont = cuentaRegistros(AR_CLIENTES, sizeof(stCliente));
-    printf("\nLa cantidad de registros en el Archivo es :%d\n", cont);
-    //muestraClienteYCuentas(AR_CLIENTES, AR_CUENTAS, cliente.id);
     return 0;
-
 }
