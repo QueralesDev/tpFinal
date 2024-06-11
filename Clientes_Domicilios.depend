@@ -36,7 +36,7 @@
 	"domicilios.h"
 	"clientes.h"
 
-1717967615 source:c:\users\seba\desktop\tpfinal\clientes.c
+1718053296 source:c:\users\seba\desktop\tpfinal\clientes.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -62,7 +62,7 @@
 	"domicilios.h"
 	"mocks_Domicilios_Clientes.h"
 
-1717962313 source:c:\users\seba\desktop\tpfinal\main.c
+1718053296 source:c:\users\seba\desktop\tpfinal\main.c
 	<stdio.h>
 	<stdlib.h>
 	"clientes.h"
@@ -79,7 +79,7 @@
 	"clientes.h"
 	"cuentas.h"
 
-1717967138 source:c:\users\seba\desktop\tpfinal\cuentas.c
+1718053296 source:c:\users\seba\desktop\tpfinal\cuentas.c
 	<stdio.h>
 	<stdlib.h>
 	"cuentas.h"
@@ -87,7 +87,7 @@
 	<conio.h>
 	"mocks_Domicilios_Clientes.h"
 
-1717889550 c:\users\seba\desktop\tpfinal\cuentas.h
+1718140285 c:\users\seba\desktop\tpfinal\cuentas.h
 	"clientes.h"
 
 1717967470 source:c:\users\seba\desktop\tpfinal\menu.c
@@ -103,4 +103,72 @@
 1717961216 c:\users\seba\desktop\tpfinal\menu.h
 	"cuentas.h"
 	"clientes.h"
+
+1717964395 source:c:\users\seba\desktop\tpfinal - copia\domicilio.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<conio.h>
+	"clientes.h"
+	"domicilios.h"
+	"mocks_Domicilios_Clientes.h"
+
+1717961316 c:\users\seba\desktop\tpfinal - copia\clientes.h
+	"domicilios.h"
+
+1717889575 c:\users\seba\desktop\tpfinal - copia\domicilios.h
+
+1717713417 c:\users\seba\desktop\tpfinal - copia\mocks_domicilios_clientes.h
+
+1718140258 source:c:\users\seba\desktop\tpfinal - copia\main.c
+	<stdio.h>
+	<stdlib.h>
+	"clientes.h"
+	"domicilios.h"
+	"cuentas.h"
+	"menu.h"
+	<string.h>
+
+1718140285 c:\users\seba\desktop\tpfinal - copia\cuentas.h
+	"clientes.h"
+
+1717961216 c:\users\seba\desktop\tpfinal - copia\menu.h
+	"cuentas.h"
+	"clientes.h"
+
+1717967470 source:c:\users\seba\desktop\tpfinal - copia\menu.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"clientes.h"
+	"domicilios.h"
+	"mocks_Domicilios_Clientes.h"
+	<conio.h>
+	"cuentas.h"
+
+1717713809 source:c:\users\seba\desktop\tpfinal - copia\mocks_domicilios_clientes.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"domicilios.h"
+	"clientes.h"
+	"cuentas.h"
+
+1718072029 source:c:\users\seba\desktop\tpfinal - copia\clientes.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"clientes.h"
+	"domicilios.h"
+	"mocks_Domicilios_Clientes.h"
+	<conio.h>
+	"cuentas.h"
+
+1718140355 source:c:\users\seba\desktop\tpfinal - copia\cuentas.c
+	<stdio.h>
+	<stdlib.h>
+	"cuentas.h"
+	"clientes.h"
+	<conio.h>
+	"mocks_Domicilios_Clientes.h"
 

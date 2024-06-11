@@ -92,7 +92,7 @@ int buscaDatoEnArchivoStr(char nombreArchivo[], char dato[])
     {
         while(flag == 0 && fread(&c, sizeof(stCliente), 1, archi)>0)
         {
-            // Elimina el salto de lÃ­nea al final del DNI, si existe
+            // Elimina el salto de linea al final del DNI, si existe
             if (c.dni[strlen(c.dni) - 1] == '\n')
             {
                 c.dni[strlen(c.dni) - 1] = '\0';
@@ -112,7 +112,7 @@ void cargaUnArchivoUsuario(char nombreArchivo[])
 {
     stCliente c;
     char opcion;
-    int static id;
+    int static id;// - Declara una variable estática id. Las variables estáticas mantienen su valor entre las llamadas a la función.
     id = ultimoId(AR_CLIENTES);
     FILE* archi = fopen(nombreArchivo, "a+b");
     if(archi)
@@ -207,7 +207,7 @@ void buscaClientes(char archClientes[])
     dni[strcspn(dni, "\n")] = 0; // Elimina el salto de línea
     p = buscaClientePorDNIPuntero(archClientes, dni);
 
-    if (p != NULL)   // Si se encontró el cliente reliza las siguientes lineas
+    if (p != NULL)   // Verifica si se encontró un cliente. Si p es NULL, significa que no se encontró ningún cliente con el DNI dado.
     {
         muestraUnCliente(*p); // Muestra los datos del cliente
 
@@ -229,7 +229,8 @@ void buscaClientes(char archClientes[])
                 modificaCampoClientePorDNI(archClientes, dni);
                 break;
             case 2:
-                agregarCuentaACliente(AR_CUENTAS, p->id);
+                //agregarCuentaACliente(AR_CUENTAS, p->id);
+                cargaCuentasEnArchivo(AR_CUENTAS, p->id);
                 break;
             case 3:
                 buscaCuentasDeCliente(AR_CUENTAS, *p);
@@ -267,7 +268,7 @@ stCliente modificaCampoClientePorDNI(char nombreArchivo[], char dni[])
 
                 encontrado = 1;
                 printf("DATOS DEL CLIENTE ANTES DE MODIFICAR:\n");
-                muestraUnCliente(c);///Mostramos al cliente para comparar
+                muestraUnCliente(c);//Mostramos al cliente para comparar
 
                 printf("¿QUE CAMPO QUIERES MODIFICAR?\n");
 

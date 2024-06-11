@@ -7,10 +7,11 @@
 #define AR_CUENTAS "cuentas.bin"
 
 
-stCuenta cargaUnaCuenta(int idCliente){
+stCuenta cargaUnaCuenta(int idDuenioCuenta){
     stCuenta c;
 
-    c.id = idCliente; // Asigna el id del cliente
+    c.id =0;
+    c.idCliente = idDuenioCuenta; // Asigna el id del cliente
     printf("INGRESE NUMERO DE CUENTA: ");
     scanf("%d", &c.nroCuenta);
     printf("INGRESE TIPO DE CUENTA (1. CAJA DE AHORRO EN PESOS, 2. CAJA DE AHORRO EN DÓLARES, 3. CTA CTE EN PESOS): ");
@@ -25,7 +26,7 @@ stCuenta cargaUnaCuenta(int idCliente){
     return c;
 }
 void muestraUnaCuenta(stCuenta c){
-   printf("\NID DE LA CUENTA: %d", c.id);
+    printf("\nID DE LA CUENTA: %d", c.id);
     printf("\nID DEL CLIENTE: %d", c.idCliente);
     printf("\nNUMERO DE CUENTA: %d", c.nroCuenta);
     printf("\nTIPO DE CUENTA: ");
@@ -217,13 +218,13 @@ int cuentaRegistros(char nombreArchivo[], int tamanioEstructura)
 }
 
 void buscaCuentasDeCliente(char nombreArchivoCuentas[], stCliente cliente) {
-    FILE* archi = fopen(nombreArchivoCuentas, "r");
+    FILE* archi = fopen(nombreArchivoCuentas, "r");//abre el archivo de cuentas en modo de lectura
     stCuenta cuenta;
 
     // Buscar las cuentas del cliente en el archivo de cuentas
     while (fread(&cuenta, sizeof(stCuenta), 1, archi)) {
         // Si el id del cliente de la cuenta actual coincide con el id del cliente dado
-        if (cuenta.idCliente == cliente.id) {
+        if (cuenta.idCliente == cliente.id) {//verifica si el idCliente de la cuenta coincide con el id del cliente. Si es así, significa que la cuenta pertenece al cliente
             printf("CUENTA ENCONTRADA: %d\n", cuenta.nroCuenta);
             muestraUnaCuenta(cuenta);
         }
@@ -231,7 +232,7 @@ void buscaCuentasDeCliente(char nombreArchivoCuentas[], stCliente cliente) {
 
     fclose(archi);
 }
-void agregarCuentaACliente(char nombreArchivoCuentas[], int idCliente) {
+/*void agregarCuentaACliente(char nombreArchivoCuentas[], int idCliente) {
     FILE* archi = fopen(nombreArchivoCuentas, "a"); // Abre el archivo en modo de agregar
 
     // Carga los detalles de la nueva cuenta
@@ -244,4 +245,4 @@ void agregarCuentaACliente(char nombreArchivoCuentas[], int idCliente) {
     fwrite(&nuevaCuenta, sizeof(stCuenta), 1, archi);
 
     fclose(archi);
-}
+}*/
