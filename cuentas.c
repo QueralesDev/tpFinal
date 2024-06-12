@@ -9,19 +9,37 @@
 
 stCuenta cargaUnaCuenta(int idDuenioCuenta){
     stCuenta c;
+    int dato;
+    int flag = 0;
 
     c.id =0;
     c.idCliente = idDuenioCuenta; // Asigna el id del cliente
-    printf("INGRESE NUMERO DE CUENTA: ");
-    scanf("%d", &c.nroCuenta);
+    //printf("INGRESE NUMERO DE CUENTA: ");
+    c.nroCuenta = rand()%1000000 + 100000;
+
+    do{
+
     printf("INGRESE TIPO DE CUENTA (1. CAJA DE AHORRO EN PESOS, 2. CAJA DE AHORRO EN DÓLARES, 3. CTA CTE EN PESOS): ");
-    scanf("%d", &c.tipoDeCuenta);
-    printf("INGRESE COSTO MENSUAL DE MANTENIMIENTO: ");
-    scanf("%f", &c.costoMensual);
-    printf("INGRESE SALDO INICIAL DE LA CUENTA: ");
-    scanf("%f", &c.saldo);
-    printf("INGRESE ESTADO DE LA CUENTA (0 SI ESTÁ ACTIVO - 1 SI ESTA ELIMINADO): ");
-    scanf("%d", &c.eliminado);
+    scanf("%d", &dato);
+
+           if(dato < 1 || dato > 3){
+
+           printf("Tipo de cuenta invalida porfavor ingrese un tipo de cuenta valido:");
+
+           }else{
+
+            c.tipoDeCuenta = dato;
+            flag = 1;
+
+            }
+    }while(flag == 0);
+
+    //printf("INGRESE COSTO MENSUAL DE MANTENIMIENTO: ");
+    c.costoMensual = 5000;
+    //printf("INGRESE SALDO INICIAL DE LA CUENTA: ");
+    c.saldo = 0;
+    //printf("INGRESE ESTADO DE LA CUENTA (0 SI ESTÁ ACTIVO - 1 SI ESTA ELIMINADO): ");
+    c.eliminado = 0;
 
     return c;
 }
@@ -54,7 +72,8 @@ void cargaCuentasEnArchivo(char nombreArchivo[], int idCliente) {
     stCuenta c;
     char opcion;
     int static id;
-    int existe;
+    int existeNroCuenta;
+    int existeTipoCuenta;
     id = ultimoIdCuentas(AR_CUENTAS);
     FILE* archi = fopen(nombreArchivo, "a+b");
     if(archi)
@@ -64,9 +83,10 @@ void cargaCuentasEnArchivo(char nombreArchivo[], int idCliente) {
             system("cls");
 
             c = cargaUnaCuenta(idCliente); // Aquí pasamos el idCliente
-            existe = buscaCuentaEnArchivoFlag(archi, c.nroCuenta);
-            printf("%d", existe);
-            if(existe == 1)
+            existeNroCuenta = buscaCuentaEnArchivoFlag(archi, c.nroCuenta);
+            existeTipoCuenta = buscaTipoCuentaEnArchivoFlag(archi, c.tipoDeCuenta);
+
+            if(existeNroCuenta == 1 || existeTipoCuenta == 1)
             {
                 printf("ERROR - CUENTA REPETIDA");
 
@@ -76,6 +96,7 @@ void cargaCuentasEnArchivo(char nombreArchivo[], int idCliente) {
                 id++;
                 c.id = id;
                 fwrite(&c, sizeof(stCuenta), 1, archi);
+                printf("CUENTA CREADA CON EXITO");
             }
 
             printf("\nESC PARA SALIR CUALQUIER OTRA TECLA PARA CONTINUAR CARGANDO......");
@@ -126,7 +147,7 @@ int ultimoIdCuentas(char nombreArchivo[])
     return id;
 }
 
-int buscaCuentaEnArchivo(char nombreArchivo[], int nroCuenta)
+int buscaCuentaEnArchivo(char nombreArchivo[], int dato)
 {
     stCuenta c;
     int flag = 0;
@@ -136,7 +157,7 @@ int buscaCuentaEnArchivo(char nombreArchivo[], int nroCuenta)
     {
         while(flag == 0 && fread(&c, sizeof(stCuenta), 1, archi)>0)
         {
-            if(c.nroCuenta == nroCuenta)
+            if(c.nroCuenta == dato)
             {
                 flag = 1;
             }
@@ -145,7 +166,7 @@ int buscaCuentaEnArchivo(char nombreArchivo[], int nroCuenta)
     }
     return flag;
 }
-int buscaCuentaEnArchivoFlag(FILE* archi, int nroCuenta)
+int buscaCuentaEnArchivoFlag(FILE* archi, int dato)
 {
     stCuenta c;
     int flag = 0;
@@ -154,7 +175,7 @@ int buscaCuentaEnArchivoFlag(FILE* archi, int nroCuenta)
     {
         while(flag == 0 && fread(&c, sizeof(stCuenta), 1, archi)>0)
         {
-            if(c.nroCuenta == nroCuenta)
+            if(c.nroCuenta == dato)
             {
                 flag = 1;
             }
@@ -164,6 +185,24 @@ int buscaCuentaEnArchivoFlag(FILE* archi, int nroCuenta)
     return flag;
 }
 
+int buscaTipoCuentaEnArchivoFlag(FILE* archi, int dato)
+{
+    stCuenta c;
+    int flag = 0;
+    rewind(archi);
+    if(archi)
+    {
+        while(flag == 0 && fread(&c, sizeof(stCuenta), 1, archi)>0)
+        {
+            if(c.tipoDeCuenta == dato)
+            {
+                flag = 1;
+            }
+        }
+        //fclose(archi);
+    }
+    return flag;
+}
 /*int buscaCuentasUsuarioEnArchivo(char nombreArchivo[], stCuenta a[], int v, int dato)
 {
     stCuenta c;
