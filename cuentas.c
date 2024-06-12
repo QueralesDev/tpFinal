@@ -19,19 +19,20 @@ stCuenta cargaUnaCuenta(int idDuenioCuenta){
 
     do{
 
-    printf("INGRESE TIPO DE CUENTA (1. CAJA DE AHORRO EN PESOS, 2. CAJA DE AHORRO EN DÓLARES, 3. CTA CTE EN PESOS): ");
+    printf("\nINGRESE TIPO DE CUENTA (1. CAJA DE AHORRO EN PESOS, 2. CAJA DE AHORRO EN DOLARES, 3. CTA CTE EN PESOS): ");
     scanf("%d", &dato);
+    fflush(stdin);
 
-           if(dato < 1 || dato > 3){
-
-           printf("Tipo de cuenta invalida porfavor ingrese un tipo de cuenta valido:");
-
-           }else{
-
+        if(dato >0  && dato < 4){
             c.tipoDeCuenta = dato;
             flag = 1;
 
-            }
+        }else{
+
+        system("cls");
+           printf("TIPO DE CUENTA INVALIDO PORFAVOR INGRESE UN TIPO DE CUENTA VALIDO:");
+
+        }
     }while(flag == 0);
 
     //printf("INGRESE COSTO MENSUAL DE MANTENIMIENTO: ");
