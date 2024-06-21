@@ -27,6 +27,7 @@ void muestraUnArchivo(char nombreArchivo[]);
 void agregarCuentaACliente(char nombreArchivoCuentas[], int idCliente);
 void buscaCuentasDeCliente(char nombreArchivoCuentas[], stCliente cliente);
 stCuenta cargaUnaCuenta(int idDuenioCuenta);
+void bajaAltaCliente(char nombreArchiClientes[], char nombreArchiCuentas[], char dni[]);
 
 
 #endif // CUENTA_H_INCLUDED

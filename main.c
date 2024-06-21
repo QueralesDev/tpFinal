@@ -10,8 +10,8 @@
 
 int main()
 {
-    muestraArchivoCliente(AR_CLIENTES);
-    muestraArchivoCliente(AR_CUENTAS);
+    //muestraArchivoCliente(AR_CLIENTES);
+    //muestraArchivoCliente(AR_CUENTAS);
     char valid_password[3][10] = {"32619370", "111", "222"};
     checkPassword(valid_password);
 

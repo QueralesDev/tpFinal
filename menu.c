@@ -1,13 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
+#include <conio.h>
 #include "clientes.h"
 #include "domicilios.h"
 #include "mocks_Domicilios_Clientes.h"
+#include "cuentas.h"
+
 #define AR_CLIENTES "clientes.bin"
 #define AR_CUENTAS "cuentas.bin"
-#include <conio.h>
-#include "cuentas.h"
+
+
 
 
 void menu()
@@ -36,7 +40,7 @@ void menu()
         {
         case 1:
 
-            buscaClientes(AR_CLIENTES);
+            buscaClientes(AR_CLIENTES,AR_CUENTAS);
             break;
         case 2:
 

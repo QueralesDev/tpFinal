@@ -1,13 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <conio.h>
 #include "clientes.h"
 #include "domicilios.h"
+#include "cuentas.h"
 #include "mocks_Domicilios_Clientes.h"
+
 #define AR_CLIENTES "clientes.bin"
 #define AR_CUENTAS "cuentas.bin"
-#include <conio.h>
-#include "cuentas.h"
+
 
 
 stCliente cargaUnCliente ()
@@ -196,7 +198,7 @@ stCliente* buscaClientePorDNIPuntero(char nombreArchivo[], char dni[])
 }
 
 
-void buscaClientes(char archClientes[])
+void buscaClientes(char archClientes[], char archCuentas[])
 {
     int opcion;
     char dni[10];
@@ -217,7 +219,8 @@ void buscaClientes(char archClientes[])
             printf("1. MODIFICAR DATOS DEL CLIENTE\n");
             printf("2. AGREGAR UNA CUENTA AL CLIENTE\n");
             printf("3. BUSCAR CUENTAS DEL CLIENTE\n");
-            printf("4. SALIR\n");
+            printf("4. BAJA O ALTA CLIENTE\n");
+            printf("5. SALIR\n");
             printf("============================================\n");
             printf("ELIGE UNA OPCION:");
             scanf("%d", &opcion);
@@ -235,15 +238,21 @@ void buscaClientes(char archClientes[])
             case 3:
                 buscaCuentasDeCliente(AR_CUENTAS, *p);
                 break;
+
             case 4:
+                bajaAltaCliente(AR_CLIENTES,AR_CUENTAS, dni);
+                break;
+
+            case 5:
                 printf("SALIENDO DEL PROGRAMA...\n");
                 break;
+
             default:
                 printf("OPCION NO VALIDA.\n");
                 break;
             }
         }
-        while(opcion != 4);//repite el menu hasta que el usuario quiera salir
+        while(opcion != 5);//repite el menu hasta que el usuario quiera salir
 
         free(p); // No olvidarse de liberar la memoria cuando ya no la necesite
     }
@@ -438,7 +447,7 @@ void cargarNuevoCliente()
     }
     else
     {
-        printf("Opción no valida.\n");
+        printf("Opcion no valida.\n");
     }
     menu();//preguntar si se puede poner ahi
 }
@@ -470,3 +479,4 @@ void muestraClientes(stCliente c[], int v)
         muestraUnCliente(c[i]);
     }
 }
+

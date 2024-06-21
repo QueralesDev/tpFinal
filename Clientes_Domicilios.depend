@@ -172,24 +172,24 @@
 	<conio.h>
 	"mocks_Domicilios_Clientes.h"
 
-1718146090 source:c:\users\lquerales\desktop\tpfinal\clientes.c
+1718987085 source:c:\users\lquerales\desktop\tpfinal\clientes.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
+	<conio.h>
 	"clientes.h"
 	"domicilios.h"
-	"mocks_Domicilios_Clientes.h"
-	<conio.h>
 	"cuentas.h"
+	"mocks_Domicilios_Clientes.h"
 
-1718146090 c:\users\lquerales\desktop\tpfinal\clientes.h
+1718907367 c:\users\lquerales\desktop\tpfinal\clientes.h
 	"domicilios.h"
 
 1718146090 c:\users\lquerales\desktop\tpfinal\domicilios.h
 
 1718146090 c:\users\lquerales\desktop\tpfinal\mocks_domicilios_clientes.h
 
-1718149445 c:\users\lquerales\desktop\tpfinal\cuentas.h
+1718903460 c:\users\lquerales\desktop\tpfinal\cuentas.h
 	"clientes.h"
 
 1718146090 source:c:\users\lquerales\desktop\tpfinal\domicilio.c
@@ -201,7 +201,7 @@
 	"domicilios.h"
 	"mocks_Domicilios_Clientes.h"
 
-1718146090 source:c:\users\lquerales\desktop\tpfinal\main.c
+1718896245 source:c:\users\lquerales\desktop\tpfinal\main.c
 	<stdio.h>
 	<stdlib.h>
 	"clientes.h"
@@ -214,14 +214,15 @@
 	"cuentas.h"
 	"clientes.h"
 
-1718146090 source:c:\users\lquerales\desktop\tpfinal\menu.c
+1718987085 source:c:\users\lquerales\desktop\tpfinal\menu.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
+	<time.h>
+	<conio.h>
 	"clientes.h"
 	"domicilios.h"
 	"mocks_Domicilios_Clientes.h"
-	<conio.h>
 	"cuentas.h"
 
 1718146090 source:c:\users\lquerales\desktop\tpfinal\mocks_domicilios_clientes.c
@@ -232,7 +233,7 @@
 	"clientes.h"
 	"cuentas.h"
 
-1718197816 source:c:\users\lquerales\desktop\tpfinal\cuentas.c
+1718984141 source:c:\users\lquerales\desktop\tpfinal\cuentas.c
 	<stdio.h>
 	<stdlib.h>
 	"cuentas.h"
