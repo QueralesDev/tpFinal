@@ -347,7 +347,7 @@ void bajaSoloCuenta(char nombreArchivoCuentas[], stCuenta cuentaParaBaja)
         fclose(archi);
     }
 }
- ///esta funcion da de alta todas las cuentas del cliente pasado por parametro
+///esta funcion da de alta todas las cuentas del cliente pasado por parametro
 void altaCuenta(char nombreArchivoCuentas[], stCliente cliente)
 {
 
@@ -467,46 +467,11 @@ void bajaAltaCliente(char nombreArchiClientes[], char nombreArchiCuentas[], char
         fclose(archi);
     }
 }
-////////////////////////////////////////////////////////////////////////////
-
-
-
-//void buscaCuentaPorNumero(char nombreArchivoCuentas[], int numeroCuenta)
-//{
-//    FILE* archi = fopen(nombreArchivoCuentas, "rb");
-//    stCuenta cuenta;
-//    int cuentaEncontrada = 0; // Bandera para indicar si se encontró la cuenta
-//
-//    if (archi)
-//    {
-//        while (fread(&cuenta, sizeof(stCuenta), 1, archi))
-//        {
-//            if (cuenta.nroCuenta == numeroCuenta)
-//            {
-//                muestraUnaCuenta(cuenta);
-//                cuentaEncontrada = 1;
-//            }
-//        }
-//
-//        fclose(archi);
-//
-//        if (!cuentaEncontrada)
-//        {
-//            printf("Cuenta no encontrada.\n");
-//        }
-//    }
-//    else
-//    {
-//        printf("Error al abrir el archivo.\n");
-//    }
-//}
 
 stCuenta buscaCuentaPorNumero(FILE* archi, int nroCuenta)
 {
     stCuenta c;
     int flag = 0;
-    //rewind(archi);
-
     if (archi)
     {
         while (flag == 0 && fread(&c, sizeof(stCuenta), 1, archi) > 0)

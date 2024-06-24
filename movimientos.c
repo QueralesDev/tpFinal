@@ -265,7 +265,7 @@ void menuOperacionesCuenta(char archCuentas[], char archMovimientos[])
             break;
 
         case 4:
-            printf("INGRESA EL MONTO A TRANSFERIR: ");
+            printf("INGRESA EL MONTO A TRANSFERIR:");
             scanf("%d", &monto);
             getchar();
             cuentaDestino = seleccionaCuentaDeCliente(AR_CUENTAS);
@@ -285,10 +285,6 @@ void menuOperacionesCuenta(char archCuentas[], char archMovimientos[])
             printf("OPCION NO VALIDA.\n");
             break;
         }
-
-        //actualizaCuentaEnArchivo(archCuentas, cuenta);
-
-
 
     }
     while (opcion != 6);
@@ -376,7 +372,7 @@ void retirarPuntero(char nombreArchivoMov[], stCuenta* cuenta, int monto)
         impactoMonto(AR_CUENTAS, monto,cuenta->id,0);
 
 
-        //cuenta->saldo += (float) monto;
+        //cuenta->saldo -= (float) monto;
 
 
         stMovimiento m;
@@ -391,7 +387,7 @@ void retirarPuntero(char nombreArchivoMov[], stCuenta* cuenta, int monto)
             m.id = id;
             //movimiento->idCuenta = cuenta->id;
             m.importe = monto;
-            snprintf(m.detalle, 100, "Deposito de %.2d", monto);
+            snprintf(m.detalle, 100, "Retiro de %.2d", monto);
             fwrite(&m, sizeof(stMovimiento), 1, archi);
 
             fclose(archi);
@@ -407,8 +403,8 @@ void retirarPuntero(char nombreArchivoMov[], stCuenta* cuenta, int monto)
 void transferenciaPuntero(char nombreArchivoMov[], stCuenta* cuentaOrigen, stCuenta* cuentaDestino, int monto)
 {
 
-    retirarPuntero(nombreArchivoMov, cuentaOrigen, monto);
-    depositarPuntero(nombreArchivoMov, cuentaDestino, monto);
+        retirarPuntero(nombreArchivoMov, cuentaOrigen, monto);
+        depositarPuntero(nombreArchivoMov, cuentaDestino, monto);
 
 }
 

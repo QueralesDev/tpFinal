@@ -37,7 +37,5 @@ stCuenta buscaCuentaPorNumero(FILE* archi, int nroCuenta);
 stCuenta seleccionaCuentaDeCliente(char archCuentas[]);
 float obtenerSaldo(stCuenta* cuenta);
 
-
-
 //void buscaCuentaPorNumero(char nombreArchivoCuentas[], int numeroCuenta);
 #endif // CUENTA_H_INCLUDED

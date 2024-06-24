@@ -192,12 +192,12 @@
 
 1718146090 c:\users\lquerales\desktop\tpfinal\mocks_domicilios_clientes.h
 
-1719250092 c:\users\lquerales\desktop\tpfinal\cuentas.h
+1719267877 c:\users\lquerales\desktop\tpfinal\cuentas.h
 	"clientes.h"
 	"cuentas.h"
 	"movimientos.h"
 
-1719233977 source:c:\users\lquerales\desktop\tpfinal\domicilio.c
+1719266919 source:c:\users\lquerales\desktop\tpfinal\domicilio.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -221,7 +221,7 @@
 	"cuentas.h"
 	"movimientos.h"
 
-1719250734 source:c:\users\lquerales\desktop\tpfinal\menu.c
+1719254402 source:c:\users\lquerales\desktop\tpfinal\menu.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -241,7 +241,7 @@
 	"domicilios.h"
 	"cuentas.h"
 
-1719251804 source:c:\users\lquerales\desktop\tpfinal\cuentas.c
+1719266652 source:c:\users\lquerales\desktop\tpfinal\cuentas.c
 	<stdio.h>
 	<stdlib.h>
 	<conio.h>
@@ -542,7 +542,7 @@
 	"clientes.h"
 	"cuentas.h"
 
-1719254078 source:c:\users\lquerales\desktop\tpfinal\movimientos.c
+1719268741 source:c:\users\lquerales\desktop\tpfinal\movimientos.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>

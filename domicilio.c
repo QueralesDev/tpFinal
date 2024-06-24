@@ -43,21 +43,6 @@ void muestraUnDomicilio (stDomicilio d)
     printf ("\nCODIGO POSTAL....................: %s", d.cpos);
 }
 
-/*
-void cargaArchDomiciliosRandom(char nombreArchivo[], int cant){
-    FILE* archi = fopen(nombreArchivo, "ab");
-    stDomicilio domicilio;
-    int i = 0;
-    if(archi){
-        while(i<cant){
-            domicilio = getDomicilioRandom();
-            fwrite(&domicilio, sizeof(stDomicilio), 1, archi);
-            i++;
-        }
-        fclose(archi);
-    }
-}
-*/
 void muestraArchivoDomicilio(char nombreArchivo[]){
     stDomicilio domicilio;
     FILE* archi = fopen(nombreArchivo, "rb");
