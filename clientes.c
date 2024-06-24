@@ -21,9 +21,7 @@ stCliente cargaUnCliente ()
     id++;
     printf("INGRESO DE DATOS PERSONALES DEL CLIENTE\n");
 
-    printf ("\nNRO DE CLIENTE...............: ");
-    scanf("%d", &c.nroCliente);
-    getchar();
+    c.nroCliente = getNroCliente();
 
     printf ("NOMBRE.......................: ");
     fgets(c.nombre, sizeof(c.nombre), stdin);
@@ -238,6 +236,8 @@ void buscaClientes(char archClientes[], char archCuentas[], char archMovimientos
     char dni[10];
     stCliente* p = NULL;
 
+    stCuenta cuenta;
+
     printf("\nINGRESA EL DNI DEL CLIENTE: ");/// Solicitamos que el usuario ingrese el dni del cliente para podee ingresar al menu de opciones
     fgets(dni, 10, stdin);
     dni[strcspn(dni, "\n")] = 0; // Elimina el salto de línea
@@ -293,7 +293,7 @@ void buscaClientes(char archClientes[], char archCuentas[], char archMovimientos
 
             case 6:
 
-                printf("1.BAJA\n2.ALTA\n");
+                printf("1.BAJA\n2.ALTA\n3.SALIR");
                 int opcion;
                 scanf("%d", &opcion);// Elegimos una opción que queremos modificar
                 getchar(); // Limpia el buffer de entrada
@@ -302,15 +302,30 @@ void buscaClientes(char archClientes[], char archCuentas[], char archMovimientos
                 {
                 case 1:
 
-                    bajaCuenta(archCuentas,*p);
+                    buscaCuentasDeCliente(archCuentas, *p);
+                    cuenta = seleccionaCuentaDeCliente(AR_CUENTAS);
+                    bajaSoloCuenta(archCuentas, cuenta);
+                    bajaMovimiento(archMovimientos,cuenta);
+                    buscaCuentasDeCliente(archCuentas, *p);
+                    buscaYmuestraMovimientosDeUnaCuenta(archMovimientos,cuenta);
 
 
                     break;
                 case 2:
-
-                    altaCuenta(archCuentas,*p);
+                    buscaCuentasDeCliente(archCuentas, *p);
+                    cuenta = seleccionaCuentaDeCliente(AR_CUENTAS);
+                    altaSoloCuenta(archCuentas,cuenta);
+                    altaMovimiento(archMovimientos,cuenta);
+                    buscaCuentasDeCliente(archCuentas, *p);
+                    buscaYmuestraMovimientosDeUnaCuenta(archMovimientos,cuenta);
 
                     break;
+
+                case 3:
+
+                    printf("SALIENDO DEL PROGRAMA...\n");
+
+                break;
 
                 default:
                     printf("OPCION NO VALIDA.\n");
@@ -443,13 +458,13 @@ void checkPassword(char valid_password[3][10])
     int encontrado = 0;
     int intentos = 0;
 
-    printf("\n::::::::::::::::::::::::::::::::::::::::::::");
-    printf("\n\tWELCOME TO THE CRAZYBANK");
-    printf("\n::::::::::::::::::::::::::::::::::::::::::::\n");
+    printf("\n\t\t\t\t\t::::::::::::::::::::::::::::::::::::::::::::");
+    printf("\n\t\t\t\t\t\tWELCOME TO THE CRAZYBANK");
+    printf("\n\t\t\t\t\t::::::::::::::::::::::::::::::::::::::::::::\n");
 
     while (!encontrado && intentos < 3)
     {
-        printf("\nPASSWORD: ");
+        printf("\n\t\tPASSWORD: ");
         fgets(login, 10, stdin);
         login[strcspn(login, "\n")] = 0; // Elimina el salto de línea
 
@@ -517,12 +532,13 @@ void cargarClienteYCuentaYMovimientos(char nombreArchivoClientes[], char nombreA
     // Obtiene el último cliente del archivo
     cliente = obtenerUltimoCliente(nombreArchivoClientes);
 
-    printf("\n¿DESEA CARGAR UNA CUENTA? (S/N): ");
+    printf("\nDESEA CARGAR UNA CUENTA? (S/N): ");
     scanf(" %c", &opcion);
 
     if (opcion == 's' || opcion == 'S')
     {
         // Llama a la función para cargar una nueva cuenta para el cliente en el archivo
+
         cargaCuentasEnArchivo(nombreArchivoCuentas, cliente.id);
     }
     else if (opcion == 'n' || opcion == 'N')
@@ -534,13 +550,14 @@ void cargarClienteYCuentaYMovimientos(char nombreArchivoClientes[], char nombreA
         printf("OPCIÓN NO VÁLIDA\n");
     }
 
-    printf("\n¿DESEA HACER UN MOVIMIENTO EN LA CUENTA? (S/N): ");
+    printf("\nDESEA HACER UN MOVIMIENTO EN LA CUENTA? (S/N): ");
     scanf(" %c", &opcion);
 
     if (opcion == 's' || opcion == 'S')
     {
         // Llama a la función para cargar un nuevo movimiento para la cuenta en el archivo
-        cargaMovimientosAR(nombreArchivoMovimientos, cuenta.id);
+        buscaCuentasDeCliente(nombreArchivoCuentas,cliente);
+        menuOperacionesCuenta(nombreArchivoCuentas, nombreArchivoMovimientos);
     }
     else if (opcion == 'n' || opcion == 'N')
     {
@@ -560,6 +577,7 @@ stCliente obtenerUltimoCliente(char nombreArchivo[])
     {
         fseek(archi, -sizeof(stCliente), SEEK_END);
         fread(&cliente, sizeof(stCliente), 1, archi);
+
         fclose(archi);
     }
     return cliente;
@@ -573,6 +591,7 @@ stCuenta obtenerUltimaCuenta(char nombreArchivo[])
     {
         fseek(archi, -sizeof(stCuenta), SEEK_END);
         fread(&cuentas, sizeof(stCuenta), 1, archi);
+
         fclose(archi);
     }
     return cuentas;
@@ -599,7 +618,7 @@ void archivo2arreglosActyElim(char nombreArchivo[],stCliente activo[], stCliente
                 vala++;
             }
         }
-    fclose (archi);
+        fclose (archi);
     }
 
     *vInactivos = vali;

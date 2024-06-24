@@ -117,8 +117,6 @@ void cargaCuentasEnArchivo(char nombreArchivo[], int idCliente)
             existeNroCuenta = buscaCuentaEnArchivoFlag(archi, c.nroCuenta);
             existeTipoCuenta = buscaTipoCuentaEnArchivoFlag(archi, idCliente, c.tipoDeCuenta);
 
-            printf("\n%d",existeNroCuenta);
-
             if(existeNroCuenta == 1 || existeTipoCuenta == 1)
             {
                 printf("ERROR - CUENTA REPETIDA");
@@ -132,7 +130,7 @@ void cargaCuentasEnArchivo(char nombreArchivo[], int idCliente)
                 printf("CUENTA CREADA CON EXITO");
             }
 
-            printf("\nESC PARA SALIR CUALQUIER OTRA TECLA PARA CONTINUAR CARGANDO......");
+            printf("\nESC PARA SALIR, CUALQUIER TECLA PARA AGREGAR OTRA CUENTA......");
 
             opcion = getch();
 
@@ -320,7 +318,36 @@ void bajaCuenta(char nombreArchivoCuentas[], stCliente cliente)
         fclose(archi);
     }
 }
+///esta funcion da de baja solo la cuenta que le paso por parametro
+void bajaSoloCuenta(char nombreArchivoCuentas[], stCuenta cuentaParaBaja)
+{
+    stCuenta cuenta;
+    FILE* archi = fopen(nombreArchivoCuentas, "r+b");//abre el archivo de cuentas en modo de lectura Y escritura
 
+    if(archi)
+    {
+        // Buscar las cuentas del cliente en el archivo de cuentas
+        while (fread(&cuenta, sizeof(stCuenta), 1, archi)>0)
+        {
+            // Si el id del cliente de la cuenta actual coincide con el id del cliente dado
+            if (cuenta.nroCuenta == cuentaParaBaja.nroCuenta)  //verifica si el idCliente de la cuenta coincide con el id del cliente. Si es así, significa que la cuenta pertenece al cliente
+            {
+                cuenta.eliminado = 1;
+
+                // Mueve el puntero del archivo a la posicion del cliente encontrado
+                fseek(archi, -sizeof(stCuenta), SEEK_CUR);
+
+                // Escribe los nuevos datos del cliente en el archivo
+                fwrite(&cuenta, sizeof(stCuenta), 1, archi);
+
+                // Importante: Avanzar el puntero al siguiente registro
+                fseek(archi, 0, SEEK_CUR);
+            }
+        }
+        fclose(archi);
+    }
+}
+ ///esta funcion da de alta todas las cuentas del cliente pasado por parametro
 void altaCuenta(char nombreArchivoCuentas[], stCliente cliente)
 {
 
@@ -348,6 +375,36 @@ void altaCuenta(char nombreArchivoCuentas[], stCliente cliente)
         fclose(archi);
     }
 }
+
+void altaSoloCuenta(char nombreArchivoCuentas[], stCuenta cuentaParaAlta)
+{
+    stCuenta cuenta;
+    FILE* archi = fopen(nombreArchivoCuentas, "r+b");//abre el archivo de cuentas en modo de lectura Y escritura
+
+    if(archi)
+    {
+        // Buscar las cuentas del cliente en el archivo de cuentas
+        while (fread(&cuenta, sizeof(stCuenta), 1, archi)>0)
+        {
+            // Si el id del cliente de la cuenta actual coincide con el id del cliente dado
+            if (cuenta.nroCuenta == cuentaParaAlta.nroCuenta)  //verifica si el idCliente de la cuenta coincide con el id del cliente. Si es así, significa que la cuenta pertenece al cliente
+            {
+                cuenta.eliminado = 0;
+
+                // Mueve el puntero del archivo a la posicion del cliente encontrado
+                fseek(archi, -sizeof(stCuenta), SEEK_CUR);
+
+                // Escribe los nuevos datos del cliente en el archivo
+                fwrite(&cuenta, sizeof(stCuenta), 1, archi);
+
+                // Importante: Avanzar el puntero al siguiente registro
+                fseek(archi, 0, SEEK_CUR);
+            }
+        }
+        fclose(archi);
+    }
+}
+///esta funcion da de baja o alta al cliente y todas sus cuentas
 void bajaAltaCliente(char nombreArchiClientes[], char nombreArchiCuentas[], char dni[])
 {
     stCliente c;
@@ -368,7 +425,7 @@ void bajaAltaCliente(char nombreArchiClientes[], char nombreArchiCuentas[], char
 
                 printf("\n");
 
-                printf("1.BAJA\n2.ALTA\n");
+                printf("1.BAJA\n2.ALTA\n3.SALIR");
                 int opcion;
                 scanf("%d", &opcion);// Elegimos una opción que queremos modificar
                 getchar(); // Limpia el buffer de entrada
@@ -384,6 +441,10 @@ void bajaAltaCliente(char nombreArchiClientes[], char nombreArchiCuentas[], char
 
                     altaCuenta(nombreArchiCuentas,c);
                     c.eliminado = 0;
+                    break;
+
+                case 3:
+
                     break;
 
                 default:

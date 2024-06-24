@@ -17,9 +17,9 @@ int main()
 {
     srand(time(NULL));
 
-    muestraArchivoCliente(AR_CLIENTES);
-    muestraArchivoMovimimiento(AR_MOVIMIENTOS);
-    muestraUnArchivo(AR_CUENTAS);
+//    muestraArchivoCliente(AR_CLIENTES);
+//    muestraArchivoMovimimiento(AR_MOVIMIENTOS);
+//    muestraUnArchivo(AR_CUENTAS);
 
     char valid_password[3][10] = {"32619370", "96006057", "33266432"};
     checkPassword(valid_password);

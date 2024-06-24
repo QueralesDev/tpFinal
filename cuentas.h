@@ -35,6 +35,7 @@ void actualizaCuentaEnArchivo(char archCuentas[], stCuenta* cuenta);
 void operacionesMovimientos (char nombreArchivo[], stCuenta* cuenta);
 stCuenta buscaCuentaPorNumero(FILE* archi, int nroCuenta);
 stCuenta seleccionaCuentaDeCliente(char archCuentas[]);
+float obtenerSaldo(stCuenta* cuenta);
 
 
 

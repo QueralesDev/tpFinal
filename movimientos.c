@@ -33,7 +33,7 @@ stMovimiento cargaUnMovimiento(int idCuenta)
 
 void muestraUnMovimiento(stMovimiento m)
 {
-    printf ("<<<<<<<<<<<<MOVIMIENTO>>>>>>>>>>>>>>\n");
+    printf ("\n<<<<<<<<<<<<MOVIMIENTO>>>>>>>>>>>>>>\n");
 
     printf("Id................:%d\n",m.id);
     printf("CUENTA NRO..............:%d\n",m.idCuenta);
@@ -129,6 +129,26 @@ void cargaMovimientosAR(char nombreArchivo[], int idCuenta)
     }
 }
 
+void muestraMoviSeleccCuenta(char nombreArchivo[], stCuenta cuenta)
+{
+    stMovimiento movimiento;
+    FILE*archi = fopen(nombreArchivo,"rb");
+
+    if (archi)
+    {
+        while (fread(&movimiento,sizeof(stMovimiento),1,archi)>0)
+        {
+            if(movimiento.idCuenta == cuenta.id)
+            {
+
+                muestraUnMovimiento(movimiento);
+            }
+
+        }
+        fclose(archi);
+    }
+}
+
 void depositar(char* archMovimientos, stCuenta* cuenta)
 {
     float monto;
@@ -210,6 +230,7 @@ void menuOperacionesCuenta(char archCuentas[], char archMovimientos[])
 
     int monto;
     int opcion;
+    float saldo = 0;
     do
     {
         printf("\n================== MENU ==================\n");
@@ -238,7 +259,9 @@ void menuOperacionesCuenta(char archCuentas[], char archMovimientos[])
             break;
 
         case 3:
-            printf("EL SALDO DE LA CUENTA ES:");
+
+            saldo = obtenerSaldo(&cuenta);
+            printf("EL SALDO DE LA CUENTA ES:%.2f", saldo);
             break;
 
         case 4:
@@ -270,11 +293,9 @@ void menuOperacionesCuenta(char archCuentas[], char archMovimientos[])
     }
     while (opcion != 6);
 
-    //free(cuenta); // No olvides liberar la memoria cuando ya no la necesites
-
 }
 
-//int cargaMovimientos(stMovimiento a[], int v, int dim)
+//int cargaArregloMovimientos(stMovimiento a[], int v, int dim)
 //{
 //    char opcion = 0;
 //    while(v < dim && opcion != 27)
@@ -288,7 +309,7 @@ void menuOperacionesCuenta(char archCuentas[], char archMovimientos[])
 //    return v;
 //}
 
-void muestraMovimientos(stMovimiento a[], int v)
+void muestraArregloMovimientos(stMovimiento a[], int v)
 {
     for(int i=0; i<v; i++)
     {
@@ -323,10 +344,6 @@ void depositarPuntero(char nombreArchivoMov[], stCuenta* cuenta, int monto)
     {
         impactoMonto(AR_CUENTAS, monto,cuenta->id,1);
 
-
-        //cuenta->saldo += (float) monto;
-
-
         stMovimiento m;
         int id;
         id = ultimoIdMovimiento(nombreArchivoMov);
@@ -337,7 +354,6 @@ void depositarPuntero(char nombreArchivoMov[], stCuenta* cuenta, int monto)
             m = cargaUnMovimiento(cuenta->id);
             id++;
             m.id = id;
-            //movimiento->idCuenta = cuenta->id;
             m.importe = monto;
             snprintf(m.detalle, 100, "Deposito de %.2d", monto);
             fwrite(&m, sizeof(stMovimiento), 1, archi);
@@ -345,7 +361,7 @@ void depositarPuntero(char nombreArchivoMov[], stCuenta* cuenta, int monto)
             fclose(archi);
         }
 
-        printf("Deposito realizado correctamente.\n");
+        printf("DEPOSITO REALIZADO EXITOSAMENTE.\n");
     }
     else
     {
@@ -380,7 +396,6 @@ void retirarPuntero(char nombreArchivoMov[], stCuenta* cuenta, int monto)
 
             fclose(archi);
         }
-
         printf("RETIRO REALIZADO EXITOSAMENTE.\n");
     }
     else
@@ -436,7 +451,7 @@ void impactoMonto (char archivoCuentas [], int monto, int idCuenta, int positivo
             }
 
         }
-        fclose (archi);
+        fclose(archi);
     }
 }
 
@@ -512,7 +527,11 @@ void muestraListadoMovimiento(char nombreArchivo[])
     }
 }
 
+float obtenerSaldo(stCuenta* cuenta)
+{
 
+    return cuenta->saldo;
+}
 
 
 
