@@ -1,7 +1,8 @@
 #ifndef CUENTA_H_INCLUDED
 #define CUENTA_H_INCLUDED
 #include "clientes.h"
-
+#include "cuentas.h"
+#include "movimientos.h"
 
 typedef struct{
     int id; /// campo único y autoincremental
@@ -25,9 +26,17 @@ int buscaPosEnArchivo(char nombreArchivo[], int dato);
 int cuentaRegistros(char nombreArchivo[], int tamanioEstructura);
 void muestraUnArchivo(char nombreArchivo[]);
 void agregarCuentaACliente(char nombreArchivoCuentas[], int idCliente);
-void buscaCuentasDeCliente(char nombreArchivoCuentas[], stCliente cliente);
 stCuenta cargaUnaCuenta(int idDuenioCuenta);
+int buscaTipoCuentaEnArchivoFlag(FILE* archi, int idCliente, int dato);
 void bajaAltaCliente(char nombreArchiClientes[], char nombreArchiCuentas[], char dni[]);
+void depositar(char* archMovimientos, stCuenta* cuenta);
+void retirar(char* archMovimientos, stCuenta* cuenta, float monto);
+void actualizaCuentaEnArchivo(char archCuentas[], stCuenta* cuenta);
+void operacionesMovimientos (char nombreArchivo[], stCuenta* cuenta);
+stCuenta buscaCuentaPorNumero(FILE* archi, int nroCuenta);
+stCuenta seleccionaCuentaDeCliente(char archCuentas[]);
 
 
+
+//void buscaCuentaPorNumero(char nombreArchivoCuentas[], int numeroCuenta);
 #endif // CUENTA_H_INCLUDED

@@ -2,11 +2,15 @@
 #include <stdlib.h>
 #include <conio.h>
 #include <time.h>
+#include <string.h>
 #include "cuentas.h"
 #include "clientes.h"
+#include "movimientos.h"
 #include "mocks_Domicilios_Clientes.h"
 
+
 #define AR_CUENTAS "cuentas.bin"
+#define AR_MOVIMIENTOS "movimientos.bin"
 
 
 stCuenta cargaUnaCuenta(int idDuenioCuenta)
@@ -23,7 +27,7 @@ stCuenta cargaUnaCuenta(int idDuenioCuenta)
     do
     {
 
-        printf("\nINGRESE TIPO DE CUENTA (\n1. CAJA DE AHORRO EN PESOS\n 2. CAJA DE AHORRO EN DOLARES\n 3. CTA CTE EN PESOS): ");
+        printf("\nINGRESE TIPO DE CUENTA (\n1. CAJA DE AHORRO EN PESOS\n2. CAJA DE AHORRO EN DOLARES\n3. CTA CTE EN PESOS): ");
         scanf("%d", &dato);
         fflush(stdin);
 
@@ -35,7 +39,6 @@ stCuenta cargaUnaCuenta(int idDuenioCuenta)
         }
         else
         {
-
             system("cls");
             printf("TIPO DE CUENTA INVALIDO PORFAVOR INGRESE UN TIPO DE CUENTA VALIDO:");
 
@@ -62,6 +65,18 @@ void muestraUnaCuenta(stCuenta c)
     printf("\nCOSTO DE MANTENIMIENTO MENSUAL: %.2f", c.costoMensual);
     printf("\nSALDO EN CUENTA: %.2f", c.saldo);
     printf("\nESTADO DE LA CUENTA (0 SI ESTA ACTIVO - 1 SI ESTA ELIMINADO): %d",c.eliminado );
+    printf("\n==================================================================");
+}
+void muestraUnaCuentaPuntero(stCuenta *c)
+{
+    printf("\nID DE LA CUENTA: %d", c->id);
+    printf("\nID DEL CLIENTE: %d", c->idCliente);
+    printf("\nNUMERO DE CUENTA: %d", c->nroCuenta);
+    printf("\nTIPO DE CUENTA: ");
+    imprimeTipoDeCuenta(c->tipoDeCuenta);
+    printf("\nCOSTO DE MANTENIMIENTO MENSUAL: %.2f", c->costoMensual);
+    printf("\nSALDO EN CUENTA: %.2f", c->saldo);
+    printf("\nESTADO DE LA CUENTA (0 SI ESTA ACTIVO - 1 SI ESTA ELIMINADO): %d",c->eliminado );
     printf("\n==================================================================");
 }
 
@@ -98,12 +113,15 @@ void cargaCuentasEnArchivo(char nombreArchivo[], int idCliente)
             system("cls");
 
             c = cargaUnaCuenta(idCliente); // Aquí pasamos el idCliente
+
             existeNroCuenta = buscaCuentaEnArchivoFlag(archi, c.nroCuenta);
-            existeTipoCuenta = buscaTipoCuentaEnArchivoFlag(archi, c.tipoDeCuenta);
+            existeTipoCuenta = buscaTipoCuentaEnArchivoFlag(archi, idCliente, c.tipoDeCuenta);
+
+            printf("\n%d",existeNroCuenta);
 
             if(existeNroCuenta == 1 || existeTipoCuenta == 1)
             {
-                printf("ERROR - CUENTA EXISTENTE");
+                printf("ERROR - CUENTA REPETIDA");
 
             }
             else
@@ -162,25 +180,7 @@ int ultimoIdCuentas(char nombreArchivo[])
     return id;
 }
 
-int buscaCuentaEnArchivo(char nombreArchivo[], int dato)
-{
-    stCuenta c;
-    int flag = 0;
-    //rewind(archi);
-    FILE* archi = fopen(nombreArchivo, "rb");
-    if(archi)
-    {
-        while(flag == 0 && fread(&c, sizeof(stCuenta), 1, archi)>0)
-        {
-            if(c.nroCuenta == dato)
-            {
-                flag = 1;
-            }
-        }
-        fclose(archi);
-    }
-    return flag;
-}
+
 int buscaCuentaEnArchivoFlag(FILE* archi, int dato)
 {
     stCuenta c;
@@ -200,7 +200,7 @@ int buscaCuentaEnArchivoFlag(FILE* archi, int dato)
     return flag;
 }
 
-int buscaTipoCuentaEnArchivoFlag(FILE* archi, int dato)
+int buscaTipoCuentaEnArchivoFlag(FILE* archi, int idCliente, int dato)
 {
     stCuenta c;
     int flag = 0;
@@ -209,7 +209,7 @@ int buscaTipoCuentaEnArchivoFlag(FILE* archi, int dato)
     {
         while(flag == 0 && fread(&c, sizeof(stCuenta), 1, archi)>0)
         {
-            if(c.tipoDeCuenta == dato)
+            if(c.tipoDeCuenta == dato && c.idCliente == idCliente)
             {
                 flag = 1;
             }
@@ -218,25 +218,6 @@ int buscaTipoCuentaEnArchivoFlag(FILE* archi, int dato)
     }
     return flag;
 }
-/*int buscaCuentasUsuarioEnArchivo(char nombreArchivo[], stCuenta a[], int v, int dato)
-{
-    stCuenta c;
-    int flag = 0;
-    FILE* archi = fopen(nombreArchivo, "rb");
-    if(archi)
-    {
-        while(fread(&c, sizeof(stCuenta), 1, archi)>0)
-        {
-            if(c.idCliente == dato)
-            {
-                a[v]= c;
-                v++;
-            }
-        }
-        fclose(archi);
-    }
-    return v;
-}*/
 
 int buscaDatoEnArchivoInt(char nombreArchivo[], int dato)
 {
@@ -256,6 +237,27 @@ int buscaDatoEnArchivoInt(char nombreArchivo[], int dato)
     }
     return flag;
 }
+
+int buscaCuentaEnArchivo(char nombreArchivo[], int dato)
+{
+    stCuenta c;
+    int flag = 0;
+    //rewind(archi);
+    FILE* archi = fopen(nombreArchivo, "rb");
+    if(archi)
+    {
+        while(flag == 0 && fread(&c, sizeof(stCuenta), 1, archi)>0)
+        {
+            if(c.nroCuenta == dato)
+            {
+                flag = 1;
+            }
+        }
+        fclose(archi);
+    }
+    return flag;
+}
+
 int cuentaRegistros(char nombreArchivo[], int tamanioEstructura)
 {
 
@@ -273,38 +275,22 @@ int cuentaRegistros(char nombreArchivo[], int tamanioEstructura)
 
 void buscaCuentasDeCliente(char nombreArchivoCuentas[], stCliente cliente)
 {
-    FILE* archi = fopen(nombreArchivoCuentas, "r");//abre el archivo de cuentas en modo de lectura
+    FILE* archi = fopen(nombreArchivoCuentas, "rb");//abre el archivo de cuentas en modo de lectura
     stCuenta cuenta;
-    if(archi)
+
+    // Buscar las cuentas del cliente en el archivo de cuentas
+    while (fread(&cuenta, sizeof(stCuenta), 1, archi))
     {
-        // Buscar las cuentas del cliente en el archivo de cuentas
-        while (fread(&cuenta, sizeof(stCuenta), 1, archi)>0)
+        // Si el id del cliente de la cuenta actual coincide con el id del cliente dado
+        if (cuenta.idCliente == cliente.id)  //verifica si el idCliente de la cuenta coincide con el id del cliente. Si es así, significa que la cuenta pertenece al cliente
         {
-            // Si el id del cliente de la cuenta actual coincide con el id del cliente dado
-            if (cuenta.idCliente == cliente.id)  //verifica si el idCliente de la cuenta coincide con el id del cliente. Si es así, significa que la cuenta pertenece al cliente
-            {
-                printf("\nCUENTA ENCONTRADA: %d\n", cuenta.nroCuenta);
-                muestraUnaCuenta(cuenta);
-            }
+            //printf("\nCUENTA ENCONTRADA: %d\n", cuenta.nroCuenta);
+            muestraUnaCuenta(cuenta);
         }
-        fclose(archi);
     }
 
-}
-/*void agregarCuentaACliente(char nombreArchivoCuentas[], int idCliente) {
-    FILE* archi = fopen(nombreArchivoCuentas, "a"); // Abre el archivo en modo de agregar
-
-    // Carga los detalles de la nueva cuenta
-    stCuenta nuevaCuenta = cargaUnaCuenta(idCliente);
-
-    // Asigna el ID del cliente a la nueva cuenta
-    nuevaCuenta.idCliente = idCliente;
-
-    // Escribe la nueva cuenta en el archivo
-    fwrite(&nuevaCuenta, sizeof(stCuenta), 1, archi);
-
     fclose(archi);
-}*/
+}
 
 void bajaCuenta(char nombreArchivoCuentas[], stCliente cliente)
 {
@@ -380,8 +366,9 @@ void bajaAltaCliente(char nombreArchiClientes[], char nombreArchiCuentas[], char
                 muestraUnCliente(c);//Mostramos al cliente para comparar
                 //buscaCuentasDeCliente(AR_CUENTAS,unCliente);
 
+                printf("\n");
 
-                printf("1. BAJA\n2. ALTA\n");
+                printf("1.BAJA\n2.ALTA\n");
                 int opcion;
                 scanf("%d", &opcion);// Elegimos una opción que queremos modificar
                 getchar(); // Limpia el buffer de entrada
@@ -405,17 +392,93 @@ void bajaAltaCliente(char nombreArchiClientes[], char nombreArchiCuentas[], char
                 }
 
                 // Mueve el puntero del archivo a la posicion del cliente encontrado
-                    fseek(archi, -sizeof(stCliente), SEEK_CUR);
+                fseek(archi, -sizeof(stCliente), SEEK_CUR);
 
-                    // Escribe los nuevos datos del cliente en el archivo
-                    fwrite(&c, sizeof(stCliente), 1, archi);
+                // Escribe los nuevos datos del cliente en el archivo
+                fwrite(&c, sizeof(stCliente), 1, archi);
 
-                    printf("DATOS DEL CLIENTE DESPUES DE LA MODIFICACION: \n");
-                    muestraUnCliente(c);
-                    buscaCuentasDeCliente(AR_CUENTAS,c);
+                printf("DATOS DEL CLIENTE DESPUES DE LA MODIFICACION: \n");
+                muestraUnCliente(c);
+                buscaCuentasDeCliente(AR_CUENTAS,c);
             }
 
         }
         fclose(archi);
     }
 }
+////////////////////////////////////////////////////////////////////////////
+
+
+
+//void buscaCuentaPorNumero(char nombreArchivoCuentas[], int numeroCuenta)
+//{
+//    FILE* archi = fopen(nombreArchivoCuentas, "rb");
+//    stCuenta cuenta;
+//    int cuentaEncontrada = 0; // Bandera para indicar si se encontró la cuenta
+//
+//    if (archi)
+//    {
+//        while (fread(&cuenta, sizeof(stCuenta), 1, archi))
+//        {
+//            if (cuenta.nroCuenta == numeroCuenta)
+//            {
+//                muestraUnaCuenta(cuenta);
+//                cuentaEncontrada = 1;
+//            }
+//        }
+//
+//        fclose(archi);
+//
+//        if (!cuentaEncontrada)
+//        {
+//            printf("Cuenta no encontrada.\n");
+//        }
+//    }
+//    else
+//    {
+//        printf("Error al abrir el archivo.\n");
+//    }
+//}
+
+stCuenta buscaCuentaPorNumero(FILE* archi, int nroCuenta)
+{
+    stCuenta c;
+    int flag = 0;
+    //rewind(archi);
+
+    if (archi)
+    {
+        while (flag == 0 && fread(&c, sizeof(stCuenta), 1, archi) > 0)
+        {
+            if (c.nroCuenta == nroCuenta)
+            {
+                flag = 1;
+            }
+        }
+    }
+    return c;
+}
+
+stCuenta seleccionaCuentaDeCliente(char archCuentas[])
+{
+    FILE* archi = fopen(archCuentas, "rb");
+    stCuenta cuentaSeleccionada;
+    int nroCuentaSeleccionada;
+
+    if (archi)
+    {
+
+        printf("\nINGRESE EL NUMERO DE LA CUENTA QUE QUIERES SELECCIONAR:");
+        scanf("%d", &nroCuentaSeleccionada);
+        getchar();
+
+        // Llamamos a la función buscaCuentaPorNumero para obtener la cuenta seleccionada
+        cuentaSeleccionada = buscaCuentaPorNumero(archi, nroCuentaSeleccionada);
+
+        fclose(archi);
+    }
+
+    return cuentaSeleccionada;
+}
+
+

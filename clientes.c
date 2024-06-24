@@ -5,11 +5,12 @@
 #include "clientes.h"
 #include "domicilios.h"
 #include "cuentas.h"
+#include "movimientos.h"
 #include "mocks_Domicilios_Clientes.h"
 
 #define AR_CLIENTES "clientes.bin"
 #define AR_CUENTAS "cuentas.bin"
-
+#define AR_MOVIMIENTOS "movimientos.bin"
 
 
 stCliente cargaUnCliente ()
@@ -46,11 +47,12 @@ stCliente cargaUnCliente ()
 
     c.domicilio = cargaUnDomicilio();
 
-    printf("INGRESE ESTADO DEL CLIENTE (0 SI ESTÁ ACTIVO - 1 SI ESTA ELIMINADO).......:");
-    scanf("%d", &c.eliminado);
-    getchar();
+    c.eliminado = 0;
+
+
     return c;
 }
+
 void muestraUnCliente (stCliente c)
 {
     printf ("\n=====================================================");
@@ -68,7 +70,7 @@ void muestraUnCliente (stCliente c)
     printf ("\n=====================================================\n");
 }
 
-int ultimoId(char nombreArchivo[])// estdiuarla
+int ultimoId(char nombreArchivo[])
 {
     int id = 0;
     stCliente c;
@@ -108,8 +110,9 @@ int buscaDatoEnArchivoStr(char nombreArchivo[], char dato[])
         fclose(archi);
     }
 
-    return flag;  // Retorna 1 si se encontro el cliente, 0 en caso contrario
+    return flag;
 }
+
 void cargaUnArchivoUsuario(char nombreArchivo[])
 {
     stCliente c;
@@ -124,7 +127,8 @@ void cargaUnArchivoUsuario(char nombreArchivo[])
             system("cls");
             c = cargaUnCliente();
             int clienteEncontrado = buscaDatoEnArchivoStr(nombreArchivo, c.dni);
-            if(clienteEncontrado == 1) // Si se encontro el cliente
+            int nroCuentaEncontrado = buscaNroClienteEnArchivoFlag(archi,c.nroCliente);
+            if(clienteEncontrado == 1 || nroCuentaEncontrado == 1) // Si se encontro el cliente
             {
                 printf("ERROR - CLIENTE YA REGISTRADO");
             }
@@ -134,6 +138,7 @@ void cargaUnArchivoUsuario(char nombreArchivo[])
                 c.id = id;
                 fwrite(&c, sizeof(stCliente), 1, archi);
             }
+
             printf("\nESC PARA SALIR CUALQUIER OTRA TECLA PARA CONTINUAR CARGANDO......");
 
             opcion = getch();
@@ -144,22 +149,33 @@ void cargaUnArchivoUsuario(char nombreArchivo[])
     }
 }
 
-void cargaArchClienteRandom(char nombreArchivo[], int cant)
+void cargaArchClienteRandom(char nombreArchCliente[], int cant)
 {
-    FILE* archi = fopen(nombreArchivo, "ab");
-    stCliente cliente;
-
-    int i = 0;
-    if(archi !=NULL)
+    FILE* archi = fopen(nombreArchCliente, "a+b");
+    stCliente c;
+    int static id;
+    id = ultimoId(AR_CLIENTES);
+    if(archi)
     {
-        while(i<cant)
+        for (int i = 0; i < cant; i++)
         {
-            cliente = getClienteRandom();
-            fwrite(&cliente, sizeof(stCliente), 1, archi);
-            i++;
+            c = getClienteRandom();
+            int clienteEncontrado = buscaDatoEnArchivoStr(nombreArchCliente, c.dni);
+            int nroCuentaEncontrado = buscaNroClienteEnArchivoFlag(archi,c.nroCliente);
+            if(clienteEncontrado == 1 || nroCuentaEncontrado == 1) // Si se encontro el cliente
+            {
+                printf("ERROR - CLIENTE YA REGISTRADO");
+            }
+            else
+            {
+                id++;
+                c.id = id;
+                fwrite(&c, sizeof(stCliente), 1, archi);
+            }
         }
-        fclose(archi);
+
     }
+    fclose(archi);
 }
 
 void muestraArchivoCliente(char nombreArchivo[])
@@ -174,6 +190,25 @@ void muestraArchivoCliente(char nombreArchivo[])
         }
         fclose(archi);
     }
+}
+
+int buscaNroClienteEnArchivoFlag(FILE* archi, int dato)
+{
+    stCliente c;
+    int flag = 0;
+    rewind(archi);
+    if(archi)
+    {
+        while(flag == 0 && fread(&c, sizeof(stCliente), 1, archi)>0)
+        {
+            if(c.nroCliente == dato)
+            {
+                flag = 1;
+            }
+        }
+        //fclose(archi);
+    }
+    return flag;
 }
 
 stCliente* buscaClientePorDNIPuntero(char nombreArchivo[], char dni[])
@@ -197,8 +232,7 @@ stCliente* buscaClientePorDNIPuntero(char nombreArchivo[], char dni[])
     return p;  // Retorna un puntero al cliente encontrado o NULL si no se encontro
 }
 
-
-void buscaClientes(char archClientes[], char archCuentas[])
+void buscaClientes(char archClientes[], char archCuentas[], char archMovimientos[])
 {
     int opcion;
     char dni[10];
@@ -219,8 +253,11 @@ void buscaClientes(char archClientes[], char archCuentas[])
             printf("1. MODIFICAR DATOS DEL CLIENTE\n");
             printf("2. AGREGAR UNA CUENTA AL CLIENTE\n");
             printf("3. BUSCAR CUENTAS DEL CLIENTE\n");
-            printf("4. BAJA O ALTA CLIENTE\n");
-            printf("5. SALIR\n");
+            printf("4. OPERACIONES DE CUENTAS\n");
+            printf("5. BAJA O ALTA CLIENTE\n");
+            printf("6. BAJA O ALTA CUENTAS\n");
+            printf("7. BAJA O ALTA MOVIMIENTOS\n");
+            printf("8. SALIR\n");
             printf("============================================\n");
             printf("ELIGE UNA OPCION:");
             scanf("%d", &opcion);
@@ -236,15 +273,59 @@ void buscaClientes(char archClientes[], char archCuentas[])
                 cargaCuentasEnArchivo(AR_CUENTAS, p->id);
                 break;
             case 3:
-                buscaCuentasDeCliente(AR_CUENTAS, *p);
+
+                buscaCuentasDeCliente(archCuentas, *p);
+
                 break;
 
             case 4:
-                bajaAltaCliente(AR_CLIENTES,AR_CUENTAS, dni);
+
+                buscaCuentasDeCliente(archCuentas, *p);
+                menuOperacionesCuenta(AR_CUENTAS, AR_MOVIMIENTOS);
+
                 break;
 
             case 5:
+
+                bajaAltaCliente(AR_CLIENTES,AR_CUENTAS, dni);
+
+                break;
+
+            case 6:
+
+                printf("1.BAJA\n2.ALTA\n");
+                int opcion;
+                scanf("%d", &opcion);// Elegimos una opción que queremos modificar
+                getchar(); // Limpia el buffer de entrada
+
+                switch(opcion)
+                {
+                case 1:
+
+                    bajaCuenta(archCuentas,*p);
+
+
+                    break;
+                case 2:
+
+                    altaCuenta(archCuentas,*p);
+
+                    break;
+
+                default:
+                    printf("OPCION NO VALIDA.\n");
+                    break;
+                }
+
+                break;
+
+            case 7:
+
+                break;
+            case 8:
+
                 printf("SALIENDO DEL PROGRAMA...\n");
+
                 break;
 
             default:
@@ -252,7 +333,7 @@ void buscaClientes(char archClientes[], char archCuentas[])
                 break;
             }
         }
-        while(opcion != 5);//repite el menu hasta que el usuario quiera salir
+        while(opcion != 8);//repite el menu hasta que el usuario quiera salir
 
         free(p); // No olvidarse de liberar la memoria cuando ya no la necesite
     }
@@ -291,7 +372,7 @@ stCliente modificaCampoClientePorDNI(char nombreArchivo[], char dni[])
                 case 1:
                     printf("INGRESA EL NUEVO NOMBRE: ");
                     fgets(c.nombre, sizeof(c.nombre), stdin);
-                    c.nombre[strcspn(c.nombre, "\n")] = 0; // Elimina el salto de lÃ­nea
+                    c.nombre[strcspn(c.nombre, "\n")] = 0; // Elimina el salto de linea
                     break;
                 case 2:
                     printf("INGRESA EL NUEVO APELLIDO: ");
@@ -303,14 +384,11 @@ stCliente modificaCampoClientePorDNI(char nombreArchivo[], char dni[])
                 case 3:
                     printf("INGRESA EL NUEVO EMAIL: ");
                     fgets(c.email, sizeof(c.email), stdin);
-
                     c.email[strcspn(c.email, "\n")] = 0;
-
                     break;
                 case 4:
                     printf("INGRESA EL NUEVO TELEFONO: ");
                     fgets(c.telefono, sizeof(c.telefono), stdin);
-
                     c.telefono[strcspn(c.telefono, "\n")] = 0;
                 case 5:
                     printf("INGRESA UNA NUEVA CALLE: ");
@@ -357,41 +435,6 @@ stCliente modificaCampoClientePorDNI(char nombreArchivo[], char dni[])
 
     return c;
 }
-void muestraClienteYCuentas(char nombreArchivoClientes[], char nombreArchivoCuentas[], int idCliente)
-{
-    stCliente cliente;
-    stCuenta cuenta;
-    FILE* archiClientes = fopen(nombreArchivoClientes, "rb");
-    FILE* archiCuentas = fopen(nombreArchivoCuentas, "rb");
-
-    if(archiClientes && archiCuentas)
-    {
-        // Buscar al cliente en el archivo de clientes
-        while(fread(&cliente, sizeof(stCliente), 1, archiClientes)>0)
-        {
-            if(cliente.id == idCliente) // Si se encontró el cliente
-            {
-                muestraUnCliente(cliente); // Muestra los datos del cliente
-
-                // Buscar las cuentas del cliente en el archivo de cuentas
-                while(fread(&cuenta, sizeof(stCuenta), 1, archiCuentas)>0)
-                {
-                    if(cuenta.idCliente == idCliente) // Si la cuenta pertenece al cliente
-                    {
-                        muestraUnaCuenta(cuenta); // Muestra los datos de la cuenta
-                    }
-                }
-                break;
-            }
-        }
-        fclose(archiClientes);
-        fclose(archiCuentas);
-    }
-    else
-    {
-        printf("Error al abrir los archivos.\n");
-    }
-}
 
 void checkPassword(char valid_password[3][10])
 {
@@ -432,44 +475,135 @@ void checkPassword(char valid_password[3][10])
         printf("YOU HAVE REACHED THE LIMIT OF ATTEMPTS. PLEASE, TRY AGAIN LATER.\n");
     }
 }
-void cargarNuevoCliente()
+
+void cargarClienteYCuenta(char nombreArchivoClientes[], char nombreArchivoCuentas[])
 {
     char opcion;
-    printf("\nCliente no encontrado. ¿Deseas cargar un nuevo cliente? (s/n): \n");
+    stCliente cliente;
+
+    // Llama a la función para cargar un nuevo cliente en el archivo
+    cargaUnArchivoUsuario(nombreArchivoClientes);
+
+    // Obtiene el último cliente del archivo
+    cliente = obtenerUltimoCliente(nombreArchivoClientes);
+
+    printf("\nDESEA CARGAR UNA CUENTA? (S/N): ");
     scanf(" %c", &opcion);
-    if (opcion == 's' || opcion == 'S')
+
+    if(opcion == 's' || opcion == 'S')
     {
-        cargaUnArchivoUsuario(AR_CLIENTES);
+        // Llama a la función para cargar una nueva cuenta para el cliente en el archivo
+        cargaCuentasEnArchivo(nombreArchivoCuentas, cliente.id);
     }
-    else if (opcion == 'n' || opcion == 'N')
+    else if(opcion == 'n' || opcion == 'N')
     {
-        printf("Saliendo del programa...\n");
+        printf("SALIENDO DEL PROGRAMA..\n");
     }
     else
     {
-        printf("Opcion no valida.\n");
+        printf("OPCION NO VALIDA\n");
     }
-    menu();//preguntar si se puede poner ahi
 }
 
-int arch2arregloClienteAct (char archClientes[], stCliente a[], int dim)
+void cargarClienteYCuentaYMovimientos(char nombreArchivoClientes[], char nombreArchivoCuentas[], char* nombreArchivoMovimientos)
 {
-    int v = 0;
-    stCliente b;
-    FILE *archi=fopen(archClientes, "rb");
+    char opcion;
+    stCliente cliente;
+    stCuenta cuenta;
+
+    // Llama a la función para cargar un nuevo cliente en el archivo
+    cargaUnArchivoUsuario(nombreArchivoClientes);
+
+    // Obtiene el último cliente del archivo
+    cliente = obtenerUltimoCliente(nombreArchivoClientes);
+
+    printf("\n¿DESEA CARGAR UNA CUENTA? (S/N): ");
+    scanf(" %c", &opcion);
+
+    if (opcion == 's' || opcion == 'S')
+    {
+        // Llama a la función para cargar una nueva cuenta para el cliente en el archivo
+        cargaCuentasEnArchivo(nombreArchivoCuentas, cliente.id);
+    }
+    else if (opcion == 'n' || opcion == 'N')
+    {
+        printf("SALIENDO DEL PROGRAMA...\n");
+    }
+    else
+    {
+        printf("OPCIÓN NO VÁLIDA\n");
+    }
+
+    printf("\n¿DESEA HACER UN MOVIMIENTO EN LA CUENTA? (S/N): ");
+    scanf(" %c", &opcion);
+
+    if (opcion == 's' || opcion == 'S')
+    {
+        // Llama a la función para cargar un nuevo movimiento para la cuenta en el archivo
+        cargaMovimientosAR(nombreArchivoMovimientos, cuenta.id);
+    }
+    else if (opcion == 'n' || opcion == 'N')
+    {
+        printf("SALIENDO DEL PROGRAMA...\n");
+    }
+    else
+    {
+        printf("OPCIÓN NO VÁLIDA\n");
+    }
+}
+
+stCliente obtenerUltimoCliente(char nombreArchivo[])
+{
+    stCliente cliente;
+    FILE* archi = fopen(nombreArchivo, "rb");
     if(archi)
     {
-        while (v<dim && fread(&b, sizeof(stCliente), 1, archi)>0)
-        {
-            if(b.eliminado==0)
-            {
-                a[v] = b;
-                v++;
-            }
-        }
+        fseek(archi, -sizeof(stCliente), SEEK_END);
+        fread(&cliente, sizeof(stCliente), 1, archi);
         fclose(archi);
     }
-    return v;
+    return cliente;
+}
+
+stCuenta obtenerUltimaCuenta(char nombreArchivo[])
+{
+    stCuenta cuentas;
+    FILE* archi = fopen(nombreArchivo, "rb");
+    if(archi)
+    {
+        fseek(archi, -sizeof(stCuenta), SEEK_END);
+        fread(&cuentas, sizeof(stCuenta), 1, archi);
+        fclose(archi);
+    }
+    return cuentas;
+}
+
+void archivo2arreglosActyElim(char nombreArchivo[],stCliente activo[], stCliente inactivo[],int *vActivos,int *vInactivos,int dim)
+{
+    FILE*archi=fopen(nombreArchivo,"rb");
+    stCliente c;
+    int vali = 0;
+    int vala = 0;
+    if (archi)
+    {
+        while (vali<dim && vala<dim &&(fread(&c,sizeof(stCliente),1,archi)>0))
+        {
+            if (c.eliminado == 1)
+            {
+                inactivo[vali]= c;
+                vali++;
+            }
+            else
+            {
+                activo[vala]=c;
+                vala++;
+            }
+        }
+    fclose (archi);
+    }
+
+    *vInactivos = vali;
+    *vActivos = vala;
 }
 
 void muestraClientes(stCliente c[], int v)
@@ -479,4 +613,3 @@ void muestraClientes(stCliente c[], int v)
         muestraUnCliente(c[i]);
     }
 }
-

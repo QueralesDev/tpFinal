@@ -1,14 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "domicilios.h"
 #include "clientes.h"
+#include "domicilios.h"
 #include "cuentas.h"
 
 
 //struct CLIENTES RANDOM
 
-int getNroCliente(){
+int getNroCliente()
+{
     return (rand()%1000)+1;
 }
 
@@ -41,10 +42,8 @@ char* getNombres()
                          "Cornelio", "Coronel","Remilgo","Aragorn", "Bardo el arquero", "Beorn", "Beren", "Boromir", "Arwen", "Legolas", "Galadriel", "Frodo", "Pippin", "Merry", "Sam", "Gimli", "Gandalf", "Bárbol",
                          "Ross", "Rachel", "Chandler", "Monica", "Joey", "Phoebe"
                         };
-    //strcpy(nombre,nombres[rand()%(sizeof(nombres)/30)]);
-    //sprintf(nombre, "%s %s", nombres[rand()%(sizeof(nombre)/30)], nombres[rand()%(sizeof(nombres)/30)]);///
-    sprintf(nombre, "%s %s", nombres[rand()%(sizeof(nombres)/sizeof(nombres[0]))], nombres[rand()%(sizeof(nombres)/sizeof(nombres[0]))]);
 
+    sprintf(nombre, "%s %s", nombres[rand()%(sizeof(nombres)/sizeof(nombres[0]))], nombres[rand()%(sizeof(nombres)/sizeof(nombres[0]))]);
     return nombre;
 }
 
@@ -88,7 +87,8 @@ char* getDnis()
     return dni;
 }
 
-char* getEmail() {
+char* getEmail()
+{
 
     char* email = (char*) malloc(sizeof(char)*30);
     char dominios[][30] = {"gmail.com", "yahoo.com", "live.com", "hotmail.com", "outlook.com"};
@@ -109,24 +109,6 @@ char* getTelefono()
     return telefono;
 }
 
-stCliente getClienteRandom()
-{
-    stCliente c;
-
-    c.nroCliente= getNroCliente();
-
-    strcpy(c.nombre,getNombres());
-
-    strcpy(c.apellido,getApellido());
-
-    strcpy(c.dni,getDnis());
-
-    strcpy(c.email,getEmail());
-
-    strcpy (c.telefono, getTelefono());
-
-    return c;
-}
 
 ///struct DOMICILIOS RANDOM
 
@@ -149,7 +131,8 @@ char* getCalles()
                         "Cesar Gascon", "Chacabuco", "Chaco", "Chara", "Charlone", "Chile", "Chubut", "Ciancheta", "Ciudad de Asuncion", "Ciudad de Bragado", "Ciudad de Dolores", "Ciudad de Rosario", "Cohelo de Meyrelles", "Coliqueo", "Colombia",
                         "Comandante Luis Piedrabuena", "Espora", "Comdoro", "Comodoro", "Pedro Luis", "Foral de Navarra", "Concepcion Arenal", "Constitucion", "Conte Biancamano", "Conte Grand",
                         "Copacabana", "Corbeta", "Cordoba", "Cornelio Saavedra", "Leonardo Rosales", "Bautista Azopardo", "Pringles", "Luis Cabassa", "Martinez de Hoz"
-                         };
+                       };
+
     strcpy(calle,calles[rand()%(sizeof(calles)/30)]);
     return calle;
 }
@@ -171,7 +154,8 @@ char* getLocalidades()
                               "José C. Paz", "Junín", "La Costa", "La Matanza", "Lanús", "La Plata", "Laprida", "Las Flores", "Leandro N. Alem", "Lezama", "Lomas de Zamora", "Luján", "Magdalena", "Maipú", "Malvinas Argentinas", "Mar Chiquita", "Marcos Paz", "Mercedes", "Merlo", "Monte",
                               "Monte Hermoso", "Moreno", "Moron", "Navarro", "Necochea", "Nueve de Julio", "Olavarría", "Patagones", "Pehuajó", "Pellegrini", "Pergamino", "Pila", "Pilar", "Pinamar", "Presidente Perón", "Puán", "Punta Indio", "Quilmes", "Ramallo", "Rauch", "Rivadavia",
                               "Rojas", "Roque Pérez", "Saavedra", "Saladillo", "Salliqueló", "Salto", "San Andrés de Giles", "San Antonio de Areco", "San Cayetano", "San Fernando", "San Isidro", "San Miguel", "San Nicolás", "San Pedro", "San Vicente", "Suipacha", "Tandil", "Tapalqué",
-                              "Tigre", "Tordillo", "Tornquist", "Trenque Lauquen", "Tres Arroyos", "Tres de Febrero", "Tres Lomas", "Veinticinco de Mayo", "Vicente López", "Villa Gesell", "Villarino", "Zárate"};
+                              "Tigre", "Tordillo", "Tornquist", "Trenque Lauquen", "Tres Arroyos", "Tres de Febrero", "Tres Lomas", "Veinticinco de Mayo", "Vicente López", "Villa Gesell", "Villarino", "Zárate"
+                             };
     strcpy(localidad,localidades[rand()%(sizeof(localidades)/50)]);
     return localidad;
 }
@@ -179,7 +163,8 @@ char* getProvincias()
 {
     char* provincia = (char*) malloc(sizeof(char)*40);
     char provincias[][40]= {"Buenos Aires", "Catamarca", "Chaco", "Chubut", "Córdoba", "Corrientes", "Entre Ríos", "Formosa", "Jujuy", "La Pampa", "La Rioja", "Mendoza", "Misiones", "Neuquén", "Río Negro", "Salta",
-                            "San Juan", "San Luis", "Santa Cruz", "Santa Fe", "Santiago del Estero", "Tierra del Fuego, Antártida", "Tucumán"};
+                            "San Juan", "San Luis", "Santa Cruz", "Santa Fe", "Santiago del Estero", "Tierra del Fuego, Antártida", "Tucumán"
+                           };
     strcpy(provincia,provincias[rand()%(sizeof(provincias)/40)]);
     return provincia;
 }
@@ -213,28 +198,57 @@ stDomicilio getDomicilioRandom()
     return d;
 }
 
+stCliente getClienteRandom()
+{
+    stCliente c;
 
-int getNumeroDeCuenta(){
+    c.nroCliente= getNroCliente();
+
+    getNombres(c.nombre);
+    strcpy(c.nombre,getNombres());
+
+    getApellido(c.apellido);
+    strcpy(c.apellido,getApellido());
+
+    getDnis(c.dni);
+    strcpy(c.dni,getDnis());
+
+    getEmail(c.email);
+    strcpy(c.email, getEmail());
+    getTelefono(c.telefono);
+    strcpy (c.telefono, getTelefono());
+
+    c.domicilio = getDomicilioRandom();
+
+    c.eliminado = 0;
+
+    return c;
+}
+
+int getNumeroDeCuenta()
+{
     int nro;
 
-    nro = rand()%20 + 1;
+    nro = rand()%3 + 1;
 
     return nro;
 }
 
-int getTipoDeCuenta(){
+int getTipoDeCuenta()
+{
 
     int num = rand()%3 +1;
 
     return num;
 }
 
-stCuenta getCuentasRandom (){
+stCuenta getCuentasRandom ()
+{
 
-stCuenta cuenta;
+    stCuenta cuenta;
 
-cuenta.nroCuenta= getNumeroDeCuenta();
-cuenta.tipoDeCuenta = getTipoDeCuenta();
+    cuenta.nroCuenta= getNumeroDeCuenta();
+    cuenta.tipoDeCuenta = getTipoDeCuenta();
 
-return cuenta;
+    return cuenta;
 }

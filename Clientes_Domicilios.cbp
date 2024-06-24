@@ -54,6 +54,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="mocks_Domicilios_Clientes.h" />
+		<Unit filename="movimientos.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="movimientos.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

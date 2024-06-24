@@ -172,24 +172,24 @@
 	<conio.h>
 	"mocks_Domicilios_Clientes.h"
 
-1718987085 source:c:\users\lquerales\desktop\tpfinal\clientes.c
+1718146090 source:c:\users\lquerales\desktop\tpfinal\clientes.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
-	<conio.h>
 	"clientes.h"
 	"domicilios.h"
-	"cuentas.h"
 	"mocks_Domicilios_Clientes.h"
+	<conio.h>
+	"cuentas.h"
 
-1718907367 c:\users\lquerales\desktop\tpfinal\clientes.h
+1718146090 c:\users\lquerales\desktop\tpfinal\clientes.h
 	"domicilios.h"
 
 1718146090 c:\users\lquerales\desktop\tpfinal\domicilios.h
 
 1718146090 c:\users\lquerales\desktop\tpfinal\mocks_domicilios_clientes.h
 
-1718903460 c:\users\lquerales\desktop\tpfinal\cuentas.h
+1718149445 c:\users\lquerales\desktop\tpfinal\cuentas.h
 	"clientes.h"
 
 1718146090 source:c:\users\lquerales\desktop\tpfinal\domicilio.c
@@ -201,7 +201,7 @@
 	"domicilios.h"
 	"mocks_Domicilios_Clientes.h"
 
-1718896245 source:c:\users\lquerales\desktop\tpfinal\main.c
+1718146090 source:c:\users\lquerales\desktop\tpfinal\main.c
 	<stdio.h>
 	<stdlib.h>
 	"clientes.h"
@@ -214,15 +214,14 @@
 	"cuentas.h"
 	"clientes.h"
 
-1718987085 source:c:\users\lquerales\desktop\tpfinal\menu.c
+1718146090 source:c:\users\lquerales\desktop\tpfinal\menu.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
-	<time.h>
-	<conio.h>
 	"clientes.h"
 	"domicilios.h"
 	"mocks_Domicilios_Clientes.h"
+	<conio.h>
 	"cuentas.h"
 
 1718146090 source:c:\users\lquerales\desktop\tpfinal\mocks_domicilios_clientes.c
@@ -233,11 +232,297 @@
 	"clientes.h"
 	"cuentas.h"
 
-1718984141 source:c:\users\lquerales\desktop\tpfinal\cuentas.c
+1718197816 source:c:\users\lquerales\desktop\tpfinal\cuentas.c
 	<stdio.h>
 	<stdlib.h>
 	"cuentas.h"
 	"clientes.h"
 	<conio.h>
 	"mocks_Domicilios_Clientes.h"
+
+1719007408 source:c:\users\seba\desktop\nueva carpeta (2)\tpfinal-clientes\cuentas.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	<time.h>
+	<string.h>
+	"cuentas.h"
+	"clientes.h"
+	"mocks_Domicilios_Clientes.h"
+
+1719010790 c:\users\seba\desktop\nueva carpeta (2)\tpfinal-clientes\cuentas.h
+	"clientes.h"
+	"movimientos.h"
+
+1719010752 c:\users\seba\desktop\nueva carpeta (2)\tpfinal-clientes\clientes.h
+	"domicilios.h"
+	"movimientos.h"
+
+1719010966 c:\users\seba\desktop\nueva carpeta (2)\tpfinal-clientes\domicilios.h
+
+1718997352 c:\users\seba\desktop\nueva carpeta (2)\tpfinal-clientes\mocks_domicilios_clientes.h
+
+1719006280 source:c:\users\seba\desktop\nueva carpeta (2)\tpfinal-clientes\domicilio.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<conio.h>
+	"clientes.h"
+	"domicilios.h"
+	"mocks_Domicilios_Clientes.h"
+
+1719004077 source:c:\users\seba\desktop\nueva carpeta (2)\tpfinal-clientes\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"clientes.h"
+	"domicilios.h"
+	"cuentas.h"
+	"movimientos.h"
+	"menu.h"
+
+1719010966 c:\users\seba\desktop\nueva carpeta (2)\tpfinal-clientes\menu.h
+	"clientes.h"
+	"cuentas.h"
+	"movimientos.h"
+
+1718999601 source:c:\users\seba\desktop\nueva carpeta (2)\tpfinal-clientes\mocks_domicilios_clientes.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"clientes.h"
+	"domicilios.h"
+	"cuentas.h"
+
+1719006280 source:c:\users\seba\desktop\nueva carpeta (2)\tpfinal-clientes\clientes.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<conio.h>
+	"clientes.h"
+	"domicilios.h"
+	"cuentas.h"
+	"movimientos.h"
+	"mocks_Domicilios_Clientes.h"
+
+1719004077 source:c:\users\seba\desktop\nueva carpeta (2)\tpfinal-clientes\menu.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<conio.h>
+	<time.h>
+	"clientes.h"
+	"domicilios.h"
+	"cuentas.h"
+	"movimientos.h"
+	"mocks_Domicilios_Clientes.h"
+
+1719010966 c:\users\seba\desktop\nueva carpeta (2)\tpfinal-clientes\movimientos.h
+	"clientes.h"
+	"cuentas.h"
+
+1719006280 source:c:\users\seba\desktop\nueva carpeta (2)\tpfinal-clientes\movimientos.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"clientes.h"
+	"domicilios.h"
+	"mocks_Domicilios_Clientes.h"
+	<conio.h>
+	"cuentas.h"
+	"movimientos.h"
+	"clientes.h"
+	"domicilios.h"
+
+1719107869 source:c:\users\seba\desktop\salio mal\tpfinal-clientes\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"clientes.h"
+	"domicilios.h"
+	"cuentas.h"
+	"movimientos.h"
+	"menu.h"
+
+1719110639 c:\users\seba\desktop\salio mal\tpfinal-clientes\clientes.h
+	"domicilios.h"
+	"cuentas.h"
+	"movimientos.h"
+
+1719010966 c:\users\seba\desktop\salio mal\tpfinal-clientes\domicilios.h
+
+1719110382 c:\users\seba\desktop\salio mal\tpfinal-clientes\movimientos.h
+	"clientes.h"
+	"cuentas.h"
+
+1719110394 c:\users\seba\desktop\salio mal\tpfinal-clientes\cuentas.h
+	"clientes.h"
+	"cuentas.h"
+	"movimientos.h"
+
+1719010966 c:\users\seba\desktop\salio mal\tpfinal-clientes\menu.h
+	"clientes.h"
+	"cuentas.h"
+	"movimientos.h"
+
+1718999601 source:c:\users\seba\desktop\salio mal\tpfinal-clientes\mocks_domicilios_clientes.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"clientes.h"
+	"domicilios.h"
+	"cuentas.h"
+
+1719107660 source:c:\users\seba\desktop\salio mal\tpfinal-clientes\cuentas.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	<time.h>
+	<string.h>
+	"cuentas.h"
+	"clientes.h"
+	"movimientos.h"
+	"mocks_Domicilios_Clientes.h"
+
+1718997352 c:\users\seba\desktop\salio mal\tpfinal-clientes\mocks_domicilios_clientes.h
+
+1719108820 source:c:\users\seba\desktop\salio mal\tpfinal-clientes\domicilio.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<conio.h>
+	"clientes.h"
+	"domicilios.h"
+	"mocks_Domicilios_Clientes.h"
+
+1719112508 source:c:\users\seba\desktop\salio mal\tpfinal-clientes\clientes.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<conio.h>
+	"clientes.h"
+	"domicilios.h"
+	"cuentas.h"
+	"movimientos.h"
+	"mocks_Domicilios_Clientes.h"
+
+1719109785 source:c:\users\seba\desktop\salio mal\tpfinal-clientes\menu.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<conio.h>
+	<time.h>
+	"clientes.h"
+	"domicilios.h"
+	"cuentas.h"
+	"movimientos.h"
+	"mocks_Domicilios_Clientes.h"
+
+1719112508 source:c:\users\seba\desktop\salio mal\tpfinal-clientes\movimientos.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"clientes.h"
+	"domicilios.h"
+	"mocks_Domicilios_Clientes.h"
+	<conio.h>
+	"cuentas.h"
+	"clientes.h"
+	"movimientos.h"
+
+1719200821 source:c:\users\lquerales\desktop\el que me paso sebas\salio mal\tpfinal-clientes\clientes.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<conio.h>
+	"clientes.h"
+	"domicilios.h"
+	"cuentas.h"
+	"movimientos.h"
+	"mocks_Domicilios_Clientes.h"
+
+1719110639 c:\users\lquerales\desktop\el que me paso sebas\salio mal\tpfinal-clientes\clientes.h
+	"domicilios.h"
+	"cuentas.h"
+	"movimientos.h"
+
+1719010966 c:\users\lquerales\desktop\el que me paso sebas\salio mal\tpfinal-clientes\domicilios.h
+
+1719196315 c:\users\lquerales\desktop\el que me paso sebas\salio mal\tpfinal-clientes\cuentas.h
+	"clientes.h"
+	"cuentas.h"
+	"movimientos.h"
+
+1719110382 c:\users\lquerales\desktop\el que me paso sebas\salio mal\tpfinal-clientes\movimientos.h
+	"clientes.h"
+	"cuentas.h"
+
+1718997352 c:\users\lquerales\desktop\el que me paso sebas\salio mal\tpfinal-clientes\mocks_domicilios_clientes.h
+
+1719196301 source:c:\users\lquerales\desktop\el que me paso sebas\salio mal\tpfinal-clientes\cuentas.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	<time.h>
+	<string.h>
+	"cuentas.h"
+	"clientes.h"
+	"movimientos.h"
+	"mocks_Domicilios_Clientes.h"
+
+1719108820 source:c:\users\lquerales\desktop\el que me paso sebas\salio mal\tpfinal-clientes\domicilio.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<conio.h>
+	"clientes.h"
+	"domicilios.h"
+	"mocks_Domicilios_Clientes.h"
+
+1719197317 source:c:\users\lquerales\desktop\el que me paso sebas\salio mal\tpfinal-clientes\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"clientes.h"
+	"domicilios.h"
+	"cuentas.h"
+	"movimientos.h"
+	"menu.h"
+
+1719010966 c:\users\lquerales\desktop\el que me paso sebas\salio mal\tpfinal-clientes\menu.h
+	"clientes.h"
+	"cuentas.h"
+	"movimientos.h"
+
+1719199252 source:c:\users\lquerales\desktop\el que me paso sebas\salio mal\tpfinal-clientes\menu.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<conio.h>
+	<time.h>
+	"clientes.h"
+	"domicilios.h"
+	"cuentas.h"
+	"movimientos.h"
+	"mocks_Domicilios_Clientes.h"
+
+1719193548 source:c:\users\lquerales\desktop\el que me paso sebas\salio mal\tpfinal-clientes\mocks_domicilios_clientes.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"clientes.h"
+	"domicilios.h"
+	"cuentas.h"
+
+1719200859 source:c:\users\lquerales\desktop\el que me paso sebas\salio mal\tpfinal-clientes\movimientos.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<conio.h>
+	<time.h>
+	"clientes.h"
+	"domicilios.h"
+	"mocks_Domicilios_Clientes.h"
+	"cuentas.h"
+	"movimientos.h"
 

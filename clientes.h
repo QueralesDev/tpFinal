@@ -1,6 +1,8 @@
 #ifndef CLIENTE_H_INCLUDED
 #define CLIENTE_H_INCLUDED
 #include "domicilios.h"
+#include "cuentas.h"
+#include "movimientos.h"
 
 
 typedef struct
@@ -21,8 +23,7 @@ void muestraUnCliente (stCliente c);
 int cargaClientes (stCliente c[], int v, int dim);
 void muestraClientes(stCliente c[], int v);
 void cargaUnArchivoUsuario(char nombreArchivo[]);
-//int buscaCuentaEnArchivoPro(FILE* archi, int nroCliente);
-void cargaArchClienteRandom(char nombreArchivo[], int cant);
+void cargaArchClienteRandom(char nombreArchCliente[], int cant);
 void muestraArchivoCliente(char nombreArchivo[]);
 stCliente getClienteRandom();
 void buscaYMuestraClientePorDNI(char nombreArchivo[], char dni[]);
@@ -33,7 +34,13 @@ stCliente modificaCampoClientePorDNI(char nombreArchivo[], char dni[]);
 void muestraClienteYCuentas(char nombreArchivoClientes[], char nombreArchivoCuentas[], int idCliente);
 void cargarNuevoCliente();
 void checkPassword(char valid_password[3][10]);
-void buscaClientes(char archClientes[], char archCuentas[]);
-
+void buscaCuentasDeCliente(char nombreArchivoCuentas[], stCliente cliente);
+int arch2arregloClienteAct (char archClientes[], stCliente a[], int dim);
+void cargarClienteYCuenta(char nombreArchivoClientes[], char nombreArchivoCuentas[]);
+void buscaClientes(char archClientes[], char archCuentas[], char archMovimientos[]);
+stCliente obtenerUltimoCliente(char nombreArchivo[]);
+void altaCuenta(char nombreArchivoCuentas[], stCliente cliente);
+void bajaCuenta(char nombreArchivoCuentas[], stCliente cliente);
+void cargarClienteYCuentaYMovimientos(char nombreArchivoClientes[], char nombreArchivoCuentas[], char* nombreArchivoMovimientos);
 
 #endif // CLIENTE_H_INCLUDED

@@ -13,9 +13,8 @@ typedef struct
 stDomicilio cargaUnDomicilio ();
 void muestraUnDomicilio (stDomicilio d);
 int cargaDomicilios (stDomicilio d[], int v, int dim);
-void muestraDomicilios(stDomicilio d[], int v);
-void cargaArchDomiciliosRandom(char nombreArchivo[], int cant);
 void muestraArchivoDomicilio(char nombreArchivo[]);
 stDomicilio getDomicilioRandom();
+void cargaArchDomiciliosRandom(char nombreArchivo[], int cant);
 
 #endif // DOMICILIO_H_INCLUDED
