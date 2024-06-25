@@ -45,8 +45,7 @@ void menu()
             break;
         case 2:
             cargarClienteYCuentaYMovimientos(AR_CLIENTES, AR_CUENTAS, AR_MOVIMIENTOS);
-            //cargarClienteYCuenta(AR_CLIENTES, AR_CUENTAS);
-            //cargaUnArchivoUsuario(AR_CLIENTES);
+
             break;
         case 3:
             printf("\nINGRESA LA CANTIDAD DE CLIENTES A CARGAR: ");
@@ -60,7 +59,6 @@ void menu()
             menuDeMuestradeArchivos(AR_CLIENTES,AR_CUENTAS, AR_MOVIMIENTOS);
 
             break;
-
 
         case 5:
             archivo2arreglosActyElim(AR_CLIENTES,clienteAct,clienteIna,&vAct, &vInac,1000);

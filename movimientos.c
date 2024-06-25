@@ -12,7 +12,6 @@
 #define AR_CUENTAS "cuentas.bin"
 #define AR_MOVIMIENTOS "movimientos.bin"
 
-
 stMovimiento cargaUnMovimiento(int idCuenta)
 {
     stMovimiento m;
@@ -149,33 +148,6 @@ void muestraMoviSeleccCuenta(char nombreArchivo[], stCuenta cuenta)
     }
 }
 
-void depositar(char* archMovimientos, stCuenta* cuenta)
-{
-    float monto;
-    printf("INGRESA EL MONTO A DEPOSITAR: ");
-    scanf("%f", &monto);
-    getchar();
-    cargaMovimientosAR(archMovimientos, cuenta->id);
-    cuenta->saldo += monto;
-
-    printf("\nDeposito realizado con exito. Su nuevo saldo es: %.2f\n", cuenta->saldo);
-
-
-}
-
-void retirar(char* archMovimientos, stCuenta* cuenta, float monto)
-{
-    if (cuenta->saldo >= monto)
-    {
-        cuenta->saldo -= monto;
-        printf("Retiro realizado con éxito. Su nuevo saldo es: %.2f\n", cuenta->saldo);
-        cargaMovimientosAR(archMovimientos, cuenta->id);
-    }
-    else
-    {
-        printf("Saldo insuficiente para realizar el retiro.\n");
-    }
-}
 
 void actualizaCuentaEnArchivo(char archCuentas[], stCuenta* cuentaActualizada)
 {
@@ -291,20 +263,6 @@ void menuOperacionesCuenta(char archCuentas[], char archMovimientos[])
 
 }
 
-//int cargaArregloMovimientos(stMovimiento a[], int v, int dim)
-//{
-//    char opcion = 0;
-//    while(v < dim && opcion != 27)
-//    {
-//
-//        a[v] = cargaUnMovimiento(a.idCuenta);
-//        v++;
-//        printf("\nESC para salir o cualquier tecla para continuar...");
-//        opcion = getch();
-//    }
-//    return v;
-//}
-
 void muestraArregloMovimientos(stMovimiento a[], int v)
 {
     for(int i=0; i<v; i++)
@@ -313,26 +271,6 @@ void muestraArregloMovimientos(stMovimiento a[], int v)
     }
     printf ("\n============================================");
 }
-
-//void cargaArchMovimientoRandom(char nombreArchivo[],int cant)
-//{
-//    FILE*archi = fopen(nombreArchivo,"wb");
-//    stMovimiento movimiento;
-//    int i=0;
-//    if (archi)
-//    {
-//        while (i<cant)
-//        {
-//
-//            movimiento =getMovimientoRandom();
-//            fwrite(&movimiento,sizeof(stMovimiento),1,archi);
-//
-//            i++;
-//        }
-//        fclose(archi);
-//
-//    }
-//}
 
 void depositarPuntero(char nombreArchivoMov[], stCuenta* cuenta, int monto)
 {
@@ -346,14 +284,13 @@ void depositarPuntero(char nombreArchivoMov[], stCuenta* cuenta, int monto)
         FILE* archi = fopen(nombreArchivoMov, "ab");
         if (archi)
         {
-
             m = cargaUnMovimiento(cuenta->id);
             id++;
             m.id = id;
             m.importe = monto;
             snprintf(m.detalle, 100, "Deposito de %.2d", monto);
             fwrite(&m, sizeof(stMovimiento), 1, archi);
-
+            cuenta->saldo+=(float)monto;
             fclose(archi);
         }
 
@@ -371,25 +308,19 @@ void retirarPuntero(char nombreArchivoMov[], stCuenta* cuenta, int monto)
     {
         impactoMonto(AR_CUENTAS, monto,cuenta->id,0);
 
-
-        //cuenta->saldo -= (float) monto;
-
-
         stMovimiento m;
         int id;
         id = ultimoIdMovimiento(nombreArchivoMov);
         FILE* archi = fopen(nombreArchivoMov, "ab");
         if (archi)
         {
-
             m = cargaUnMovimiento(cuenta->id);
             id++;
             m.id = id;
-            //movimiento->idCuenta = cuenta->id;
             m.importe = monto;
             snprintf(m.detalle, 100, "Retiro de %.2d", monto);
             fwrite(&m, sizeof(stMovimiento), 1, archi);
-
+            cuenta->saldo-=(float)monto;
             fclose(archi);
         }
         printf("RETIRO REALIZADO EXITOSAMENTE.\n");
@@ -403,8 +334,8 @@ void retirarPuntero(char nombreArchivoMov[], stCuenta* cuenta, int monto)
 void transferenciaPuntero(char nombreArchivoMov[], stCuenta* cuentaOrigen, stCuenta* cuentaDestino, int monto)
 {
 
-        retirarPuntero(nombreArchivoMov, cuentaOrigen, monto);
-        depositarPuntero(nombreArchivoMov, cuentaDestino, monto);
+    retirarPuntero(nombreArchivoMov, cuentaOrigen, monto);
+    depositarPuntero(nombreArchivoMov, cuentaDestino, monto);
 
 }
 
@@ -419,7 +350,6 @@ void impactoMonto (char archivoCuentas [], int monto, int idCuenta, int positivo
 
     if (archi)
     {
-
 
         while (flag == 0 && fread (&cuenta, sizeof (stCuenta), 1, archi) > 0)
         {

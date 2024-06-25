@@ -7,7 +7,6 @@
 #include "cuentas.h"
 #include "movimientos.h"
 #include "mocks_Domicilios_Clientes.h"
-
 #define AR_CLIENTES "clientes.bin"
 #define AR_CUENTAS "cuentas.bin"
 #define AR_MOVIMIENTOS "movimientos.bin"
@@ -269,7 +268,6 @@ void buscaClientes(char archClientes[], char archCuentas[], char archMovimientos
                 modificaCampoClientePorDNI(archClientes, dni);
                 break;
             case 2:
-                //agregarCuentaACliente(AR_CUENTAS, p->id);
                 cargaCuentasEnArchivo(AR_CUENTAS, p->id);
                 break;
             case 3:

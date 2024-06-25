@@ -6,7 +6,6 @@
 #include "cuentas.h"
 #include "movimientos.h"
 #include "menu.h"
-
 #define AR_CLIENTES "clientes.bin"
 #define AR_CUENTAS "cuentas.bin"
 #define AR_MOVIMIENTOS "movimientos.bin"
@@ -16,10 +15,6 @@
 int main()
 {
     srand(time(NULL));
-
-//    muestraArchivoCliente(AR_CLIENTES);
-//    muestraArchivoMovimimiento(AR_MOVIMIENTOS);
-//    muestraUnArchivo(AR_CUENTAS);
 
     char valid_password[3][10] = {"32619370", "96006057", "33266432"};
     checkPassword(valid_password);

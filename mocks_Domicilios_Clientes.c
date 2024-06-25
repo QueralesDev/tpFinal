@@ -224,7 +224,7 @@ stCliente getClienteRandom()
 
     return c;
 }
-
+/*
 int getNumeroDeCuenta()
 {
     int nro;
@@ -252,3 +252,4 @@ stCuenta getCuentasRandom ()
 
     return cuenta;
 }
+*/

@@ -21,8 +21,4 @@ void cargaMovimientosAR(char nombreArchivo[], int idCuenta);
 void muestraArchivoMovimimiento (char nombreArchivo[]);
 int ultimoIdMovimiento (char nombreArchivo[]);
 
-//void menuOperacionesCuenta(char archCuentas[], char archMovimientos[], stCliente cliente);
-
-
-
 #endif // MOVIMIENTOS_H_INCLUDED
